@@ -1,0 +1,233 @@
+/* Responsive helpers for the professional donation theme */
+
+@media (max-width: 1200px) {
+    .navbar .container,
+    .hero-content,
+    .cta-section,
+    .cta,
+    .contact-container,
+    .card-container,
+    .amount-grid,
+    .mission-card,
+    .contact-form,
+    .footer {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .container,
+    .card-container,
+    .single-card,
+    .review-section,
+    .contact-container,
+    .payment-container,
+    .tracker-container,
+    .auth-box,
+    .form-box,
+    .footer-container {
+        width: min(100%, 96%);
+    }
+}
+
+@media (max-width: 992px) {
+    .navbar .container {
+        padding: 18px 24px;
+    }
+
+    .nav-list {
+        gap: 0.6rem;
+    }
+
+    .nav-link {
+        padding: 0.85rem 1rem;
+    }
+
+    .dropdown-menu {
+        min-width: 210px;
+    }
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+.mobile-menu {
+    width: 100%;
+    position: relative;
+}
+
+.mobile-menu.open .nav-list {
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 16px 18px;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobile-menu {
+        position: relative;
+        width: 100%;
+    }
+
+    .nav-list {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        display: none;
+        flex-direction: column;
+        gap: 12px;
+        padding: 18px 16px;
+        background: rgba(6, 11, 24, 0.98);
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.22);
+        max-height: calc(100vh - 92px);
+        overflow-y: auto;
+        border-radius: 0 0 22px 22px;
+    }
+
+    .nav-list.active,
+    .mobile-menu.open .nav-list {
+        display: flex;
+    }
+
+    .nav-link {
+        width: 100%;
+        justify-content: flex-start;
+        white-space: normal;
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.08);
+        padding: 14px 16px;
+    }
+
+    .dropdown-menu {
+        position: static;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        box-shadow: none;
+        border-radius: 12px;
+        margin-top: 4px;
+        background: rgba(255, 255, 255, 0.04);
+    }
+
+    .dropdown-menu li a {
+        color: var(--text);
+        padding: 12px 14px;
+        text-decoration: none;
+        border-radius: 10px;
+    }
+
+    .dropdown-menu li a:hover {
+        background: rgba(245, 176, 65, 0.95);
+        color: #111827;
+    }
+
+    .dropdown:hover > .dropdown-menu,
+    .dropdown:focus-within > .dropdown-menu,
+    .dropdown.active > .dropdown-menu {
+        display: flex;
+    }
+
+    .hero {
+        padding: 72px 18px;
+    }
+
+    .hero h1 {
+        font-size: 2.4rem;
+    }
+
+    .hero p,
+    .cta-section p,
+    .cta p {
+        font-size: 0.98rem;
+    }
+
+    .belief-card {
+        padding: 18px;
+        font-size: 0.95rem;
+        min-height: 220px;
+        align-items: center;
+    }
+
+    .cta-section,
+    .cta {
+        padding: 42px 18px;
+        margin: 36px auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .header {
+        padding: 12px 14px;
+    }
+
+    .logo img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .nav-link {
+        font-size: 13px;
+        padding: 10px 14px;
+    }
+
+    .hero {
+        padding: 80px 14px;
+    }
+
+    .hero h1 {
+        font-size: 26px;
+    }
+
+    .cta-section,
+    .cta {
+        padding: 40px 16px;
+        margin: 30px auto;
+    }
+
+    .card,
+    .mission-card,
+    .contact-form,
+    .payment-box,
+    .tracker-container,
+    .auth-box,
+    .form-box,
+    .review-section {
+        padding: 18px;
+    }
+
+    .belief-card {
+        padding: 14px;
+        font-size: 14px;
+    }
+
+    .belief-content {
+        padding: 14px;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    .footer {
+        padding: 35px 14px 18px;
+    }
+
+    .footer-container {
+        gap: 20px;
+    }
+}
