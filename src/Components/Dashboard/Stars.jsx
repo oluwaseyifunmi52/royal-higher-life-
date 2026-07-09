@@ -1,4 +1,4 @@
-import StarsCard from "../Components/Cards/StarsCard";
+import StarsCard from "../Cards/StarsCard";
 
 export default function Dashboard() {
     return (
