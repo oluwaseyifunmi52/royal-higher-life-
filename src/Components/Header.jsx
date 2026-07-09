@@ -50,7 +50,7 @@ export default function Navbar() {
                 type="button"
                 onClick={() => setIsOpen((open) => !open)}
             >
-                {isOpen ? "X" : "Menu"}
+                {isOpen ? "X" : "☰"}
             </button>
 
             <MobileMenu isOpen={isOpen}>

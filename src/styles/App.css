@@ -654,10 +654,7 @@ iframe {
     text-align: center;
 }
 
-/* ==========================================
-   DONATION FORM
-   Royal Higher Life Ministries
-========================================== */
+
 
 .donation-section {
     padding: 6rem 1.5rem;
@@ -1038,8 +1035,7 @@ textarea.form-control {
 
 #mission-project {
     padding: 80px 20px;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url('../assets/images/mission-project-bg.jpg') center/cover no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
     background-size: cover;
     background-position: center;
     border-radius: 25px;
@@ -1351,6 +1347,38 @@ button:hover {
 #loginForm button:hover {
     transform: translateY(-2px);
     box-shadow: 0 12px 25px rgba(37, 99, 235, 0.25);
+} 
+
+
+.dashboard-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+}
+
+.card-header h3 {
+    margin: 0 0 15px;
+    font-size: 18px;
+}
+
+.card-body h2 {
+    margin: 10px 0;
+    font-size: 2rem;
+}
+
+.stars {
+    display: flex;
+    gap: 4px;
+}
+
+.star {
+    font-size: 24px;
+    color: #d1d5db;
+}
+
+.star.active {
+    color: #fbbf24;
 }
 
 /* ==========================================
