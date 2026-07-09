@@ -22,7 +22,6 @@ export default function StarsCard({
                 </div>
 
                 <h2>{rating.toFixed(1)} / 5</h2>
-
                 <p>{totalReviews} Reviews</p>
             </div>
         </div>
