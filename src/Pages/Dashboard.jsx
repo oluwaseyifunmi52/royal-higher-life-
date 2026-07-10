@@ -6,7 +6,7 @@ import DonationChart from "../components/dashboard/DonationChart";
 import RecentDonationTable from "../components/dashboard/RecentDonationTable";
 import ActivityTimeline from "../components/dashboard/ActivityTimeline";
 import NotificationPanel from "../components/dashboard/NotificationPanel";
-import CalendarCard from "../components/dashboard/CalendarCard";
+import CalendarCard from "../Components/Cards/CalendarCard";
 
 export default function Dashboard() {
     return (
