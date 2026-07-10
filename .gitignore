@@ -25,4 +25,4 @@ pnpm-debug.log*
 Thumbs.db
 
 # media
-*.mp4 
+# *.mp4 (removed - videos are needed for the site) 
