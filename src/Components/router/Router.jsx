@@ -11,7 +11,10 @@ import Contact from "../../Pages/Contact";
 import Donate from "../../Pages/Donate";
 import Login from "../../Pages/login";
 import Register from "../../Pages/Register";
+import Dashboard from "../../Pages/Dashboard";
 import NotFound from "../../Pages/NotFound";
+
+import ProtectedRoute from "./ProtectedRoute";
 
 export default function Router() {
     return (
@@ -26,6 +29,16 @@ export default function Router() {
                 <Route path="/donate" element={<Donate />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+
+                <Route
+                    path="/dashboard"
+                    element={
+                        <ProtectedRoute>
+                            <Dashboard />
+                        </ProtectedRoute>
+                    }
+                />
+
                 <Route path="*" element={<NotFound />} />
             </Route>
         </Routes>
