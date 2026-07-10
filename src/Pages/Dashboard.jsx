@@ -1,4 +1,5 @@
-import Sidebar from "../components/dashboard/Sidebar";
+
+import Sidebar from "../Components/Dashboard/Sidebar";
 import Navbar from "../components/dashboard/Navbar";
 import StarsCard from "../components/dashboard/Stars";
 import DonationChart from "../components/dashboard/DonationChart";
