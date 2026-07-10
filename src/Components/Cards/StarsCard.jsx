@@ -1,29 +1,58 @@
-export default function StarsCard({
-    title = "Average Rating",
-    rating = 5,
-    totalReviews = 0,
-}) {
+import { Heart, Users, CalendarDays, Star } from "lucide-react";
+
+const stats = [
+    {
+        title: "Total Donations",
+        value: "₦2,500,000",
+        icon: Heart,
+    },
+    {
+        title: "Members",
+        value: "1,245",
+        icon: Users,
+    },
+    {
+        title: "Events",
+        value: "18",
+        icon: CalendarDays,
+    },
+    {
+        title: "Reviews",
+        value: "4.9 ★",
+        icon: Star,
+    },
+];
+
+export default function StatsCards() {
     return (
-        <div className="dashboard-card stars-card">
-            <div className="card-header">
-                <h3>{title}</h3>
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+            {stats.map((item, index) => {
+                const Icon = item.icon;
 
-            <div className="card-body">
-                <div className="stars">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                        <span
-                            key={star}
-                            className={star <= Math.round(rating) ? "star active" : "star"}
-                        >
-                            ★
-                        </span>
-                    ))}
-                </div>
+                return (
+                    <div
+                        key={index}
+                        className="bg-white rounded-xl shadow-md p-6"
+                    >
+                        <div className="flex justify-between items-center">
+                            <div>
+                                <p className="text-gray-500 text-sm">
+                                    {item.title}
+                                </p>
 
-                <h2>{rating.toFixed(1)} / 5</h2>
-                <p>{totalReviews} Reviews</p>
-            </div>
+                                <h2 className="text-2xl font-bold mt-2">
+                                    {item.value}
+                                </h2>
+                            </div>
+
+                            <Icon
+                                size={36}
+                                className="text-blue-600"
+                            />
+                        </div>
+                    </div>
+                );
+            })}
         </div>
     );
 }

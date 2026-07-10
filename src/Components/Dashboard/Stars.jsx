@@ -1,4 +1,6 @@
-export default function StarsCard({
+
+
+export default function StatsCards({
     title = "Average Rating",
     rating = 5,
     totalReviews = 0,
@@ -14,7 +16,11 @@ export default function StarsCard({
                     {[1, 2, 3, 4, 5].map((star) => (
                         <span
                             key={star}
-                            className={star <= Math.round(rating) ? "star active" : "star"}
+                            className={
+                                star <= Math.round(rating)
+                                    ? "star active"
+                                    : "star"
+                            }
                         >
                             ★
                         </span>

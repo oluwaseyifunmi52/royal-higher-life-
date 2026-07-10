@@ -1,8 +1,8 @@
 import Sidebar from "../components/dashboard/Sidebar";
 import Navbar from "../components/dashboard/Navbar";
-import StatsCards from "../components/dashboard/StatsCards";
+import StarsCard from "../components/dashboard/Stars";
 import DonationChart from "../components/dashboard/DonationChart";
-import RecentDonationsTable from "../components/dashboard/RecentDonationsTable";
+import RecentDonationTable from "../components/dashboard/RecentDonationTable";
 import ActivityTimeline from "../components/dashboard/ActivityTimeline";
 import NotificationPanel from "../components/dashboard/NotificationPanel";
 import CalendarCard from "../components/dashboard/CalendarCard";
@@ -16,7 +16,7 @@ export default function Dashboard() {
                 <Navbar />
 
                 <div className="p-8 space-y-8">
-                    <StatsCards />
+                    <StarsCard />
 
                     <div className="grid lg:grid-cols-3 gap-8">
                         <div className="lg:col-span-2">
@@ -26,7 +26,7 @@ export default function Dashboard() {
                         <CalendarCard />
                     </div>
 
-                    <RecentDonationsTable />
+                    <RecentDonationTable />
 
                     <div className="grid lg:grid-cols-2 gap-8">
                         <ActivityTimeline />
