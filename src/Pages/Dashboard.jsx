@@ -1,12 +1,12 @@
-
 import Sidebar from "../Components/Dashboard/Sidebar";
-import Navbar from "../components/dashboard/Navbar";
-import StarsCard from "../components/dashboard/Stars";
-import DonationChart from "../components/dashboard/DonationChart";
-import RecentDonationTable from "../components/dashboard/RecentDonationTable";
-import ActivityTimeline from "../components/dashboard/ActivityTimeline";
-import NotificationPanel from "../components/dashboard/NotificationPanel";
+import Navbar from "../Components/Dashboard/Navbar";
+import StarsCard from "../Components/Dashboard/Stars";
+import DonationChart from "../Components/Dashboard/DonationChart";
+import RecentDonationTable from "../Components/Dashboard/RecentDonationTable";
+import ActivityTimeline from "../Components/Dashboard/ActivityTimeline";
+import NotificationPanel from "../Components/Dashboard/NotificationPanel";
 import CalendarCard from "../Components/Cards/CalendarCard";
+
 
 export default function Dashboard() {
     return (
