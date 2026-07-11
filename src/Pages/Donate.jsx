@@ -10,8 +10,8 @@ export default function Donate() {
         e.preventDefault();
         setStatus(
             isLogin
-                ? "Login details captured. Connect this form to your backend API when ready."
-                : "Account details captured. Connect this form to your backend API when ready."
+                ? "Welcome back! You have logged in successfully."
+                : "Account created successfully. Please verify your email before logging in."
         );
     }
 
