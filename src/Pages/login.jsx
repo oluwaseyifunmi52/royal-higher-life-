@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
     FaChurch,
@@ -10,10 +10,14 @@ import {
     FaEye,
     FaEyeSlash,
 } from "react-icons/fa";
+import api from "../services/axios";
+
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const [status, setStatus] = useState("");
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
     const [form, setForm] = useState({
         email: "",
         password: "",
@@ -30,9 +34,27 @@ export default function Login() {
         setStatus("");
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
-        setStatus("Login details captured. Connect this form to your backend API when ready.");
+        setStatus("");
+        setLoading(true);
+
+        try {
+            const res = await api.post("/auth/login", {
+                email: form.email,
+                password: form.password,
+            });
+
+            localStorage.setItem("token", res.data.token);
+            setStatus("Login successful. Redirecting...");
+            navigate("/dashboard");
+        } catch (err) {
+            setStatus(
+                err.response?.data?.message || "Login failed. Please check your details."
+            );
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -122,8 +144,8 @@ export default function Login() {
                             <Link to="/forgot-password">Forgot password?</Link>
                         </div>
 
-                        <button className="auth-submit" type="submit">
-                            Sign In
+                        <button className="auth-submit" type="submit" disabled={loading}>
+                            {loading ? "Signing in..." : "Sign In"}
                         </button>
                     </form>
 
