@@ -3,9 +3,9 @@ export default function About() {
         <section className="about-section" id="intro">
             <div className="container">
                 <div className="overlay">
-                    <h1 className="section-title">Royal Higher Life Christian Ministries (Outreach)</h1>
+                    <h1 className="section-title">Royal HigherLife Christian Ministries (Outreach)</h1>
                     <p className="intro">
-                        Royal Higher Life Christian Ministries (Outreach) is a Christian outreach ministry dedicated to spreading
+                        Royal HigherLife Christian Ministries (Outreach) is a Christian outreach ministry dedicated to spreading
                         the Gospel of Jesus Christ and raising people to live a victorious and holy life in Him.
                     </p>
                     <div className="card-container">
