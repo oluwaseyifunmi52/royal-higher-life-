@@ -2,10 +2,13 @@ import { useState } from "react";
 import DonationForm from "../Components/DonateForm.jsx";
 import SocialLinks from "../Components/SocialLinks.jsx";
 
+
+
 export default function Donate() {
     const [isLogin, setIsLogin] = useState(true);
     const [status, setStatus] = useState("");
-
+    
+  
     function handleAuthSubmit(e) {
         e.preventDefault();
         setStatus(
@@ -130,7 +133,6 @@ export default function Donate() {
                                     <label htmlFor="donate-signup-password">Password</label>
                                     <input
                                         id="donate-signup-password"
-                                        type="password"
                                         placeholder="Password"
                                         autoComplete="new-password"
                                         required
@@ -146,7 +148,8 @@ export default function Donate() {
                                         required
                                     />
                                 </div>
-                            </div>
+                            </div>          
+
                             <button type="submit" className="submit-btn">
                                 Create Account
                             </button>
