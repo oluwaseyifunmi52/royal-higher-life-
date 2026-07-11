@@ -26,7 +26,7 @@ const beliefs = [
 export default function Home() {
     return (
         <>
-            <Hero title="Welcome to RoyalHigher Life">
+            <Hero title="Welcome to Royal HigherLife">
                 Royal HigherLife Christian Ministries (Outreach) is committed to spreading the Gospel of Jesus Christ through
                 evangelism, discipleship, and compassionate outreach.
             </Hero>
