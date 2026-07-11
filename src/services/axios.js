@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
+    
     baseURL: "https://royal-higher-life-backend-2o66.onrender.com/api",
     headers: {
         "Content-Type": "application/json",
