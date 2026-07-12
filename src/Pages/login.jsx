@@ -65,6 +65,25 @@ export default function Login() {
     } finally {
         setLoading(false);
     }
+
+        try {
+            const res = await loginUser({
+                email: form.email,
+                password: form.password,
+            });
+
+            localStorage.setItem("token", res.data.token);
+
+            setStatus("Login successful!");
+            setTimeout(() => navigate("/dashboard"), 800);
+        } catch (err) {
+            setStatus(
+                err.response?.data?.message ||
+                "Login failed. Please check your email and password."
+            );
+        } finally {
+            setLoading(false);
+        }
 }
 
     return (
