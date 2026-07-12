@@ -5,10 +5,9 @@ const api = axios.create({
     headers: {
         "Content-Type": "application/json",
     },
-    withCredentials: true, // Remove this if you're only using JWT in localStorage
 });
 
-// Attach JWT token automatically
+// Automatically attach JWT token
 api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("token");
