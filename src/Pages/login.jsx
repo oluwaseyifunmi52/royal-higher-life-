@@ -10,7 +10,7 @@ import {
     FaEye,
     FaEyeSlash,
 } from "react-icons/fa";
-import api from "../services/axios";
+import { loginUser } from "../services/authApi";
 
 
 export default function Login() {
@@ -40,10 +40,7 @@ export default function Login() {
         setLoading(true);
 
         try {
-            const res = await api.post("/auth/login", {
-                email: form.email,
-                password: form.password,
-            });
+            const res = await loginUser(form.email, form.password);
 
             localStorage.setItem("token", res.data.token);
             setStatus("Login successful. Redirecting...");
