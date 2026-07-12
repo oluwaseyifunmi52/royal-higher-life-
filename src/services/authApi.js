@@ -1,20 +1,26 @@
-import axios from "axios";
+import api from "../api/axios";
 
-const api = axios.create({
-    baseURL: "http://localhost:8000/api",
-    headers: {
-        "Content-Type": "application/json",
-    },
-});
+export const registerUser = (userData) =>
+    api.post("/auth/register", userData);
 
-api.interceptors.request.use((config) => {
-    const token = localStorage.getItem("token");
+export const loginUser = (credentials) =>
+    api.post("/auth/login", credentials);
 
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
+export const verifyEmail = (data) =>
+    api.post("/auth/verify-email", data);
 
-    return config;
-});
+export const resendOTP = (email) =>
+    api.post("/auth/resend-otp", { email });
 
-export default api;
+export const forgotPassword = (email) =>
+    api.post("/auth/forgot-password", { email });
+
+export const resetPassword = (data) =>
+    api.post("/auth/reset-password", data);
+
+export const getProfile = () =>
+    api.get("/auth/profile");
+
+export const logoutUser = () => {
+    localStorage.removeItem("token");
+};
