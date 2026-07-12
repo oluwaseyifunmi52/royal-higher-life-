@@ -12,55 +12,60 @@ import {
 } from "react-icons/fa";
 import { loginUser } from "../services/authApi";
 
-
 export default function Login() {
+
     const [showPassword, setShowPassword] = useState(false);
+
     const [status, setStatus] = useState("");
+
     const [loading, setLoading] = useState(false);
+
     const navigate = useNavigate();
+
     const [form, setForm] = useState({
+
         email: "",
+
         password: "",
+
         remember: false,
+
     });
 
     function handleChange(e) {
         const { name, value, type, checked } = e.target;
-
         setForm((prev) => ({
             ...prev,
             [name]: type === "checkbox" ? checked : value,
         }));
-        setStatus("");
     }
 
     async function handleSubmit(e) {
-        e.preventDefault();
+    e.preventDefault();
 
-        setLoading(true);
-        setStatus("");
+    setLoading(true);
+    setStatus("");
 
-        try {
-            const res = await loginUser({
-                email: form.email,
-                password: form.password,
-            });
+    try {
+        const res = await loginUser({
+            email: form.email,
+            password: form.password,
+        });
 
-            localStorage.setItem("token", res.data.token);
+        localStorage.setItem("token", res.data.token);
 
-            setStatus("Login successful!");
+        setStatus("Login successful!");
 
-            navigate("/dashboard");
-        } catch (err) {
-            setStatus(
-                err.response?.data?.message ||
-                "Login failed. Please check your email and password."
-            );
-        } finally {
-            setLoading(false);
-        }
+        navigate("/dashboard");
+    } catch (err) {
+        setStatus(
+            err.response?.data?.message ||
+            "Login failed. Please check your email and password."
+        );
+    } finally {
+        setLoading(false);
     }
-    }
+}
 
     return (
         <main className="auth-page">
