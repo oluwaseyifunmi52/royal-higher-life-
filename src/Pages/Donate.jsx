@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import DonationForm from "../Components/DonateForm.jsx";
 import SocialLinks from "../Components/SocialLinks.jsx";
 
@@ -78,7 +79,7 @@ export default function Donate() {
                                 <label className="auth-check">
                                     <input type="checkbox" /> Remember Me
                                 </label>
-                                <a href="#">Forgot Password?</a>
+                                <Link to="/forgot-password">Forgot Password?</Link>
                             </div>
                             <button type="submit" className="submit-btn">
                                 Login
@@ -133,6 +134,7 @@ export default function Donate() {
                                     <label htmlFor="donate-signup-password">Password</label>
                                     <input
                                         id="donate-signup-password"
+                                        type="password"
                                         placeholder="Password"
                                         autoComplete="new-password"
                                         required

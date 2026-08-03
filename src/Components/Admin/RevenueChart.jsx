@@ -125,13 +125,13 @@ export default function RevenueChart() {
 
                             <stop
                                 offset="5%"
-                                stopColor="#16a34a"
+                                stopColor="#f5b041"
                                 stopOpacity={0.45}
                             />
 
                             <stop
                                 offset="95%"
-                                stopColor="#16a34a"
+                                stopColor="#f5b041"
                                 stopOpacity={0}
                             />
 
@@ -164,7 +164,7 @@ export default function RevenueChart() {
                     <Area
                         type="monotone"
                         dataKey="revenue"
-                        stroke="#15803d"
+                        stroke="#f5b041"
                         strokeWidth={3}
                         fill="url(#revenueColor)"
                     />

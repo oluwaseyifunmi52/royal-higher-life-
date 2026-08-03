@@ -231,3 +231,65 @@
         gap: 20px;
     }
 }
+
+/* ---------- Donation page ---------- */
+
+@media (max-width: 992px) {
+    .donation-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .amount-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .payment-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .amount-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .payment-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- Auth pages ---------- */
+
+@media (max-width: 992px) {
+    .auth-page {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-hero {
+        min-height: 320px;
+        padding: 2.5rem 1.5rem;
+    }
+
+    .auth-panel-wrap {
+        padding: 2.5rem 1.25rem 3rem;
+    }
+}
+
+@media (max-width: 560px) {
+    .auth-panel {
+        padding: 2rem 1.4rem;
+    }
+
+    .auth-grid-2,
+    .auth-socials {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-actions {
+        grid-template-columns: 1fr;
+    }
+}

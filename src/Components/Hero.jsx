@@ -8,6 +8,7 @@ export default function Hero({ title, children }) {
             </video>
             <div className="hero-overlay" aria-hidden="true" />
             <div className="hero-content">
+                <span className="hero-eyebrow">Royal HigherLife Ministries</span>
                 <h1>{title}</h1>
                 <p>{children}</p>
             </div>

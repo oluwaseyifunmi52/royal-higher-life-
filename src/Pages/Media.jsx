@@ -22,7 +22,7 @@ const galleryImages = [
     { src: asset("royal4.jpeg"), alt: "Community Support" },
     { src: asset("royal3.jpeg"), alt: "Evangelism" },
     { src: asset("royal2.jpeg"), alt: "Church Program" },
-    { src: asset("royal1.jpeg"), alt: "Outreach" },
+    { src: asset("rolay1.jpeg"), alt: "Outreach" },
     { src: asset("oba.jpeg"), alt: "Community Support" },
     { src: asset("new1.jpeg"), alt: "New ministry" },
     { src: asset("new2.jpeg"), alt: "New outreach" },

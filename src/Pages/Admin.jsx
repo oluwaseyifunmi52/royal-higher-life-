@@ -1,13 +1,13 @@
-import AdminSidebar from "../components/admin/AdminSidebar";
-import AdminNavbar from "../components/admin/AdminNavbar";
-import DashboardStats from "../components/admin/DashboardStats";
-import RevenueChart from "../components/admin/RevenueChart";
-import DonationChart from "../components/admin/DonationChart";
-import MembersTable from "../components/admin/MembersTable";
-import RecentPayments from "../components/admin/RecentPayments";
-import TopDonors from "../components/admin/TopDonors";
-import LatestActivities from "../components/admin/LatestActivities";
-import MessagesPanel from "../components/admin/MessagesPanel";
+import AdminSidebar from "../Components/Admin/AdminSidebar";
+import AdminNavbar from "../Components/Admin/AdminNavbar";
+import DashboardStats from "../Components/Admin/DashboardStats";
+import RevenueChart from "../Components/Admin/RevenueChart";
+import DonationChart from "../Components/Admin/DonationChart";
+import MembersTable from "../Components/Admin/MembersTable";
+import RecentPayments from "../Components/Admin/RecentPayments";
+import TopDonors from "../Components/Admin/TopDonors";
+import EventsTable from "../Components/Admin/EventsTable";
+import MessagesPanel from "../Components/Admin/MessagesPanel";
 
 export default function Admin() {
     return (
@@ -47,7 +47,7 @@ export default function Admin() {
 
                         <RecentPayments />
 
-                        <LatestActivities />
+                        <EventsTable />
 
                     </div>
 

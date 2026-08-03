@@ -33,7 +33,7 @@ export default function DonationChart() {
 
                     <Line
                         dataKey="amount"
-                        stroke="#15803d"
+                        stroke="#f5b041"
                         strokeWidth={4}
                     />
 

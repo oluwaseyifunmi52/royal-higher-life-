@@ -1,7 +1,7 @@
 // services/prayerService.js
 
 const API_URL =
-    import.meta.env.VITE_API_URL || "http://localhost:8000";
+    import.meta.env.VITE_API_URL || "http://localhost:4000";
 
 const API_ENDPOINT = `${API_URL}/api/prayers`;
 
@@ -11,7 +11,9 @@ export async function sendPrayerRequest(payload) {
         throw new Error("Prayer request information is required.");
     }
 
-    if (!payload.name?.trim()) {
+    const name = payload.name?.trim() || [payload.firstname, payload.lastname].filter(Boolean).join(" ").trim();
+
+    if (!name) {
         throw new Error("Please enter your name.");
     }
 
@@ -40,7 +42,10 @@ export async function sendPrayerRequest(payload) {
                 Accept: "application/json",
             },
 
-            body: JSON.stringify(payload),
+            body: JSON.stringify({
+                ...payload,
+                name,
+            }),
 
             signal: controller.signal,
 

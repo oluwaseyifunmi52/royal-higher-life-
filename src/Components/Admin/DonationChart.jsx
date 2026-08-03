@@ -200,7 +200,7 @@ export default function DonationChart() {
 
                     <Bar
                         dataKey="donations"
-                        fill="#15803d"
+                        fill="#f5b041"
                         radius={[10, 10, 0, 0]}
                         name="Monthly Donations"
                     />

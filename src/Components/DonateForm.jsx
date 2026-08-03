@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { processDonation } from "../services/donationService.js";
 import {
     FaLock,
     FaCreditCard,
@@ -71,7 +72,7 @@ const paymentMethods = [
 
 export default function DonationForm() {
     const [form, setForm] = useState(initialForm);
-    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [status, setStatus] = useState(null);
 
     function handleChange(e) {
         const { name, value, type, checked } = e.target;
@@ -80,7 +81,7 @@ export default function DonationForm() {
             ...prev,
             [name]: type === "checkbox" ? checked : value,
         }));
-        setIsSubmitted(false);
+        setStatus(null);
     }
 
     function handleAmountSelect(amount) {
@@ -88,13 +89,24 @@ export default function DonationForm() {
             ...prev,
             amount,
         }));
-        setIsSubmitted(false);
+        setStatus(null);
     }
 
-    function submitHandler(e) {
+    async function submitHandler(e) {
         e.preventDefault();
 
-        setIsSubmitted(true);
+        setStatus({ type: "loading", text: "Processing your donation..." });
+
+        try {
+            await processDonation(form);
+            setStatus({
+                type: "success",
+                text: "Thank you. Your donation has been submitted for secure payment processing.",
+            });
+            setForm(initialForm);
+        } catch (error) {
+            setStatus({ type: "error", text: error.message });
+        }
     }
 
     return (
@@ -331,14 +343,14 @@ export default function DonationForm() {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: .98 }}
                             className="donate-btn"
+                            disabled={status?.type === "loading"}
                         >
-                            Continue to Payment
+                            {status?.type === "loading" ? "Processing..." : "Continue to Payment"}
                         </motion.button>
 
-                        {isSubmitted && (
-                            <p className="donation-status" role="status" aria-live="polite">
-                                Thank you. Your donation details are ready for secure payment
-                                processing.
+                        {status && (
+                            <p className={`donation-status ${status.type}`} role="status" aria-live="polite">
+                                {status.text}
                             </p>
                         )}
                     </motion.form>

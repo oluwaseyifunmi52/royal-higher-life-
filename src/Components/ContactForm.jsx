@@ -2,13 +2,21 @@ import { useState } from "react";
 import { sendContactMessage } from "../services/contactService.js";
 
 export default function ContactForm() {
-    const [sent, setSent] = useState(false);
+    const [status, setStatus] = useState(null);
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
-        sendContactMessage(Object.fromEntries(new FormData(event.currentTarget)));
-        setSent(true);
-        event.currentTarget.reset();
+
+        const form = event.currentTarget;
+        setStatus({ type: "loading", text: "Sending message..." });
+
+        try {
+            await sendContactMessage(Object.fromEntries(new FormData(form)));
+            form.reset();
+            setStatus({ type: "success", text: "Thank you! We will get back to you soon." });
+        } catch (error) {
+            setStatus({ type: "error", text: error.message });
+        }
     }
 
     return (
@@ -49,11 +57,16 @@ export default function ContactForm() {
                 <label htmlFor="message">Message</label>
                 <textarea id="message" name="message" placeholder="Write your message..." required rows="6" />
             </div>
-            <button type="submit">Send Message</button>
-            {sent && (
-                <div className="success-box" role="status">
-                    <h3>Message Sent</h3>
-                    <p>Thank you! We will get back to you soon.</p>
+            <button type="submit" disabled={status?.type === "loading"}>
+                {status?.type === "loading" ? "Sending..." : "Send Message"}
+            </button>
+            {status && (
+                <div
+                    className={`form-status ${status.type}`}
+                    role="status"
+                    aria-live="polite"
+                >
+                    {status.text}
                 </div>
             )}
         </form>

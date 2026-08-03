@@ -55,8 +55,7 @@ export default function Login() {
         localStorage.setItem("token", res.data.token);
 
         setStatus("Login successful!");
-
-        navigate("/dashboard");
+        setTimeout(() => navigate("/dashboard"), 800);
     } catch (err) {
         setStatus(
             err.response?.data?.message ||
@@ -65,25 +64,6 @@ export default function Login() {
     } finally {
         setLoading(false);
     }
-
-        try {
-            const res = await loginUser({
-                email: form.email,
-                password: form.password,
-            });
-
-            localStorage.setItem("token", res.data.token);
-
-            setStatus("Login successful!");
-            setTimeout(() => navigate("/dashboard"), 800);
-        } catch (err) {
-            setStatus(
-                err.response?.data?.message ||
-                "Login failed. Please check your email and password."
-            );
-        } finally {
-            setLoading(false);
-        }
 }
 
     return (
@@ -194,7 +174,7 @@ export default function Login() {
                     </div>
 
                     {status && (
-                        <p className="auth-status" role="status" aria-live="polite">
+                        <p className={`auth-status ${/fail|not match|please|error/i.test(status) ? "auth-status-error" : ""}`} role="status" aria-live="polite">
                             {status}
                         </p>
                     )}

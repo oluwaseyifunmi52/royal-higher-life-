@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { registerUser } from "../services/authApi";
 import {
     FaEnvelope,
     FaEye,
@@ -30,6 +31,7 @@ export default function Register() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
     const [status, setStatus] = useState("");
+    const [loading, setLoading] = useState(false);
     const [form, setForm] = useState(initialForm);
 
     const strength = useMemo(() => {
@@ -55,7 +57,7 @@ export default function Register() {
         setStatus("");
     }
 
-    function submitHandler(e) {
+    async function submitHandler(e) {
         e.preventDefault();
 
         if (form.password !== form.confirmPassword) {
@@ -68,7 +70,31 @@ export default function Register() {
             return;
         }
 
-        setStatus("Account details captured. Connect this form to your backend API when ready.");
+        setLoading(true);
+        setStatus("");
+
+        try {
+            await registerUser({
+                firstName: form.firstName,
+                lastName: form.lastName,
+                email: form.email,
+                phone: form.phone,
+                country: form.country,
+                state: form.state,
+                gender: form.gender,
+                newsletter: form.newsletter,
+                password: form.password,
+            });
+            setStatus("Account created successfully! You can now sign in.");
+            setForm(initialForm);
+        } catch (err) {
+            setStatus(
+                err.response?.data?.message ||
+                "Registration failed. Please check your details and try again."
+            );
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -247,12 +273,12 @@ export default function Register() {
                         </label>
                     </div>
 
-                    <button className="auth-submit" type="submit">
-                        Create Account
+                    <button className="auth-submit" type="submit" disabled={loading}>
+                        {loading ? "Creating Account..." : "Create Account"}
                     </button>
 
                     {status && (
-                        <p className="auth-status" role="status" aria-live="polite">
+                        <p className={`auth-status ${/fail|not match|please|error/i.test(status) ? "auth-status-error" : ""}`} role="status" aria-live="polite">
                             {status}
                         </p>
                     )}

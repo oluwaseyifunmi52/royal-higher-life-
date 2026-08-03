@@ -1,7 +1,7 @@
 // services/reviewService.js
 
 const API_URL =
-    import.meta.env.VITE_API_URL || "http://localhost:8000";
+    import.meta.env.VITE_API_URL || "http://localhost:4000";
 
 const API_ENDPOINT = `${API_URL}/api/reviews`;
 
@@ -15,7 +15,9 @@ export async function saveReview(payload) {
         throw new Error("Please enter your name.");
     }
 
-    if (!payload.message?.trim()) {
+    const message = payload.message?.trim() || payload.comment?.trim();
+
+    if (!message) {
         throw new Error("Please enter your review.");
     }
 
@@ -36,7 +38,10 @@ export async function saveReview(payload) {
                 Accept: "application/json",
             },
 
-            body: JSON.stringify(payload),
+            body: JSON.stringify({
+                ...payload,
+                message,
+            }),
 
             signal: controller.signal,
 

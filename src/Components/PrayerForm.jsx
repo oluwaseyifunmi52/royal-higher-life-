@@ -2,13 +2,21 @@ import { useState } from "react";
 import { sendPrayerRequest } from "../services/prayerService.js";
 
 export default function PrayerForm() {
-    const [sent, setSent] = useState(false);
+    const [status, setStatus] = useState(null);
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
-        sendPrayerRequest(Object.fromEntries(new FormData(event.currentTarget)));
-        setSent(true);
-        event.currentTarget.reset();
+
+        const form = event.currentTarget;
+        setStatus({ type: "loading", text: "Submitting prayer request..." });
+
+        try {
+            await sendPrayerRequest(Object.fromEntries(new FormData(form)));
+            form.reset();
+            setStatus({ type: "success", text: "Prayer request submitted successfully." });
+        } catch (error) {
+            setStatus({ type: "error", text: error.message });
+        }
     }
 
     return (
@@ -59,8 +67,14 @@ export default function PrayerForm() {
                     <option>General Prayer</option>
                 </select>
             </div>
-            <button type="submit">Submit Prayer</button>
-            {sent && <p className="success-inline">Prayer request submitted successfully.</p>}
+            <button type="submit" disabled={status?.type === "loading"}>
+                {status?.type === "loading" ? "Submitting..." : "Submit Prayer"}
+            </button>
+            {status && (
+                <p className={`form-status ${status.type}`} role="status" aria-live="polite">
+                    {status.text}
+                </p>
+            )}
         </form>
     );
 }
