@@ -52,7 +52,13 @@ export default function Login() {
             password: form.password,
         });
 
-        localStorage.setItem("token", res.data.token);
+        const token = res.data?.token || res.data?.data?.token;
+
+        if (!token) {
+            throw new Error("No token returned from the server.");
+        }
+
+        localStorage.setItem("token", token);
 
         setStatus("Login successful!");
         setTimeout(() => navigate("/dashboard"), 800);

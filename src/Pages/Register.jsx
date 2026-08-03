@@ -84,6 +84,7 @@ export default function Register() {
                 gender: form.gender,
                 newsletter: form.newsletter,
                 password: form.password,
+                confirmPassword: form.password,
             });
             setStatus("Account created successfully! You can now sign in.");
             setForm(initialForm);

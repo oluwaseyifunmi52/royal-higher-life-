@@ -15,6 +15,7 @@ const Donate = lazy(() => import("../../Pages/Donate"));
 const Login = lazy(() => import("../../Pages/login"));
 const Register = lazy(() => import("../../Pages/Register"));
 const ForgotPassword = lazy(() => import("../../Pages/ForgotPassword"));
+const ResetPassword = lazy(() => import("../../Pages/ResetPassword"));
 const Dashboard = lazy(() => import("../../Pages/Dashboard"));
 const Admin = lazy(() => import("../../Pages/Admin"));
 const NotFound = lazy(() => import("../../Pages/NotFound"));
@@ -38,6 +39,7 @@ export default function Router() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/reset-password/:token" element={<ResetPassword />} />
 
                     <Route
                         path="/dashboard"

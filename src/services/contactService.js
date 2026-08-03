@@ -1,6 +1,6 @@
 
 const API_URL =
-    import.meta.env.VITE_API_URL || "http://localhost:4000";
+    import.meta.env.VITE_API_URL || "https://royal-higher-life-backend-2o66.onrender.com";
 
 const API_ENDPOINT = `${API_URL}/api/contacts`;
 
