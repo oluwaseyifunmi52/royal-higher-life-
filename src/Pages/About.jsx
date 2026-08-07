@@ -20,20 +20,23 @@ export default function About() {
                         <article className="card">
                             <h2>What We Do</h2>
                             <p>
-                                We are not a church or a network of churches. We are an evangelistic outreach ministry focused on taking
-                                the Gospel beyond church walls.
+                                We are not a church or a network of churches. We are an evangelistic outreach ministry focused on taking the Gospel beyond church walls, reaching communities, making disciples, and transforming lives through the power of God's Word.
                             </p>
                             <ul>
                                 <li>Street Evangelism</li>
                                 <li>Village Outreach</li>
                                 <li>Youth Ministry</li>
                                 <li>Discipleship & Teaching</li>
+                                <li>King’s Ministry</li>
+                                <li>Prison Ministry</li>
+                                <li>Leadership Development</li>
+                                <li>Prayer Ministry</li>
                             </ul>
                         </article>
                         <article className="card wide-card">
                             <h2>Our Mission Fields</h2>
                             <p>
-                                The areas we visit are mission fields, not churches or branches. We regularly go into these communities
+                                The areas listed below are our mission fields. We regularly go into these communities
                                 to preach, disciple, and support spiritual growth.
                             </p>
                             <div className="locations">

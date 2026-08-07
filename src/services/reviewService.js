@@ -1,7 +1,5 @@
-// services/reviewService.js
-
 const API_URL =
-    import.meta.env.VITE_API_URL || "https://royal-higher-life-backend-2o66.onrender.com";
+    import.meta.env.VITE_API_URL || "https://royal-higher-life-backend-4.onrender.com";
 
 const API_ENDPOINT = `${API_URL}/api/reviews`;
 
@@ -25,7 +23,7 @@ export async function saveReview(payload) {
 
     const timeout = setTimeout(() => {
         controller.abort();
-    }, 15000);
+    }, 30000);
 
     try {
 

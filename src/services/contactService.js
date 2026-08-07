@@ -1,6 +1,5 @@
-
 const API_URL =
-    import.meta.env.VITE_API_URL || "https://royal-higher-life-backend-2o66.onrender.com";
+    import.meta.env.VITE_API_URL || "https://royal-higher-life-backend-4.onrender.com";
 
 const API_ENDPOINT = `${API_URL}/api/contacts`;
 
@@ -28,7 +27,7 @@ export async function sendContactMessage(payload) {
 
     const timeout = setTimeout(() => {
         controller.abort();
-    }, 15000);
+    }, 30000);
 
     try {
 
@@ -67,7 +66,7 @@ export async function sendContactMessage(payload) {
         clearTimeout(timeout);
 
         if (error.name === "AbortError") {
-            throw new Error("Request timed out.");
+            throw new Error("Request timed out. Please try again.");
         }
 
         throw new Error(

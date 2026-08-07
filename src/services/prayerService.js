@@ -1,7 +1,5 @@
-// services/prayerService.js
-
 const API_URL =
-    import.meta.env.VITE_API_URL || "https://royal-higher-life-backend-2o66.onrender.com";
+    import.meta.env.VITE_API_URL || "https://royal-higher-life-backend-4.onrender.com";
 
 const API_ENDPOINT = `${API_URL}/api/prayers`;
 
@@ -29,7 +27,7 @@ export async function sendPrayerRequest(payload) {
 
     const timeout = setTimeout(() => {
         controller.abort();
-    }, 15000);
+    }, 30000);
 
     try {
 

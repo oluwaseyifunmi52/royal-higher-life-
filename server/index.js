@@ -8,8 +8,34 @@ const scrypt = promisify(crypto.scrypt);
 const app = express();
 const port = process.env.PORT || 4000;
 
-app.use(cors());
+const ALLOWED_ORIGINS = [
+    process.env.CLIENT_URL,
+    "https://royal-higher-life-v9tt.vercel.app",
+    "http://localhost:5173",
+    "http://localhost:3000",
+].filter(Boolean);
+
+app.use(
+    cors({
+        origin(origin, callback) {
+            if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error("Not allowed by CORS"));
+            }
+        },
+        credentials: true,
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+    })
+);
+
 app.use(express.json({ limit: "1mb" }));
+
+app.use((req, _res, next) => {
+    console.log(`${new Date().toISOString()} ${req.method} ${req.path}`);
+    next();
+});
 
 const response = (success, message, data = null) => ({ success, message, data });
 
@@ -76,6 +102,16 @@ const safeUser = (user) => ({
     emailVerified: user.emailVerified,
     role: user.role,
     createdAt: user.createdAt,
+});
+
+// ------------------------- Health -------------------------
+
+app.get("/", (_req, res) => {
+    res.json({ message: "Royal HigherLife API is running" });
+});
+
+app.get("/api/health", (_req, res) => {
+    res.json(response(true, "Server is running."));
 });
 
 // ------------------------- Auth -------------------------
@@ -232,10 +268,6 @@ app.post("/api/contact", submitHandler("contact"));
 app.post("/api/prayer", submitHandler("prayer"));
 app.post("/api/donate", submitHandler("donation"));
 app.post("/api/review", submitHandler("review"));
-
-app.get("/api/health", (req, res) => {
-    res.json(response(true, "Server is running."));
-});
 
 // 404 handler
 app.use((req, res) => {
