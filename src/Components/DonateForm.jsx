@@ -105,7 +105,7 @@ export default function DonationForm() {
             });
             setForm(initialForm);
         } catch (error) {
-            setStatus({ type: "error", text: error.message });
+            setStatus({ type: "error", text: error.response?.data?.message || error.message || "Donation failed." });
         }
     }
 

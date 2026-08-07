@@ -15,7 +15,7 @@ export default function PrayerForm() {
             form.reset();
             setStatus({ type: "success", text: "Prayer request submitted successfully." });
         } catch (error) {
-            setStatus({ type: "error", text: error.message });
+            setStatus({ type: "error", text: error.response?.data?.message || error.message || "Failed to submit prayer request." });
         }
     }
 

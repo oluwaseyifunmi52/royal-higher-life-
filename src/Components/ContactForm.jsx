@@ -15,7 +15,7 @@ export default function ContactForm() {
             form.reset();
             setStatus({ type: "success", text: "Thank you! We will get back to you soon." });
         } catch (error) {
-            setStatus({ type: "error", text: error.message });
+            setStatus({ type: "error", text: error.response?.data?.message || error.message || "Failed to send message." });
         }
     }
 

@@ -21,6 +21,12 @@ export const resetPassword = (data) =>
 export const getProfile = () =>
     api.get("/api/auth/profile");
 
+export const updateProfile = (userData) =>
+    api.put("/api/auth/profile", userData);
+
+export const changePassword = (data) =>
+    api.put("/api/auth/change-password", data);
+
 export const logoutUser = () => {
     localStorage.removeItem("token");
 };

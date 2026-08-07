@@ -12,18 +12,18 @@ export default function Reviews() {
 
         const form = event.currentTarget;
         const data = Object.fromEntries(new FormData(form));
-        const review = { name: data.name, comment: data.comment, rating: rating || 5 };
+        const review = { name: data.name, message: data.comment, rating: rating || 5 };
 
         setStatus({ type: "loading", text: "Submitting review..." });
 
         try {
             await saveReview(review);
-            setReviews((items) => [...items, review]);
+            setReviews((items) => [...items, { name: data.name, comment: data.comment, rating: rating || 5 }]);
             setRating(0);
             form.reset();
             setStatus({ type: "success", text: "Thank you! Your review has been submitted." });
         } catch (error) {
-            setStatus({ type: "error", text: error.message });
+            setStatus({ type: "error", text: error.response?.data?.message || error.message || "Failed to submit review." });
         }
     }
 

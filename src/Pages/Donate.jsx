@@ -1,27 +1,76 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser, registerUser } from "../services/authApi";
 import DonationForm from "../Components/DonateForm.jsx";
 import SocialLinks from "../Components/SocialLinks.jsx";
 
-
-
 export default function Donate() {
+    const navigate = useNavigate();
     const [isLogin, setIsLogin] = useState(true);
-    const [status, setStatus] = useState("");
-    
-  
-    function handleAuthSubmit(e) {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
+    async function handleAuthSubmit(e) {
         e.preventDefault();
-        setStatus(
-            isLogin
-                ? "Welcome back! You have logged in successfully."
-                : "Account created successfully. Please verify your email before logging in."
-        );
+        setError("");
+        setSuccess("");
+
+        if (isLogin) {
+            setLoading(true);
+            try {
+                const res = await loginUser({ email, password });
+                const token = res.data.token || res.data.data?.token;
+                if (token) {
+                    localStorage.setItem("token", token);
+                }
+                navigate("/dashboard");
+            } catch (err) {
+                setError(
+                    err.response?.data?.message ||
+                        err.message ||
+                        "Login failed. Please check your credentials."
+                );
+            } finally {
+                setLoading(false);
+            }
+        } else {
+            if (password !== confirmPassword) {
+                setError("Passwords do not match.");
+                return;
+            }
+            setLoading(true);
+            try {
+                await registerUser({ firstName, lastName, email, phone, password });
+                setSuccess("Account created successfully. Please log in.");
+                setIsLogin(true);
+                setError("");
+                setEmail("");
+                setPassword("");
+                setConfirmPassword("");
+            } catch (err) {
+                setError(
+                    err.response?.data?.message ||
+                        err.message ||
+                        "Registration failed. Please try again."
+                );
+            } finally {
+                setLoading(false);
+            }
+        }
     }
 
     function switchMode(nextMode) {
         setIsLogin(nextMode);
-        setStatus("");
+        setError("");
+        setSuccess("");
     }
 
     return (
@@ -53,6 +102,18 @@ export default function Donate() {
                         </button>
                     </div>
 
+                    {error && (
+                        <p className="auth-status error" role="alert" aria-live="assertive">
+                            {error}
+                        </p>
+                    )}
+
+                    {success && (
+                        <p className="auth-status success" role="status" aria-live="polite">
+                            {success}
+                        </p>
+                    )}
+
                     {isLogin ? (
                         <form className="auth-form" onSubmit={handleAuthSubmit}>
                             <div className="auth-field">
@@ -63,6 +124,8 @@ export default function Donate() {
                                     placeholder="Email Address"
                                     autoComplete="email"
                                     required
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
                             <div className="auth-field">
@@ -73,6 +136,8 @@ export default function Donate() {
                                     placeholder="Password"
                                     autoComplete="current-password"
                                     required
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
                             <div className="auth-options">
@@ -81,8 +146,8 @@ export default function Donate() {
                                 </label>
                                 <Link to="/forgot-password">Forgot Password?</Link>
                             </div>
-                            <button type="submit" className="submit-btn">
-                                Login
+                            <button type="submit" className="submit-btn" disabled={loading}>
+                                {loading ? "Logging in..." : "Login"}
                             </button>
                         </form>
                     ) : (
@@ -96,6 +161,8 @@ export default function Donate() {
                                         placeholder="First Name"
                                         autoComplete="given-name"
                                         required
+                                        value={firstName}
+                                        onChange={(e) => setFirstName(e.target.value)}
                                     />
                                 </div>
                                 <div className="auth-field">
@@ -106,6 +173,8 @@ export default function Donate() {
                                         placeholder="Last Name"
                                         autoComplete="family-name"
                                         required
+                                        value={lastName}
+                                        onChange={(e) => setLastName(e.target.value)}
                                     />
                                 </div>
                             </div>
@@ -117,6 +186,8 @@ export default function Donate() {
                                     placeholder="Email Address"
                                     autoComplete="email"
                                     required
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
                             <div className="auth-field">
@@ -127,6 +198,8 @@ export default function Donate() {
                                     placeholder="Phone Number"
                                     autoComplete="tel"
                                     required
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
                                 />
                             </div>
                             <div className="auth-grid-2">
@@ -138,6 +211,8 @@ export default function Donate() {
                                         placeholder="Password"
                                         autoComplete="new-password"
                                         required
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
                                     />
                                 </div>
                                 <div className="auth-field">
@@ -148,20 +223,16 @@ export default function Donate() {
                                         placeholder="Confirm Password"
                                         autoComplete="new-password"
                                         required
+                                        value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
                                     />
                                 </div>
-                            </div>          
+                            </div>
 
-                            <button type="submit" className="submit-btn">
-                                Create Account
+                            <button type="submit" className="submit-btn" disabled={loading}>
+                                {loading ? "Creating account..." : "Create Account"}
                             </button>
                         </form>
-                    )}
-
-                    {status && (
-                        <p className="auth-status" role="status" aria-live="polite">
-                            {status}
-                        </p>
                     )}
                 </div>
             </section>

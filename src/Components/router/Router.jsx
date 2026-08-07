@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 
 import MainLayout from "../Layouts/MainLayout";
 import ProtectedRoute from "./ProtectedRoute";
+import AdminRoute from "./AdminRoute";
 
 import Home from "../../Pages/Home";
 
@@ -50,7 +51,14 @@ export default function Router() {
                         }
                     />
 
-                    <Route path="/admin" element={<Admin />} />
+                    <Route
+                        path="/admin"
+                        element={
+                            <AdminRoute>
+                                <Admin />
+                            </AdminRoute>
+                        }
+                    />
 
                     <Route path="*" element={<NotFound />} />
                 </Route>
