@@ -11,11 +11,15 @@ export default function TestimonyForm() {
         setStatus({ type: "loading", text: "Submitting testimony..." });
 
         try {
-            await createTestimony(Object.fromEntries(new FormData(form)));
+            const response = await createTestimony(Object.fromEntries(new FormData(form)));
+            const result = response.data?.data;
             form.reset();
-            setStatus({ type: "success", text: "Thank you for sharing your testimony!" });
+            setStatus({
+                type: "success",
+                text: `Thank you for sharing your testimony. Reference: ${result?.reference || "received"}. It will remain private until review and approval.`,
+            });
         } catch (error) {
-            setStatus({ type: "error", text: error.response?.data?.message || error.message || "Failed to submit testimony." });
+            setStatus({ type: "error", text: error.response?.data?.message || "We could not submit your testimony. Check your connection and try again." });
         }
     }
 
@@ -29,12 +33,18 @@ export default function TestimonyForm() {
                 <input id="testimonyName" name="name" placeholder="Your full name" required type="text" />
             </div>
             <div className="input-group">
-                <label htmlFor="testimonyEmail">Email Address</label>
-                <input id="testimonyEmail" name="email" placeholder="Email Address" required type="email" />
-            </div>
-            <div className="input-group">
                 <label htmlFor="testimonyTitle">Title (Optional)</label>
                 <input id="testimonyTitle" name="title" placeholder="Give your testimony a title" type="text" />
+            </div>
+            <div className="input-group">
+                <label htmlFor="testimonyEmail">Email Address (Optional)</label>
+                <input id="testimonyEmail" name="email" placeholder="For your submission confirmation" type="email" autoComplete="email" />
+            </div>
+            <div className="input-group">
+                <label htmlFor="testimonyRating">Rating</label>
+                <select id="testimonyRating" name="rating" required defaultValue="5">
+                    {[5, 4, 3, 2, 1].map((value) => <option key={value} value={value}>{value} out of 5</option>)}
+                </select>
             </div>
             <div className="input-group prayer-box">
                 <label htmlFor="testimony">Your Testimony</label>
@@ -46,6 +56,10 @@ export default function TestimonyForm() {
                     rows="6"
                 />
             </div>
+            <label className="input-group" htmlFor="testimonyConsent">
+                <input id="testimonyConsent" name="publicationConsent" type="checkbox" value="true" />
+                I consent to my testimony being published if it is approved.
+            </label>
             <button type="submit" disabled={status?.type === "loading"}>
                 {status?.type === "loading" ? "Submitting..." : "Submit Testimony"}
             </button>

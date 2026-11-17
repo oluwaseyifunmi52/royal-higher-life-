@@ -1,0 +1,16 @@
+FIX COMPLETE
+
+Axios import in AdminRoute.jsx fixed.
+
+Changed: import api from "../api/axios";
+To:       import api from "../../api/axios";
+
+File: src/Components/router/AdminRoute.jsx, line 3
+
+Build: PASSED
+API endpoints: All returning HTTP 200
+No duplicate instances
+No auth logic changes
+No .env modifications
+
+Done.

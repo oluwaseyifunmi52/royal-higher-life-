@@ -26,12 +26,12 @@ export default function AdminSermonForm({ sermon, onClose }) {
     if (sermon) {
       setFormData({
         title: sermon.title || "",
-        speaker: sermon.speaker || "",
+        speaker: sermon.speaker || sermon.preacher || "",
         description: sermon.description || "",
         scripture: sermon.scripture || "",
-        date: sermon.date ? sermon.date.slice(0, 10) : "",
+        date: (sermon.sermonDate || sermon.date) ? (sermon.sermonDate || sermon.date).slice(0, 10) : "",
         videoUrl: sermon.videoUrl || "",
-        imageUrl: sermon.imageUrl || "",
+        imageUrl: sermon.imageUrl || sermon.image || "",
         category: sermon.category || "Sunday Service",
       });
     }

@@ -7,4 +7,4 @@ export const getEventById = (id) =>
     api.get(`/api/events/${id}`);
 
 export const registerForEvent = (data) =>
-    api.post("/api/events/register", data);
+    api.post("/api/event-registrations", data);

@@ -1,0 +1,36 @@
+Royal HigherLife — Axios Import Fix Report
+==========================================
+
+Issue: Frontend production build failing with [UNRESOLVED_IMPORT] Could not resolve '../api/axios'
+
+Root Cause: Relative path '../api/axios' resolves differently based on source file directory:
+- From src/services/authApi.js: ../api/axios → src/api/axios.js ✓
+- From src/Components/router/AdminRoute.jsx: ../api/axios → src/Components/api/axios ✗ (does not exist!)
+
+The Axios instance is at src/api/axios.js with export default api.
+Service files in src/services/ use ../api/axios correctly (they're one level deeper under src/).
+The router component in src/Components/router/ needs ../../api/axios to reach the same file.
+
+Fix Applied: src/Components/router/AdminRoute.jsx line 3
+  Before: import api from "../api/axios";
+  After:  import api from "../../api/axios";
+
+Verification:
+- Frontend build: PASS (dist/ created, 2375 modules transformed)
+- /api/sermons: HTTP 200
+- /api/events: HTTP 200
+- /api/reviews: HTTP 200
+- No duplicate Axios instances
+- No auth logic changes
+- No .env modifications
+- 13+ other service files unchanged and working
+
+Modified files:
+- src/Components/router/AdminRoute.jsx (1 line changed)
+
+No changes to:
+- src/api/axios.js
+- src/services/*.js
+- Backend code
+- Environment variables
+- Authentication/authorization logic

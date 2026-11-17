@@ -17,7 +17,7 @@ export default function ForgotPassword() {
 
         try {
             await forgotPassword(email);
-            setStatus("Password reset instructions sent to your email.");
+            setStatus("If an account matches that email, password reset instructions can be sent when email delivery is available.");
         } catch (err) {
             setStatus(
                 err.response?.data?.message ||
@@ -61,7 +61,7 @@ export default function ForgotPassword() {
 
                     <form className="auth-form" onSubmit={handleSubmit}>
                         <div className="auth-field">
-                            <label htmlFor="forgot-email">Email address</label>
+                            <label htmlFor="forgot-email">Email Address</label>
                             <div className="auth-input-shell">
                                 <FaEnvelope aria-hidden="true" />
                                 <input

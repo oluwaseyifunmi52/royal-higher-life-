@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FaEnvelope, FaLock } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaLock } from "react-icons/fa";
 import { resetPassword } from "../services/authApi";
 
 export default function ResetPassword() {
@@ -14,6 +14,8 @@ export default function ResetPassword() {
     });
     const [status, setStatus] = useState("");
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -81,12 +83,12 @@ export default function ResetPassword() {
 
                     <form className="auth-form" onSubmit={handleSubmit}>
                         <div className="auth-field">
-                            <label htmlFor="reset-password">New password</label>
+                            <label htmlFor="reset-password">New Password</label>
                             <div className="auth-input-shell">
                                 <FaLock aria-hidden="true" />
                                 <input
                                     id="reset-password"
-                                    type="password"
+                                    type={showPassword ? "text" : "password"}
                                     name="password"
                                     placeholder="New Password"
                                     value={form.password}
@@ -95,16 +97,19 @@ export default function ResetPassword() {
                                     minLength={8}
                                     required
                                 />
+                                <button type="button" className="auth-icon-button" onClick={() => setShowPassword((visible) => !visible)} aria-label={showPassword ? "Hide new password" : "Show new password"}>
+                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                </button>
                             </div>
                         </div>
 
                         <div className="auth-field">
-                            <label htmlFor="reset-confirm">Confirm new password</label>
+                            <label htmlFor="reset-confirm">Confirm New Password</label>
                             <div className="auth-input-shell">
-                                <FaEnvelope aria-hidden="true" />
+                                <FaLock aria-hidden="true" />
                                 <input
                                     id="reset-confirm"
-                                    type="password"
+                                    type={showConfirmPassword ? "text" : "password"}
                                     name="confirmPassword"
                                     placeholder="Confirm New Password"
                                     value={form.confirmPassword}
@@ -113,6 +118,9 @@ export default function ResetPassword() {
                                     minLength={8}
                                     required
                                 />
+                                <button type="button" className="auth-icon-button" onClick={() => setShowConfirmPassword((visible) => !visible)} aria-label={showConfirmPassword ? "Hide confirmation password" : "Show confirmation password"}>
+                                    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                                </button>
                             </div>
                         </div>
 

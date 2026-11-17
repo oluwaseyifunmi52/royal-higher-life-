@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { FaEye, FaEyeSlash, FaLock } from "react-icons/fa";
 import { changePassword } from "../../services/authApi.js";
 
 export default function DashboardChangePassword() {
     const [status, setStatus] = useState(null);
+    const [visible, setVisible] = useState({ currentPassword: false, newPassword: false, confirmPassword: false });
     const [form, setForm] = useState({
         currentPassword: "",
         newPassword: "",
@@ -43,43 +45,55 @@ export default function DashboardChangePassword() {
                     <label htmlFor="currentPassword" className="block text-sm font-medium text-gray-700 mb-1">
                         Current Password
                     </label>
+                    <div className="auth-input-shell">
+                    <FaLock aria-hidden="true" />
                     <input
                         id="currentPassword"
                         name="currentPassword"
-                        type="password"
+                        type={visible.currentPassword ? "text" : "password"}
                         value={form.currentPassword}
                         onChange={handleChange}
                         required
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
+                    <button type="button" className="auth-icon-button" onClick={() => setVisible((state) => ({ ...state, currentPassword: !state.currentPassword }))} aria-label={visible.currentPassword ? "Hide current password" : "Show current password"}>{visible.currentPassword ? <FaEyeSlash /> : <FaEye />}</button>
+                    </div>
                 </div>
                 <div>
                     <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 mb-1">
                         New Password
                     </label>
+                    <div className="auth-input-shell">
+                    <FaLock aria-hidden="true" />
                     <input
                         id="newPassword"
                         name="newPassword"
-                        type="password"
+                        type={visible.newPassword ? "text" : "password"}
                         value={form.newPassword}
                         onChange={handleChange}
                         required
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
+                    <button type="button" className="auth-icon-button" onClick={() => setVisible((state) => ({ ...state, newPassword: !state.newPassword }))} aria-label={visible.newPassword ? "Hide new password" : "Show new password"}>{visible.newPassword ? <FaEyeSlash /> : <FaEye />}</button>
+                    </div>
                 </div>
                 <div>
                     <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
                         Confirm New Password
                     </label>
+                    <div className="auth-input-shell">
+                    <FaLock aria-hidden="true" />
                     <input
                         id="confirmPassword"
                         name="confirmPassword"
-                        type="password"
+                        type={visible.confirmPassword ? "text" : "password"}
                         value={form.confirmPassword}
                         onChange={handleChange}
                         required
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
+                    <button type="button" className="auth-icon-button" onClick={() => setVisible((state) => ({ ...state, confirmPassword: !state.confirmPassword }))} aria-label={visible.confirmPassword ? "Hide confirmation password" : "Show confirmation password"}>{visible.confirmPassword ? <FaEyeSlash /> : <FaEye />}</button>
+                    </div>
                 </div>
                 <button
                     type="submit"

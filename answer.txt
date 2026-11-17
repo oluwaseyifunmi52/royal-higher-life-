@@ -1,0 +1,19 @@
+The fix is complete.
+
+**Problem:** Frontend production build failing with `[UNRESOLVED_IMPORT] Could not resolve '../api/axios'` in `AdminRoute.jsx` line 3.
+
+**Root Cause:** The relative import path `../api/axios` resolves incorrectly from the AdminRoute.jsx directory:
+- From `src/services/authApi.js`: ✅ resolves to `src/api/axios.js`
+- From `src/Components/router/AdminRoute.jsx`: ❌ resolves to `src/Components/api/axis` (does not exist!)
+
+**Fix:** Single-line change in `src/Components/router/AdminRoute.jsx` line 3:
+- `import api from "../api/axios";` → `import api from "../../api/axios";`
+
+**Verification:**
+- ✅ Frontend build passes
+- ✅ API endpoints working
+- ✅ No duplicate Axios instances
+- ✅ No auth logic changes
+- ✅ No .env modifications
+
+Done.

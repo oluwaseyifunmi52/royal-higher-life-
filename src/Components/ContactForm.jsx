@@ -1,21 +1,39 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { sendContactMessage } from "../services/contactService.js";
 
 export default function ContactForm() {
     const [status, setStatus] = useState(null);
+    const submissionKey = useRef("");
 
     async function handleSubmit(event) {
         event.preventDefault();
 
         const form = event.currentTarget;
+        if (!submissionKey.current) {
+            submissionKey.current = globalThis.crypto?.randomUUID?.() ||
+                `contact_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+        }
         setStatus({ type: "loading", text: "Sending message..." });
 
         try {
-            await sendContactMessage(Object.fromEntries(new FormData(form)));
+            const response = await sendContactMessage({
+                ...Object.fromEntries(new FormData(form)),
+                submissionKey: submissionKey.current,
+            });
             form.reset();
-            setStatus({ type: "success", text: "Thank you! We will get back to you soon." });
+            submissionKey.current = "";
+            const body = response.data || {};
+            const result = body.data || {};
+            const reference = result.reference || body.reference || "";
+            const accepted = result.notificationStatus === "accepted" || body.emailNotificationAccepted === true || body.emailNotificationsSent === true;
+            setStatus({
+                type: "success",
+                text: accepted
+                    ? "Thank you for contacting Royal HigherLife Christian Ministries. Your enquiry has been received successfully. Our ministry team will review your message and respond as soon as possible."
+                    : `Your enquiry has been received successfully, but our email notification service is temporarily unavailable.${reference ? ` Your reference number is ${reference}.` : ""} Our team can still access your enquiry.`,
+            });
         } catch (error) {
-            setStatus({ type: "error", text: error.response?.data?.message || error.message || "Failed to send message." });
+            setStatus({ type: "error", text: error.response?.data?.message || "We could not confirm that your enquiry was received. Check your connection and try again; retrying this submission will not create a duplicate." });
         }
     }
 
@@ -39,7 +57,7 @@ export default function ContactForm() {
             </div>
             <div className="input-group">
                 <label htmlFor="phone">Phone Number</label>
-                <input id="phone" name="phone" placeholder="+234 Phone Number" required type="tel" />
+                <input id="phone" name="phone" placeholder="+234 Phone Number (optional)" type="tel" />
             </div>
             <div className="input-group">
                 <label htmlFor="subject">Subject</label>

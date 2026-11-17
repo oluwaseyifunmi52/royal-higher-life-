@@ -31,9 +31,27 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
-  password: {
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
+  lastLogin: {
+    type: Date,
+  },
+  failedLoginAttempts: {
+    type: Number,
+    default: 0,
+  },
+  lockUntil: {
+    type: Date,
+  },
+  passwordChangedAt: {
+    type: Date,
+  },
+  passwordResetToken: {
     type: String,
-    required: true,
+    required: function passwordRequired() { return this.provider === "local"; },
+    select: false,
   },
   newsletter: {
     type: Boolean,
@@ -45,18 +63,30 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["member", "admin"],
+    enum: ["member", "content_admin", "finance_admin", "prayer_support_admin", "content_reviewer", "admin", "super_admin"],
     default: "member",
   },
   profilePicture: {
     type: String,
     default: "",
   },
+  provider: {
+    type: String,
+    enum: ["local", "google", "facebook"],
+    default: "local",
+  },
+  providerId: {
+    type: String,
+    unique: true,
+    sparse: true,
+  },
   resetPasswordToken: {
     type: String,
+    select: false,
   },
   resetPasswordExpire: {
     type: Date,
+    select: false,
   },
   createdAt: {
     type: Date,

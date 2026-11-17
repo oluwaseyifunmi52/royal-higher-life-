@@ -47,156 +47,404 @@
     }
 }
 
-.menu-toggle {
-    display: none;
-    font-size: 28px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #ffffff;
-}
+/* ============================================================
+   HEADER / NAVIGATION RESPONSIVE
+   ============================================================ */
 
-.mobile-menu {
-    width: 100%;
-    position: relative;
-}
+@media (max-width: 992px) {
+    .header {
+        padding: 14px 20px;
+    }
 
-.mobile-menu.open .nav-list {
-    display: flex;
+    .logo img {
+        width: 48px;
+        height: 48px;
+    }
+
 }
 
 @media (max-width: 768px) {
     .header {
-        padding: 16px 18px;
-        justify-content: space-between;
-        flex-wrap: wrap;
+        padding: 12px 16px;
     }
 
-    .menu-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .logo img {
+        width: 44px;
+        height: 44px;
     }
 
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 10px 12px;
+    }
+
+    .logo img {
+        width: 40px;
+        height: 40px;
+    }
+
+}
+
+/* ============================================================
+   TOUCH-FRIENDLY DROPDOWNS (for desktop/tablet)
+   ============================================================ */
+
+@media (hover: hover) and (pointer: fine) {
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+/* Touch devices - use active class instead of hover */
+@media (hover: none) and (pointer: coarse) {
+    .dropdown .dropdown-menu {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        pointer-events: none;
+        transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+    }
+
+    .dropdown.active .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+}
+
+/* ============================================================
+   NAV LIST RESPONSIVE (DESKTOP)
+   ============================================================ */
+
+@media (min-width: 993px) {
     .mobile-menu {
-        position: relative;
-        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        flex: 1;
     }
 
     .nav-list {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        display: none;
-        flex-direction: column;
-        gap: 12px;
-        padding: 18px 16px;
-        background: rgba(6, 11, 24, 0.98);
-        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.22);
-        max-height: calc(100vh - 92px);
-        overflow-y: auto;
-        border-radius: 0 0 22px 22px;
+        display: flex !important;
+        align-items: center;
+        gap: 0.35rem;
+        list-style: none;
+        position: static !important;
+        flex-direction: row !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        max-height: none !important;
+        overflow: visible !important;
+        border-radius: 0 !important;
+        width: auto !important;
     }
 
-    .nav-list.active,
-    .mobile-menu.open .nav-list {
-        display: flex;
+    .nav-item {
+        position: relative;
     }
 
     .nav-link {
-        width: 100%;
-        justify-content: flex-start;
-        white-space: normal;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.72rem 1.1rem;
+        border-radius: 999px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: 0.01em;
         color: var(--text);
-        background: rgba(255, 255, 255, 0.08);
-        padding: 14px 16px;
+        transition: color var(--transition), background var(--transition), box-shadow var(--transition);
+        background: transparent;
+    }
+
+    .nav-link:hover {
+        color: var(--primary);
+    }
+
+    .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: 5px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        border-radius: 2px;
+        background: var(--primary);
+        transform: translateX(-50%);
+        transition: width var(--transition);
+    }
+
+    .nav-link:hover::after {
+        width: 55%;
+    }
+
+    .nav-link.active {
+        color: #141a2e;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--primary-strong), var(--primary) 55%, var(--primary-dark));
+        box-shadow: 0 10px 24px rgba(245, 176, 65, 0.28);
+    }
+
+    .nav-link.active::after {
+        display: none;
+    }
+
+    .dropdown > .nav-link > span {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        margin-left: 8px;
+        border-right: 2px solid currentColor;
+        border-bottom: 2px solid currentColor;
+        transform: rotate(45deg) translateY(-2px);
+        opacity: 0.75;
     }
 
     .dropdown-menu {
-        position: static;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        box-shadow: none;
-        border-radius: 12px;
-        margin-top: 4px;
-        background: rgba(255, 255, 255, 0.04);
+        position: absolute;
+        top: calc(100% + 12px);
+        left: 0;
+        min-width: 230px;
+        padding: 8px;
+        background: #0e1626;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        box-shadow: 0 28px 60px rgba(0, 0, 0, 0.45);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
     }
 
-    .dropdown-menu li a {
-        color: var(--text);
-        padding: 12px 14px;
-        text-decoration: none;
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .dropdown-menu li {
+        list-style: none;
+    }
+
+    .dropdown-menu a {
+        display: block;
+        padding: 11px 14px;
         border-radius: 10px;
+        color: var(--text-muted);
+        font-size: 0.92rem;
+        font-weight: 500;
+        transition: background var(--transition), color var(--transition);
     }
 
-    .dropdown-menu li a:hover {
-        background: rgba(245, 176, 65, 0.95);
-        color: #111827;
+    .dropdown-menu a:hover {
+        background: rgba(245, 176, 65, 0.12);
+        color: var(--primary);
     }
+}
 
-    .dropdown:hover > .dropdown-menu,
-    .dropdown:focus-within > .dropdown-menu,
-    .dropdown.active > .dropdown-menu {
-        display: flex;
-    }
+/* ============================================================
+   HERO SECTION RESPONSIVE
+   ============================================================ */
 
+@media (max-width: 1024px) {
     .hero {
-        padding: 72px 18px;
+        padding: 100px 20px;
+        min-height: 80vh;
     }
 
     .hero h1 {
-        font-size: 2.4rem;
+        font-size: clamp(2.5rem, 5vw, 4rem);
     }
 
-    .hero p,
-    .cta-section p,
-    .cta p {
-        font-size: 0.98rem;
+    .hero-content p {
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 80px 16px;
+        min-height: 70vh;
     }
 
-    .belief-card {
-        padding: 18px;
+    .hero h1 {
+        font-size: clamp(2rem, 6vw, 3rem);
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .hero-eyebrow {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 70px 12px;
+        min-height: 65vh;
+    }
+
+    .hero h1 {
+        font-size: clamp(1.75rem, 7vw, 2.5rem);
+    }
+
+    .hero-content p {
         font-size: 0.95rem;
-        min-height: 220px;
+    }
+}
+
+.hero-image-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+@media (max-width: 1024px) {
+    .hero-image {
+        object-position: center top;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-image {
+        object-position: center center;
+    }
+}
+
+/* ============================================================
+   SECTIONS & CONTAINERS RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1200px) {
+    .container,
+    .card-container,
+    .single-card,
+    .review-section,
+    .contact-container,
+    .payment-container,
+    .tracker-container,
+    .auth-box,
+    .form-box,
+    .footer-container {
+        width: min(100%, 96%);
+    }
+
+    .page-header {
+        padding: 0 1.5rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .section-title {
+        font-size: clamp(1.7rem, 3vw, 2.4rem);
+    }
+
+    .section-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .card-container {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        padding: 1.5rem;
+    }
+
+    .card {
+        padding: 1.8rem;
+    }
+
+    .single-card {
+        padding: 1.8rem 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .welcome-content,
+    .prayer-content,
+    .giving-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .welcome-text .section-title,
+    .prayer-info .section-title,
+    .giving-info .section-title {
+        text-align: center;
+    }
+
+    .welcome-image {
+        max-width: 100%;
+    }
+
+    .about-grid,
+    .values-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sermons-home-section .sermons-grid,
+    .events-home-section .events-grid,
+    .activities-grid,
+    .testimonies-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sermons-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box {
+        max-width: 100%;
+    }
+
+    .filter-group {
+        justify-content: center;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
         align-items: center;
     }
 
-    .cta-section,
+    .cta-buttons a {
+        width: 100%;
+        max-width: 300px;
+    }
+
     .cta {
-        padding: 42px 18px;
-        margin: 36px auto;
+        padding: 3rem 1.5rem;
     }
 }
 
 @media (max-width: 600px) {
-    .header {
-        padding: 12px 14px;
+    .section-eyebrow {
+        font-size: 0.65rem;
+        padding: 0.3rem 0.75rem;
     }
 
-    .logo img {
-        width: 50px;
-        height: 50px;
-    }
-
-    .nav-link {
-        font-size: 13px;
-        padding: 10px 14px;
-    }
-
-    .hero {
-        padding: 80px 14px;
-    }
-
-    .hero h1 {
-        font-size: 26px;
-    }
-
-    .cta-section,
-    .cta {
-        padding: 40px 16px;
-        margin: 30px auto;
+    .section-title {
+        font-size: clamp(1.5rem, 4vw, 2rem);
     }
 
     .card,
@@ -207,28 +455,850 @@
     .auth-box,
     .form-box,
     .review-section {
-        padding: 18px;
+        padding: 1.5rem;
     }
 
-    .belief-card {
-        padding: 14px;
-        font-size: 14px;
+    .welcome-section,
+    .about-overview-section,
+    .sermons-home-section,
+    .events-home-section,
+    .activities-section,
+    .testimonies-section,
+    .prayer-section,
+    .giving-section {
+        padding: 3rem 0;
     }
 
-    .belief-content {
-        padding: 14px;
-    }
-
-    .section-title {
-        font-size: 24px;
+    .hero-eyebrow {
+        font-size: 0.65rem;
     }
 
     .footer {
-        padding: 35px 14px 18px;
+        padding: 2.5rem 1rem 1.2rem;
+    }
+}
+
+/* ============================================================
+   LEADERSHIP PAGE RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1024px) {
+    .pastor-card {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        margin: 0 auto 3rem;
+        gap: 2rem;
     }
 
-    .footer-container {
+    .pastor-image {
+        max-width: 320px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .leadership-section {
+        padding: 3rem 0 4rem;
+    }
+
+    .pastor-card {
+        padding: 1.5rem;
+        max-width: 100%;
+    }
+
+    .pastor-image {
+        aspect-ratio: 3/4;
+        max-width: 280px;
+    }
+
+    .pastor-name {
+        font-size: clamp(1.75rem, 5vw, 2.25rem);
+    }
+
+    .pastor-bio {
+        font-size: 1rem;
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .vision-card {
+        padding: 1.5rem;
+    }
+}
+
+/* ============================================================
+   SERMONS PAGE RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1024px) {
+    .sermons-filters {
+        gap: 1rem;
+    }
+
+    .search-box {
+        max-width: 100%;
+        flex: 1 1 100%;
+    }
+
+    .filter-group {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .filter-select {
+        flex: 1;
+        min-width: 140px;
+    }
+
+    .sermons-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .sermons-section {
+        padding: 3rem 0 4rem;
+    }
+
+    .sermons-filters {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0 1rem;
+    }
+
+    .filter-group {
+        flex-direction: column;
+    }
+
+    .filter-select {
+        width: 100%;
+    }
+
+    .sermons-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+
+    .sermon-thumbnail .play-button {
+        width: 56px;
+        height: 56px;
+    }
+
+    .sermon-thumbnail .play-button svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sermon-content {
+        padding: 1.25rem;
+    }
+
+    .sermon-title {
+        font-size: 1.1rem;
+    }
+
+    .watch-btn {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* ============================================================
+   EVENTS PAGE RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1024px) {
+    .events-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .events-section {
+        padding: 3rem 0 4rem;
+    }
+
+    .events-tabs {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .tab-btn {
+        justify-content: center;
+    }
+
+    .events-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+
+    .event-actions {
+        flex-direction: column;
+    }
+
+    .event-actions .btn {
+        width: 100%;
+    }
+
+    .modal-content {
+        margin: 1rem;
+        max-height: calc(100vh - 2rem);
+    }
+
+    .modal-body {
+        padding: 1.5rem;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
+
+    .modal-actions .btn {
+        width: 100%;
+    }
+}
+
+/* ============================================================
+   GALLERY PAGE RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1024px) {
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .gallery-section {
+        padding: 3rem 0 4rem;
+    }
+
+    .gallery-filters {
+        gap: 0.5rem;
+        padding: 0 0.75rem;
+    }
+
+    .filter-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 0.75rem;
+        padding: 0 0.75rem;
+    }
+
+    .gallery-image-wrapper {
+        aspect-ratio: 4/3;
+    }
+
+    .lightbox-overlay {
+        padding: 1rem;
+    }
+
+    .lightbox-close {
+        top: 0.5rem;
+        right: 0.5rem;
+        width: 44px;
+        height: 44px;
+    }
+
+    .lightbox-nav {
+        width: 44px;
+        height: 44px;
+    }
+
+    .lightbox-prev {
+        left: 0.5rem;
+    }
+
+    .lightbox-next {
+        right: 0.5rem;
+    }
+
+    .lightbox-nav svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .lightbox-content img {
+        max-height: 70vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* ============================================================
+   MEDIA PAGE RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1024px) {
+    .video-grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .live-container {
         gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .video-section,
+    .live-section,
+    #gallery {
+        padding: 2.5rem 1rem;
+    }
+
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .live-container {
+        grid-template-columns: 1fr;
+    }
+
+    .slides {
+        min-height: 140px;
+    }
+
+    .chat-area {
+        padding: 1.5rem;
+    }
+
+    .live-buttons {
+        flex-direction: column;
+    }
+
+    .live-buttons .btn {
+        width: 100%;
+    }
+
+    .gallery-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .countdown-box p {
+        font-size: 1.8rem;
+    }
+}
+
+/* ============================================================
+   ABOUT PAGE RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1024px) {
+    .about-section {
+        padding: 4rem 1.5rem 2.5rem;
+    }
+
+    .locations {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .about-section {
+        padding: 3rem 1rem 2rem;
+    }
+
+    .locations {
+        grid-template-columns: 1fr;
+    }
+
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+
+    .wide-card {
+        grid-column: auto;
+    }
+
+    #faith ul {
+        padding-left: 0;
+    }
+
+    #faith li {
+        padding: 0.6rem 0;
+        font-size: 0.9rem;
+    }
+
+    #faith strong {
+        min-width: auto;
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+}
+
+/* ============================================================
+   FOOTER RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1024px) {
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        padding: 3rem 1.5rem 2rem;
+    }
+
+    .footer-brand {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 2.5rem 1rem 1.5rem;
+    }
+
+    .footer-logo {
+        justify-content: center;
+    }
+
+    .footer-social {
+        justify-content: center;
+    }
+
+    .footer-nav ul {
+        align-items: center;
+    }
+
+    .contact-item {
+        justify-content: center;
+    }
+
+    .footer-bottom-content {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-nav[aria-label="Quick Links"],
+    .footer-nav[aria-label="Ministries"] {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding-top: 2rem;
+    }
+
+    .footer-tagline {
+        font-size: 0.9rem;
+    }
+
+    .footer-nav h3 {
+        font-size: 0.9rem;
+    }
+
+    .footer-nav a {
+        font-size: 0.88rem;
+    }
+
+    .contact-item {
+        font-size: 0.88rem;
+    }
+
+    .copyright {
+        font-size: 0.8rem;
+    }
+
+    .footer-legal {
+        gap: 1rem;
+    }
+
+    .footer-legal a {
+        font-size: 0.8rem;
+    }
+}
+
+/* ============================================================
+   FORMS & AUTH PAGES RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 992px) {
+    .auth-page {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-hero {
+        min-height: 300px;
+        padding: 2rem 1.5rem;
+    }
+
+    .auth-panel-wrap {
+        padding: 2rem 1rem 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .auth-hero {
+        min-height: 250px;
+    }
+
+    .auth-panel {
+        max-width: 100%;
+        padding: 2rem 1.25rem;
+    }
+
+    .auth-grid-2,
+    .auth-socials {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid-2,
+    .row {
+        grid-template-columns: 1fr;
+    }
+
+    .amount-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .payment-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .donation-result { width: calc(100% - 1.25rem); margin: 1.25rem auto; }
+    .donation-result dl { grid-template-columns: 1fr; gap: .2rem; }
+    .donation-result dd { margin-bottom: .65rem; }
+    .donation-track-form { padding: 1rem; }
+    .amount-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .payment-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-box,
+    .form-box,
+    .contact-form,
+    .form-box {
+        padding: 1.5rem;
+    }
+
+    .auth-field input,
+    .input-group input,
+    .input-group textarea,
+    .input-group select {
+        padding: 0.875rem 1rem;
+    }
+
+    .auth-field .auth-input-shell input {
+        padding: 0.875rem 3rem 0.875rem 2.85rem;
+    }
+
+    .btn,
+    .submit-btn,
+    .auth-submit,
+    .donate-btn {
+        min-height: 48px;
+        padding: 0 20px;
+    }
+}
+
+/* ============================================================
+   DONATION PAGE RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 992px) {
+    .donation-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .donation-form {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .donation-section {
+        padding: 2.5rem 1rem;
+    }
+
+    .donation-form {
+        padding: 1.5rem;
+    }
+
+    .amount-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .payment-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .amount-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .payment-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================================
+   ADMIN DASHBOARD RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1200px) {
+    .admin-sidebar {
+        width: 240px;
+    }
+
+    .admin-sidebar.collapsed {
+        width: 80px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .admin-layout {
+        flex-direction: column;
+    }
+
+    .admin-sidebar {
+        width: 100%;
+        height: auto;
+        min-height: auto;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        border-radius: 20px 20px 0 0;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+    }
+
+    .admin-sidebar.open {
+        transform: translateY(0);
+    }
+
+    .admin-sidebar.collapsed {
+        width: 100%;
+    }
+
+    .admin-main {
+        padding-bottom: 80px;
+    }
+
+    .admin-sidebar-toggle {
+        display: flex !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-page {
+        padding: 1rem;
+    }
+
+    .admin-tabs {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 0.5rem;
+    }
+
+    .admin-tab {
+        white-space: nowrap;
+        padding: 0.75rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .admin-table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -1rem;
+        padding: 0 1rem;
+    }
+
+    .admin-table {
+        min-width: 700px;
+    }
+
+    .admin-modal {
+        margin: 1rem;
+        max-width: calc(100% - 2rem);
+        max-height: calc(100vh - 2rem);
+    }
+
+    .admin-form {
+        padding: 1.5rem;
+    }
+
+    .admin-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-chart-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-modal {
+        margin: 0.5rem;
+        max-width: calc(100% - 1rem);
+        max-height: calc(100vh - 1rem);
+        border-radius: 16px;
+    }
+
+    .admin-form {
+        padding: 1.25rem;
+    }
+
+    .admin-form .form-grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-actions {
+        flex-direction: column;
+    }
+
+    .admin-actions .btn {
+        width: 100%;
+    }
+}
+
+/* Admin sidebar toggle button */
+.admin-sidebar-toggle {
+    display: none;
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-strong), var(--primary));
+    border: none;
+    color: #141a2e;
+    box-shadow: var(--shadow);
+    z-index: 99;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 1024px) {
+    .admin-sidebar-toggle {
+        display: flex !important;
+    }
+}
+
+/* ============================================================
+   GLOBAL UTILITIES
+   ============================================================ */
+
+/* Prevent horizontal scroll */
+html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+/* Ensure images and videos don't overflow */
+img, video, iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Touch target minimum size */
+button,
+a,
+input,
+select,
+textarea,
+[role="button"],
+[tabindex]:not([tabindex="-1"]) {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Focus visible for accessibility */
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    :root {
+        --border: rgba(255, 255, 255, 0.3);
+        --border-strong: rgba(255, 255, 255, 0.5);
+    }
+}
+
+/* Print styles */
+@media print {
+    .header,
+    .footer,
+    .btn,
+    .form-box,
+    .admin-sidebar,
+    .admin-navbar {
+        display: none !important;
+    }
+
+    body {
+        background: white !important;
+        color: black !important;
+    }
+
+    .card {
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
     }
 }
 
@@ -292,4 +1362,37 @@
     .auth-actions {
         grid-template-columns: 1fr;
     }
+}
+/* Keep decorative icons clear of editable text at every viewport size. */
+.auth-input-shell {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+}
+
+.auth-input-shell > svg,
+.auth-input-shell > span {
+    left: 1rem;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.auth-input-shell input {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 0.875rem 3.5rem 0.875rem 3.25rem !important;
+}
+
+.auth-input-shell .auth-icon-button {
+    right: 0.35rem;
+    z-index: 2;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0.5rem;
+}
+
+.auth-input-shell .auth-icon-button:focus-visible {
+    outline: 2px solid var(--primary, #f5b335);
+    outline-offset: 1px;
 }

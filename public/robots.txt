@@ -1,0 +1,17 @@
+# Royal HigherLife Christian Ministries - Robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://royal-higher-life-ag25.vercel.app/sitemap.xml
+
+# Disallow admin and private routes
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /login
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /reset-password
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 10

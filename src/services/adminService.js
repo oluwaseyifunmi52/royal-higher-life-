@@ -6,68 +6,120 @@ export const getDashboardStats = () =>
 
 // Sermons
 export const getSermons = () =>
-    api.get("/api/admin/sermons");
+    api.get("/api/sermons/admin/all");
 
 export const createSermon = (data) =>
-    api.post("/api/admin/sermons", data);
+    api.post("/api/sermons", data);
 
 export const updateSermon = (id, data) =>
-    api.put(`/api/admin/sermons/${id}`, data);
+    api.put(`/api/sermons/${id}`, data);
 
 export const deleteSermon = (id) =>
-    api.delete(`/api/admin/sermons/${id}`);
+    api.delete(`/api/sermons/${id}`);
 
 // Events
 export const getAdminEvents = () =>
-    api.get("/api/admin/events");
+    api.get("/api/events");
 
 export const createEvent = (data) =>
-    api.post("/api/admin/events", data);
+    api.post("/api/events", data);
 
 export const updateEvent = (id, data) =>
-    api.put(`/api/admin/events/${id}`, data);
+    api.put(`/api/events/${id}`, data);
 
 export const deleteEvent = (id) =>
-    api.delete(`/api/admin/events/${id}`);
+    api.delete(`/api/events/${id}`);
 
 // Ministries
 export const getMinistries = () =>
-    api.get("/api/admin/ministries");
+    api.get("/api/ministries");
 
 export const createMinistry = (data) =>
-    api.post("/api/admin/ministries", data);
+    api.post("/api/ministries", data);
 
 export const deleteMinistry = (id) =>
-    api.delete(`/api/admin/ministries/${id}`);
+    api.delete(`/api/ministries/${id}`);
 
 // Gallery
 export const getGalleryImages = () =>
-    api.get("/api/admin/gallery");
+    api.get("/api/gallery");
 
 export const uploadGalleryImage = (data) =>
-    api.post("/api/admin/gallery", data);
+    api.post("/api/gallery", data, { headers: { "Content-Type": "multipart/form-data" } });
 
 export const deleteGalleryImage = (id) =>
-    api.delete(`/api/admin/gallery/${id}`);
+    api.delete(`/api/gallery/${id}`);
 
 // Announcements
 export const getAnnouncements = () =>
-    api.get("/api/admin/announcements");
+    api.get("/api/announcements");
 
 export const createAnnouncement = (data) =>
-    api.post("/api/admin/announcements", data);
+    api.post("/api/announcements", data);
 
 export const deleteAnnouncement = (id) =>
-    api.delete(`/api/admin/announcements/${id}`);
+    api.delete(`/api/announcements/${id}`);
+
+// Testimonies
+export const getTestimonies = () =>
+    api.get("/api/reviews/admin/all");
+
+export const updateTestimony = (id, data) =>
+    api.put(`/api/reviews/${id}`, data);
+
+export const deleteTestimony = (id) =>
+    api.delete(`/api/reviews/${id}`);
+
+// Prayer Requests
+export const getPrayerRequests = () =>
+    api.get("/api/prayers");
+
+export const updatePrayerRequest = (id, data) =>
+    api.put(`/api/prayers/${id}`, data);
+
+export const deletePrayerRequest = (id) =>
+    api.delete(`/api/prayers/${id}`);
+
+// Contact Messages
+export const getContactMessages = () =>
+    api.get("/api/contacts");
+
+export const updateContactMessage = (id, data) =>
+    api.put(`/api/contacts/${id}`, data);
+
+export const retryContactNotification = (id) =>
+    api.post(`/api/contacts/${id}/retry-notification`);
+
+export const deleteContactMessage = (id) =>
+    api.delete(`/api/contacts/${id}`);
+
+// Leadership
+export const getLeadership = () =>
+    api.get("/api/leadership/admin/all");
+
+export const createLeadership = (data) =>
+    api.post("/api/leadership", data);
+
+export const updateLeadership = (id, data) =>
+    api.put(`/api/leadership/${id}`, data);
+
+export const deleteLeadership = (id) =>
+    api.delete(`/api/leadership/${id}`);
 
 // Donations
-export const getDonations = () =>
-    api.get("/api/admin/donations");
+export const getDonations = (params = {}) =>
+    api.get("/api/admin/donations", { params });
+export const createDonationCampaign = (data) => api.post("/api/admin/donations/campaigns", data);
+export const updateDonationCampaign = (id, data) => api.put(`/api/admin/donations/campaigns/${id}`, data);
+export const deactivateDonationCampaign = (id) => api.delete(`/api/admin/donations/campaigns/${id}`);
+export const getDonationCampaigns = () => api.get("/api/admin/donations/campaigns");
+export const getDonationAudit = () => api.get("/api/admin/donations/audit");
+export const resendDonationReceipt = (id) => api.post(`/api/admin/donations/${id}/resend-receipt`);
 
 // Users
 export const getUsers = () =>
-    api.get("/api/admin/users");
+    api.get("/api/users");
 
 // Contacts
 export const getContacts = () =>
-    api.get("/api/admin/contacts");
+    api.get("/api/contacts");

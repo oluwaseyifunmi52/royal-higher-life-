@@ -1,51 +1,23 @@
-import {
-    Home,
-    Heart,
-    Calendar,
-    Users,
-    Bell,
-    Settings,
-    LogOut,
-} from "lucide-react";
+import { CalendarDays, Heart, Home, Bell, Settings, LogOut, X, BookOpen } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const menu = [
-    { icon: Home, title: "Dashboard" },
-    { icon: Heart, title: "My Donations" },
-    { icon: Calendar, title: "Events" },
-    { icon: Users, title: "Prayer Requests" },
-    { icon: Bell, title: "Notifications" },
-    { icon: Settings, title: "Settings" },
+  { icon: Home, title: "Dashboard", target: "overview" },
+  { icon: Heart, title: "My Donations", target: "donations" },
+  { icon: CalendarDays, title: "Events", target: "events" },
+  { icon: BookOpen, title: "Prayer Requests", target: "prayer" },
+  { icon: Bell, title: "Notifications", target: "notifications" },
+  { icon: Settings, title: "Settings", target: "settings" },
 ];
 
-export default function Sidebar() {
-    return (
-        <aside className="w-72 min-h-screen bg-green-900 text-white p-6">
-
-            <h1 className="text-3xl font-bold mb-12">
-                Royal Higher Life
-            </h1>
-
-            <nav className="space-y-2">
-
-                {menu.map(({ icon: Icon, title }) => (
-
-                    <button
-                        key={title}
-                        className="w-full flex items-center gap-4 p-4 rounded-xl hover:bg-green-800 transition"
-                    >
-                        <Icon size={20} />
-                        {title}
-                    </button>
-
-                ))}
-
-            </nav>
-
-            <button className="mt-20 flex items-center gap-4 text-red-300 hover:text-white">
-                <LogOut />
-                Logout
-            </button>
-
-        </aside>
-    );
+export default function Sidebar({ onNavigate = () => {}, onLogout = () => {}, mobileOpen = false, onClose = () => {} }) {
+  return (
+    <aside className={`member-sidebar${mobileOpen ? " is-open" : ""}`} aria-label="Member navigation">
+      <div className="member-brand"><span className="member-brand-mark">RH</span><span><strong>Royal Higher Life</strong><small>Christian Ministries</small></span><button className="member-sidebar-close" onClick={onClose} aria-label="Close navigation"><X size={20} /></button></div>
+      <nav className="member-side-nav">
+        {menu.map(({ icon: Icon, title, target }, index) => <button key={title} className={index === 0 ? "is-active" : ""} onClick={() => onNavigate(target)}><Icon size={19} /><span>{title}</span>{title === "Notifications" && <span className="member-side-badge" aria-label="No unread notifications">0</span>}</button>)}
+      </nav>
+      <div className="member-side-bottom"><Link to="/" onClick={onClose}><Home size={18} />Back to website</Link><button onClick={onLogout}><LogOut size={18} />Logout</button></div>
+    </aside>
+  );
 }

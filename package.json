@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node generate-seo.js && vite build",
+    "test": "node --test src/utils/currency.test.js",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate-seo": "node generate-seo.js"
   },
   "dependencies": {
     "axios": "^1.18.1",
@@ -15,6 +17,7 @@
     "lucide-react": "^1.24.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
+    "react-helmet-async": "^2.0.5",
     "react-icons": "^5.7.0",
     "react-router-dom": "^7.18.1",
     "recharts": "^3.9.2"

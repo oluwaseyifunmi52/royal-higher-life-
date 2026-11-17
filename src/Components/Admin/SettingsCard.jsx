@@ -13,8 +13,10 @@ import {
     Bell,
     Shield,
 } from "lucide-react";
+import { CURRENCY_OPTIONS } from "../../utils/currency";
 
 export default function SettingsCard() {
+    const [feedback, setFeedback] = useState("");
     const [settings, setSettings] = useState({
         churchName: "Royal Higher Life Ministries",
         email: "info@royalhigherlife.org",
@@ -23,8 +25,6 @@ export default function SettingsCard() {
         currency: "NGN",
         timezone: "Africa/Lagos",
         language: "English",
-        paystack: true,
-        flutterwave: true,
         emailNotification: true,
         smsNotification: false,
         twoFactor: true,
@@ -40,7 +40,9 @@ export default function SettingsCard() {
     };
 
     const saveSettings = () => {
-        alert("Settings saved successfully!");
+        setFeedback(
+            "Display preferences are not persisted by this screen. Payment providers and donation currencies are configured securely on the server."
+        );
     };
 
     const resetSettings = () => {
@@ -175,10 +177,11 @@ export default function SettingsCard() {
                         onChange={handleChange}
                         className="w-full border rounded-xl px-4 py-3"
                     >
-                        <option>NGN</option>
-                        <option>USD</option>
-                        <option>EUR</option>
-                        <option>GBP</option>
+                        {CURRENCY_OPTIONS.map((currency) => (
+                            <option key={currency.code} value={currency.code}>
+                                {currency.code} — {currency.name}
+                            </option>
+                        ))}
                     </select>
 
                 </div>
@@ -275,55 +278,49 @@ export default function SettingsCard() {
                     </label>
 
                     <label className="flex justify-between items-center">
-
-                        <span>Paystack</span>
-
-                        <input
-                            type="checkbox"
-                            name="paystack"
-                            checked={settings.paystack}
-                            onChange={handleChange}
-                        />
-
-                    </label>
-
-                    <label className="flex justify-between items-center">
-
-                        <span>Flutterwave</span>
-
-                        <input
-                            type="checkbox"
-                            name="flutterwave"
-                            checked={settings.flutterwave}
-                            onChange={handleChange}
-                        />
-
+                        <span className="flex gap-2 items-center">
+                            <CreditCard size={18} />
+                            Payment providers
+                        </span>
+                        <span className="text-sm text-gray-500">
+                            Configured server-side
+                        </span>
                     </label>
 
                 </div>
+                <p className="mt-4 text-sm text-gray-500">
+                    Donation currencies and payment providers are enabled only through secure
+                    server environment variables. Secret keys are never sent to the browser.
+                </p>
 
             </div>
 
             {/* Footer */}
 
-            <div className="border-t p-6 flex justify-end gap-4">
-
-                <button
-                    onClick={resetSettings}
-                    className="flex items-center gap-2 px-6 py-3 rounded-xl border hover:bg-gray-100 transition"
-                >
-                    <RotateCcw size={18} />
-                    Reset
-                </button>
-
-                <button
-                    onClick={saveSettings}
-                    className="flex items-center gap-2 px-6 py-3 bg-green-700 hover:bg-green-800 text-white rounded-xl transition"
-                >
-                    <Save size={18} />
-                    Save Settings
-                </button>
-
+            <div className="border-t p-6 flex flex-wrap items-center justify-between gap-4">
+                {feedback ? (
+                    <p role="status" className="text-sm text-gray-600">
+                        {feedback}
+                    </p>
+                ) : (
+                    <span />
+                )}
+                <div className="flex gap-4">
+                    <button
+                        onClick={resetSettings}
+                        className="flex items-center gap-2 px-6 py-3 rounded-xl border hover:bg-gray-100 transition"
+                    >
+                        <RotateCcw size={18} />
+                        Reset
+                    </button>
+                    <button
+                        onClick={saveSettings}
+                        className="flex items-center gap-2 px-6 py-3 bg-green-700 hover:bg-green-800 text-white rounded-xl transition"
+                    >
+                        <Save size={18} />
+                        Save Preferences
+                    </button>
+                </div>
             </div>
         </motion.div>
     );

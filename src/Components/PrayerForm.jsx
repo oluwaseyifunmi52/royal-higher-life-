@@ -11,11 +11,15 @@ export default function PrayerForm() {
         setStatus({ type: "loading", text: "Submitting prayer request..." });
 
         try {
-            await sendPrayerRequest(Object.fromEntries(new FormData(form)));
+            const response = await sendPrayerRequest(Object.fromEntries(new FormData(form)));
+            const result = response.data?.data;
             form.reset();
-            setStatus({ type: "success", text: "Prayer request submitted successfully." });
+            setStatus({
+                type: "success",
+                text: `Your confidential prayer request was received. Reference: ${result?.reference || "received"}.${response.data?.emailNotificationsSent === false ? " Email delivery could not be confirmed, but the request was saved." : ""}`,
+            });
         } catch (error) {
-            setStatus({ type: "error", text: error.response?.data?.message || error.message || "Failed to submit prayer request." });
+            setStatus({ type: "error", text: error.response?.data?.message || "We could not submit your prayer request. Check your connection and try again." });
         }
     }
 
@@ -41,7 +45,7 @@ export default function PrayerForm() {
             </div>
             <div className="input-group">
                 <label htmlFor="prayerPhone">Phone Number</label>
-                <input id="prayerPhone" name="phone" placeholder="+234 Phone Number" required type="tel" />
+                <input id="prayerPhone" name="phone" placeholder="+234 Phone Number (optional)" type="tel" />
             </div>
             <div className="input-group prayer-box">
                 <label htmlFor="prayer">Prayer Request</label>

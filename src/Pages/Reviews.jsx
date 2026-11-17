@@ -1,65 +1,48 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ReviewCard from "../Components/Cards/ReviewCard.jsx";
-import { saveReview } from "../services/reviewService.js";
+import TestimonyForm from "../Components/TestimonyForm.jsx";
+import { getPublicReviews } from "../services/publicContentService.js";
 
 export default function Reviews() {
-    const [rating, setRating] = useState(0);
     const [reviews, setReviews] = useState([]);
-    const [status, setStatus] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
-    async function handleSubmit(event) {
-        event.preventDefault();
-
-        const form = event.currentTarget;
-        const data = Object.fromEntries(new FormData(form));
-        const review = { name: data.name, message: data.comment, rating: rating || 5 };
-
-        setStatus({ type: "loading", text: "Submitting review..." });
-
+    const loadReviews = useCallback(async () => {
+        setLoading(true);
+        setError("");
         try {
-            await saveReview(review);
-            setReviews((items) => [...items, { name: data.name, comment: data.comment, rating: rating || 5 }]);
-            setRating(0);
-            form.reset();
-            setStatus({ type: "success", text: "Thank you! Your review has been submitted." });
-        } catch (error) {
-            setStatus({ type: "error", text: error.response?.data?.message || error.message || "Failed to submit review." });
+            const response = await getPublicReviews();
+            const entries = response.data?.data;
+            if (!Array.isArray(entries)) throw new Error("The testimony response was invalid.");
+            setReviews(entries);
+        } catch {
+            setError("Approved testimonies are temporarily unavailable. Please try again.");
+        } finally {
+            setLoading(false);
         }
-    }
+    }, []);
+
+    useEffect(() => { loadReviews(); }, [loadReviews]);
 
     return (
         <section className="review-section">
-            <h2>Leave a Comment & Rating</h2>
-            <form id="reviewForm" onSubmit={handleSubmit}>
-                <input name="name" placeholder="Your Name" required type="text" />
-                <textarea name="comment" placeholder="Write your comment..." required />
-                <div className="stars" id="starRating">
-                    {[1, 2, 3, 4, 5].map((value) => (
-                        <button
-                            aria-label={`${value} star rating`}
-                            className={value <= rating ? "active" : ""}
-                            key={value}
-                            onClick={() => setRating(value)}
-                            type="button"
-                        >
-                            ★
-                        </button>
-                    ))}
-                </div>
-                <button type="submit" disabled={status?.type === "loading"}>
-                    {status?.type === "loading" ? "Submitting..." : "Submit Review"}
-                </button>
-            </form>
-            {status && (
-                <p className={`form-status ${status.type}`} role="status" aria-live="polite">
-                    {status.text}
-                </p>
-            )}
-            <div id="reviewsContainer">
-                {reviews.map((review, index) => (
-                    <ReviewCard key={`${review.name}-${index}`} {...review} />
-                ))}
+            <h2>Testimonies & Reviews</h2>
+            <div id="reviewsContainer" aria-live="polite">
+                {loading ? <p role="status">Loading approved testimonies…</p> : error ? (
+                    <div role="alert">
+                        <p>{error}</p>
+                        <button type="button" onClick={loadReviews}>Retry</button>
+                    </div>
+                ) : reviews.length === 0 ? (
+                    <p>No testimonies available yet.</p>
+                ) : (
+                    reviews.map((review) => (
+                        <ReviewCard key={review._id || review.reference} {...review} comment={review.message} />
+                    ))
+                )}
             </div>
+            <TestimonyForm />
         </section>
     );
 }

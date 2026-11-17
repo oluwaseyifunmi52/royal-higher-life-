@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Navigate, useLocation } from "react-router-dom";
+import api from "../../api/axios";
 
 const AdminRoute = ({ children }) => {
     const token = localStorage.getItem("token");
@@ -13,15 +14,11 @@ const AdminRoute = ({ children }) => {
             return;
         }
 
-        const API_URL =
-            import.meta.env.VITE_API_URL || "https://royal-higher-life-backend-4.onrender.com";
-
-        fetch(`${API_URL}/api/auth/profile`, {
-            headers: { Authorization: `Bearer ${token}` },
+        api.get("/api/auth/profile", {
+            headers: { Authorization: `Bearer ${token}` }
         })
-            .then((res) => res.json())
-            .then((data) => {
-                setIsAdmin(data.user?.role === "admin");
+            .then((response) => {
+                setIsAdmin(response.data?.success ? response.data.user?.role === "admin" : false);
             })
             .catch(() => {
                 setIsAdmin(false);

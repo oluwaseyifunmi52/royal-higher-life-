@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { registerUser } from "../services/authApi";
+import { getAuthErrorMessage } from "../services/authErrorMessage";
 import {
     FaEnvelope,
     FaEye,
@@ -28,6 +29,7 @@ const initialForm = {
 };
 
 export default function Register() {
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
     const [status, setStatus] = useState("");
@@ -74,7 +76,7 @@ export default function Register() {
         setStatus("");
 
         try {
-            await registerUser({
+            const response = await registerUser({
                 firstName: form.firstName,
                 lastName: form.lastName,
                 email: form.email,
@@ -86,13 +88,11 @@ export default function Register() {
                 password: form.password,
                 confirmPassword: form.password,
             });
-            setStatus("Account created successfully! You can now sign in.");
-            setForm(initialForm);
+            navigate(`/verify-email?email=${encodeURIComponent(form.email)}`, {
+                state: { verificationEmailSent: response.data?.verificationEmailSent },
+            });
         } catch (err) {
-            setStatus(
-                err.response?.data?.message ||
-                "Registration failed. Please check your details and try again."
-            );
+            setStatus(getAuthErrorMessage(err, "register"));
         } finally {
             setLoading(false);
         }
@@ -133,7 +133,7 @@ export default function Register() {
                         <AuthInput
                             id="register-first-name"
                             icon={<FaUser />}
-                            label="First name"
+                            label="First Name"
                             name="firstName"
                             placeholder="First Name"
                             value={form.firstName}
@@ -144,7 +144,7 @@ export default function Register() {
                         <AuthInput
                             id="register-last-name"
                             icon={<FaUser />}
-                            label="Last name"
+                            label="Last Name"
                             name="lastName"
                             placeholder="Last Name"
                             value={form.lastName}
@@ -157,7 +157,7 @@ export default function Register() {
                     <AuthInput
                         id="register-email"
                         icon={<FaEnvelope />}
-                        label="Email address"
+                        label="Email Address"
                         type="email"
                         name="email"
                         placeholder="Email Address"
@@ -170,7 +170,7 @@ export default function Register() {
                     <AuthInput
                         id="register-phone"
                         icon={<FaPhone />}
-                        label="Phone number"
+                        label="Phone Number"
                         type="tel"
                         name="phone"
                         placeholder="Phone Number"
@@ -232,7 +232,7 @@ export default function Register() {
                         />
                         <PasswordInput
                             id="register-confirm-password"
-                            label="Confirm password"
+                            label="Confirm Password"
                             name="confirmPassword"
                             placeholder="Confirm Password"
                             value={form.confirmPassword}

@@ -9,6 +9,7 @@ import {
   resetPassword,
   verifyEmail,
   resendOTP,
+  refreshToken,
 } from '../controllers/authController.js';
 import auth from '../middleware/auth.js';
 
@@ -23,5 +24,6 @@ router.post('/forgot-password', forgotPassword);
 router.post('/reset-password', resetPassword);
 router.post('/verify-email', auth, verifyEmail);
 router.post('/resend-otp', auth, resendOTP);
+router.post('/refresh-token', refreshToken);
 
 export default router;

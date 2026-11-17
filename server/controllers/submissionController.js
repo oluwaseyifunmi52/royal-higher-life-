@@ -1,6 +1,5 @@
 import Contact from '../models/Contact.js';
 import Prayer from '../models/Prayer.js';
-import Donation from '../models/Donation.js';
 import Review from '../models/Review.js';
 import Newsletter from '../models/Newsletter.js';
 import Testimony from '../models/Testimony.js';
@@ -41,21 +40,7 @@ export const createPrayer = async (req, res) => {
   }
 };
 
-// 3. Donation
-export const createDonation = async (req, res) => {
-  try {
-    const { firstName, lastName, email, amount, currency, payment } = req.body;
-
-    if (!firstName || !lastName || !email || !amount || !currency || !payment) {
-      return res.status(400).json({ success: false, message: 'All required fields must be provided' });
-    }
-
-    const donation = await Donation.create(req.body);
-    res.status(201).json({ success: true, data: donation });
-  } catch (error) {
-    res.status(500).json({ success: false, message: 'Server error', error: error.message });
-  }
-};
+// 3. Donations are handled by the payment-aware donation controller.
 
 // 4. Review
 export const createReview = async (req, res) => {

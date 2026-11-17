@@ -7,5 +7,6 @@ export const sendContactMessage = (data) => {
     return api.post("/api/contacts", {
         ...data,
         name,
+        submissionKey: data.submissionKey,
     });
 };
