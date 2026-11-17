@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import asset from "../assets/royal 3.jpeg";
 import SEO from "../Components/SEO.jsx";
 
 export default function About() {
@@ -11,7 +10,7 @@ export default function About() {
                 url="/about"
                 type="website"
             />
-            
+
             <section className="about-section" id="intro">
                 <div className="container">
                     <div className="page-header">
@@ -150,6 +149,17 @@ export default function About() {
                     {/* Founder */}
                     <article className="card" id="founder">
                         <h2>Founder</h2>
+                        <div className="founder-image">
+                            <img 
+                                src="../assets/school 4.jpeg" 
+                                alt="Royal Higherlife Founder" 
+                                loading="lazy"
+                                onError={(event) => { 
+                                    event.currentTarget.onerror = null; 
+                                    event.currentTarget.src = "../assets/royal3.jpeg"; 
+                                }} 
+                            />
+                        </div>
                         <p>
                             The ministry was founded by a passionate servant of God with a burden to reach souls and raise disciples
                             for Christ. Beginning with a small group of children, the outreach has grown into active evangelism
