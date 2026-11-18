@@ -117,6 +117,7 @@ export default function DonationForm() {
         () => new Set(currencies.filter((item) => item.available).map((item) => item.code)),
         [currencies]
     );
+    const hasAvailableCurrency = availableCurrencyCodes.size > 0;
     const presets = activeCurrency?.presets || [];
     const amountNumber = Number(form.amount);
     const selectedCampaign =
@@ -135,6 +136,8 @@ export default function DonationForm() {
 
     function handleCurrencyChange(event) {
         const code = event.target.value;
+        const selected = currencies.find((item) => item.code === code);
+        const unavailable = Boolean(selected && selected.availability !== "available");
         setForm((current) => {
             const campaign = campaigns.find((item) => item._id === current.campaignId);
             const keepCampaign = Boolean(campaign && campaign.currency === code);
@@ -145,7 +148,18 @@ export default function DonationForm() {
                 campaignId: keepCampaign ? current.campaignId : "",
             };
         });
-        setStatus(null);
+        setStatus(
+            unavailable
+                ? {
+                      type: "error",
+                      text: `${code} is currently unavailable for online donations. ${
+                          selected?.unavailableReason ||
+                          selected?.reason ||
+                          "No eligible payment provider is configured."
+                      }`,
+                  }
+                : null
+        );
     }
 
     function selectPreset(amount) {
@@ -213,10 +227,12 @@ export default function DonationForm() {
         event.preventDefault();
         if (loading || loadingCurrencies) return;
 
-        if (!selectedCurrency || selectedCurrency.availability === "unavailable") {
+        if (!selectedCurrency || selectedCurrency.availability !== "available") {
             setStatus({
                 type: "error",
-                text: "Choose a currency that is available for online giving before continuing.",
+                text: selectedCurrency?.unavailableReason ||
+                    selectedCurrency?.reason ||
+                    "Choose a currency that is available for online giving before continuing.",
             });
             return;
         }
@@ -452,6 +468,7 @@ export default function DonationForm() {
                                 onChange={handleCurrencyChange}
                                 required
                                 aria-busy={loadingCurrencies}
+                                aria-describedby="currency-help"
                             >
                                 <option value="" disabled>
                                     Select currency
@@ -459,12 +476,25 @@ export default function DonationForm() {
                                 {currencies.map((currency) => {
                                     const availability = currency.availability || (currency.available ? "available" : "unavailable");
                                     const isAvailable = availability === "available";
+                                    const isUnavailable = availability === "unavailable";
                                     const isUnknown = availability === "unknown";
+                                    const unavailableReason =
+                                        currency.unavailableReason ||
+                                        currency.reason ||
+                                        "No eligible payment provider is configured.";
+                                    // Keep unsupported options disabled when a payable
+                                    // alternative exists. When every option is unavailable,
+                                    // leave the native control openable for review only;
+                                    // submission is still blocked by the availability guard.
+                                    const disableOption = isUnavailable && hasAvailableCurrency;
                                     return (
                                         <option
                                             key={currency.code}
                                             value={currency.code}
-                                            disabled={availability === "unavailable"}
+                                            disabled={disableOption}
+                                            aria-disabled={isUnavailable || undefined}
+                                            data-availability={availability}
+                                            title={isUnavailable ? unavailableReason : undefined}
                                             style={{
                                                 color: isAvailable
                                                     ? "var(--text)"
@@ -475,12 +505,21 @@ export default function DonationForm() {
                                             {isUnknown
                                                 ? " — Verification pending; selectable and checked again before payment"
                                                 : !isAvailable
-                                                    ? ` — Unavailable: ${currency.unavailableReason || currency.reason}`
+                                                    ? ` — Unavailable: ${unavailableReason}`
                                                     : ""}
                                         </option>
                                     );
                                 })}
                             </select>
+                            <small className="field-hint" id="currency-help">
+                                {loadingCurrencies
+                                    ? "Checking which currencies have a configured payment provider…"
+                                    : currencyError
+                                        ? "Currency availability could not be verified. Review the error below and retry."
+                                        : hasAvailableCurrency
+                                            ? "Only currencies with a configured payment provider can be used for online giving."
+                                            : "All currencies are currently unavailable for online giving. The list can be opened for review, but payment is blocked until a payment provider is configured."}
+                            </small>
                         </div>
                         <div className="field-group">
                             <label className="field-label" htmlFor="amount">
@@ -488,7 +527,7 @@ export default function DonationForm() {
                             </label>
                             <div className="amount-input-wrap">
                                 <span className="amount-currency-symbol" aria-hidden="true">
-                                    {activeCurrency?.symbol || currencySymbol(form.currency)}
+                                    {selectedCurrency?.symbol || currencySymbol(form.currency)}
                                 </span>
                                 <input
                                     id="amount"
@@ -509,14 +548,16 @@ export default function DonationForm() {
                                 </span>
                             </div>
                             <small className="field-hint" id="amount-help">
-                                {selectedCurrency
+                                {activeCurrency
                                     ? `Minimum ${formatCurrency(
-                                          selectedCurrency.minimum,
-                                          selectedCurrency.code
-                                      )}. You are charged in ${selectedCurrency.code}.`
-                                    : availableCurrencyCodes.size > 0
-                                      ? "Choose an available currency above to see the amount limits."
-                                      : "Online giving is currently unavailable. Contact the church office."
+                                          activeCurrency.minimum,
+                                          activeCurrency.code
+                                      )}. You are charged in ${activeCurrency.code}.`
+                                    : selectedCurrency
+                                        ? `${selectedCurrency.code} is currently unavailable for online giving. Payment cannot continue in this currency.`
+                                        : hasAvailableCurrency
+                                            ? "Choose an available currency above to see the amount limits."
+                                            : "Online giving is currently unavailable. Contact the church office."
                                 }
                             </small>
                         </div>
@@ -666,10 +707,11 @@ export default function DonationForm() {
                                 </button>
                             </div>
                         )}
-                        {!loadingCurrencies && !currencyError && availableCurrencyCodes.size === 0 && (
+                        {!loadingCurrencies && !currencyError && !hasAvailableCurrency && (
                             <p className="donation-status info" role="status">
                                 All nine currencies are listed, but no eligible payment provider is currently
-                                available. Contact the church office to enable online giving.
+                                available. You can open the list to review them, but online giving is blocked
+                                until a payment provider is configured. Contact the church office.
                             </p>
                         )}
 
@@ -678,7 +720,7 @@ export default function DonationForm() {
                             whileHover={{ scale: loading ? 1 : 1.01 }}
                             whileTap={{ scale: loading ? 1 : 0.98 }}
                             className="donate-btn"
-                            disabled={loading || loadingCurrencies || !selectedCurrency || selectedCurrency.availability === "unavailable"}
+                            disabled={loading || loadingCurrencies || !activeCurrency}
                         >
                             {loading ? "Starting secure checkout…" : "Continue to Secure Payment"}
                         </motion.button>

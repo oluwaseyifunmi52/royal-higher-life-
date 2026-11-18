@@ -15,7 +15,7 @@ export default function PartnershipForm() {
             form.reset();
             setStatus({ type: "success", text: "Thank you for your partnership interest! We will contact you soon." });
         } catch (error) {
-            setStatus({ type: "error", text: error.message });
+            setStatus({ type: "error", text: error.response?.data?.message || error.message || "Failed to submit partnership request." });
         }
     }
 
@@ -43,14 +43,14 @@ export default function PartnershipForm() {
             <div className="input-group">
                 <label htmlFor="partnerType">Partnership Type</label>
                 <select id="partnerType" name="partnershipType" required defaultValue="">
-                    <option value="" disabled>
-                        -- Select Partnership Type --
-                    </option>
-                    <option>Financial</option>
-                    <option>Strategic</option>
-                    <option>Community</option>
-                    <option>Media</option>
-                    <option>Other</option>
+                            <option value="" disabled>
+                                -- Select Partnership Type --
+                            </option>
+                            <option value="financial">Financial</option>
+                            <option value="outreach">Strategic</option>
+                            <option value="outreach">Community</option>
+                            <option value="media">Media</option>
+                            <option value="other">Other</option>
                 </select>
             </div>
             <div className="input-group prayer-box">

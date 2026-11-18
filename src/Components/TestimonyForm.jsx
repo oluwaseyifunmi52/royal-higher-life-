@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createTestimony } from "../services/testimonyService.js";
+import { saveReview } from "../services/reviewService.js";
 
 export default function TestimonyForm() {
     const [status, setStatus] = useState(null);
@@ -11,7 +11,7 @@ export default function TestimonyForm() {
         setStatus({ type: "loading", text: "Submitting testimony..." });
 
         try {
-            const response = await createTestimony(Object.fromEntries(new FormData(form)));
+            const response = await saveReview(Object.fromEntries(new FormData(form)));
             const result = response.data?.data;
             form.reset();
             setStatus({
@@ -50,7 +50,7 @@ export default function TestimonyForm() {
                 <label htmlFor="testimony">Your Testimony</label>
                 <textarea
                     id="testimony"
-                    name="testimony"
+                    name="message"
                     placeholder="Share your testimony here..."
                     required
                     rows="6"
