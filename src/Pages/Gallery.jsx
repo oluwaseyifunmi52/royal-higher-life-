@@ -25,7 +25,36 @@ const getBundledGalleryImages = () => [
     { _id: "local-17", title: "Prayer Time", image: asset("new6.jpeg"), category: "Prayer" },
     { _id: "local-18", title: "Royal Higher Life School", image: asset("school 4.jpeg"), category: "School" },
     { _id: "local-19", title: "Learning and School Activities", image: asset("school 5.jpeg"), category: "School" },
+    { _id: "local-20", title: "Agodi Correctional Service, Oyo State, Nigeria", image: asset("royal1.jpeg"), category: "Correctional Home" },
+    { _id: "local-21", title: "Agoue, Benin Republic", image: asset("royal3 (1).jpeg"), category: "Correctional Home" },
+    { _id: "local-22", title: "Some Members at Agoua", image: asset("RoyalLove.jpeg"), category: "Royal Workers" },
 ];
+
+// Merge API images with bundled images while avoiding duplicate IDs and filenames.
+const mergeGalleryImages = (apiImages, bundledImages) => {
+    const filenameOf = (img) => {
+        const src = String(img.image || img.imageUrl || "");
+        const cleanSrc = src.split(/[?#]/)[0];
+        const segments = cleanSrc.split(/[\/\\]+/).filter(Boolean);
+        return (segments[segments.length - 1] || "").toLowerCase();
+    };
+
+    const displayedImages = [...bundledImages];
+    const seenIds = new Set(bundledImages.map((img) => String(img._id || img.id || "")).filter(Boolean));
+    const seenFilenames = new Set(bundledImages.map(filenameOf).filter(Boolean));
+
+    for (const item of apiImages) {
+        if (!item || typeof item !== "object") continue;
+        const id = String(item._id || item.id || "");
+        const filename = filenameOf(item);
+        if ((id && seenIds.has(id)) || (filename && seenFilenames.has(filename))) continue;
+        displayedImages.push(item);
+        if (id) seenIds.add(id);
+        if (filename) seenFilenames.add(filename);
+    }
+
+    return displayedImages;
+};
 
 export default function Gallery() {
     const [images, setImages] = useState([]);
@@ -44,7 +73,9 @@ export default function Gallery() {
         try {
             const res = await getPublicGallery();
             const data = Array.isArray(res?.data?.data) ? res.data.data : [];
-            const displayedImages = data.length > 0 ? data : getBundledGalleryImages();
+            const imageData = data.filter((item) => !item.mediaType || item.mediaType === "image");
+            const bundledImages = getBundledGalleryImages();
+            const displayedImages = mergeGalleryImages(imageData, bundledImages);
             setImages(displayedImages);
             
             // Extract unique categories
