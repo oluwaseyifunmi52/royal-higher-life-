@@ -1,141 +1,46 @@
 import { useState } from "react";
-import { createAnnouncement } from "../../services/adminService";
+import { createAnnouncement, updateAnnouncement } from "../../services/adminService";
 
-const INITIAL_STATE = {
-  title: "",
-  content: "",
-  priority: "medium",
-};
+const initial = { title: "", content: "", priority: "normal", targetAudience: "all", imageUrl: "", isPublished: true, publishAt: "" };
 
-export default function AdminAnnouncementForm({ onClose }) {
-  const [formData, setFormData] = useState(INITIAL_STATE);
+export default function AdminAnnouncementForm({ announcement, onClose, onSaved }) {
+  const [formData, setFormData] = useState({ ...initial, ...(announcement || {}), content: announcement?.content || announcement?.message || "", publishAt: announcement?.publishAt?.slice?.(0, 16) || "" });
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
+  const isEdit = Boolean(announcement?._id);
+  const change = (event) => setFormData((prev) => ({ ...prev, [event.target.name]: event.target.type === "checkbox" ? event.target.checked : event.target.value }));
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const validate = () => {
-    if (!formData.title.trim()) return "Title is required";
-    if (!formData.content.trim()) return "Content is required";
-    return "";
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const validationError = validate();
-    if (validationError) {
-      setError(validationError);
-      return;
-    }
-
-    setStatus("loading");
-    setError("");
-
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!formData.title.trim() || !formData.content.trim()) { setError("Title and content are required."); return; }
+    setStatus("loading"); setError("");
     try {
-      await createAnnouncement(formData);
+      const payload = { ...formData, publishAt: formData.publishAt || null };
+      if (isEdit) await updateAnnouncement(announcement._id, payload);
+      else await createAnnouncement(payload);
       setStatus("success");
-      setTimeout(() => onClose(), 1200);
-    } catch (err) {
-      setStatus("error");
-      setError(err.response?.data?.message || "Something went wrong");
-    }
+      await onSaved?.();
+      onClose();
+    } catch (err) { setStatus("error"); setError(err.response?.data?.message || "Announcement could not be saved."); }
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between p-6 border-b">
-          <h2 className="text-xl font-bold text-gray-900">
-            New Announcement
-          </h2>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 text-2xl leading-none"
-          >
-            &times;
-          </button>
-        </div>
-
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          {status === "success" && (
-            <div className="bg-green-50 text-green-700 p-3 rounded-lg text-sm">
-              Announcement created successfully!
-            </div>
-          )}
-
-          {error && status !== "success" && (
-            <div className="bg-red-50 text-red-700 p-3 rounded-lg text-sm">
-              {error}
-            </div>
-          )}
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Title *
-            </label>
-            <input
-              type="text"
-              name="title"
-              value={formData.title}
-              onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-              placeholder="Enter announcement title"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Content *
-            </label>
-            <textarea
-              name="content"
-              value={formData.content}
-              onChange={handleChange}
-              rows={5}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none resize-none"
-              placeholder="Write your announcement..."
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Priority
-            </label>
-            <select
-              name="priority"
-              value={formData.priority}
-              onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-            >
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-            </select>
-          </div>
-
-          <div className="flex gap-3 pt-4 border-t">
-            <button
-              type="button"
-              onClick={onClose}
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors font-medium"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={status === "loading"}
-              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {status === "loading"
-                ? "Publishing..."
-                : "Publish Announcement"}
-            </button>
-          </div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+      <section className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl bg-white p-6 shadow-xl" role="dialog" aria-modal="true" aria-labelledby="announcement-title">
+        <div className="mb-5 flex items-center justify-between"><h2 id="announcement-title" className="text-xl font-bold text-slate-900">{isEdit ? "Edit announcement" : "New announcement"}</h2><button type="button" onClick={onClose} className="min-h-11 min-w-11 text-2xl" aria-label="Close">&times;</button></div>
+        {error && <p role="alert" className="mb-4 rounded bg-red-50 p-3 text-sm text-red-700">{error}</p>}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <label className="block text-sm font-medium">Title<input name="title" value={formData.title} onChange={change} className="mt-1 w-full rounded border p-3" required /></label>
+          <label className="block text-sm font-medium">Content<textarea name="content" value={formData.content} onChange={change} rows={5} className="mt-1 w-full rounded border p-3" required /></label>
+          <label className="block text-sm font-medium">Priority<select name="priority" value={formData.priority} onChange={change} className="mt-1 w-full rounded border p-3"><option value="low">Low</option><option value="normal">Normal</option><option value="high">High</option><option value="urgent">Urgent</option></select></label>
+          <label className="block text-sm font-medium">Audience<select name="targetAudience" value={formData.targetAudience} onChange={change} className="mt-1 w-full rounded border p-3"><option value="all">Everyone</option><option value="members">Members</option><option value="volunteers">Volunteers</option><option value="partners">Partners</option></select></label>
+          <label className="block text-sm font-medium">Related image URL (upload in the Media Library and copy its URL)<input type="url" name="imageUrl" value={formData.imageUrl || ""} onChange={change} className="mt-1 w-full rounded border p-3" /></label>
+          <label className="block text-sm font-medium">Schedule (optional)<input type="datetime-local" name="publishAt" value={formData.publishAt || ""} onChange={change} className="mt-1 w-full rounded border p-3" /></label>
+          <label className="flex items-center gap-2 text-sm"><input type="checkbox" name="isPublished" checked={Boolean(formData.isPublished)} onChange={change} />Published (turn off to save as draft)</label>
+          {status === "success" && <p role="status" className="text-sm text-green-700">Announcement saved.</p>}
+          <div className="flex justify-end gap-3 border-t pt-4"><button type="button" onClick={onClose} className="min-h-11 rounded border px-4">Cancel</button><button type="submit" disabled={status === "loading"} className="min-h-11 rounded bg-blue-700 px-4 font-semibold text-white disabled:opacity-60">{status === "loading" ? "Saving…" : "Save announcement"}</button></div>
         </form>
-      </div>
+      </section>
     </div>
   );
 }

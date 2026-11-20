@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CalendarDays, HeartHandshake, MessageSquare, Users } from "lucide-react";
+import { CalendarDays, HeartHandshake, MessageSquare, Users, BookOpen, Images, Video, HandHeart, Mail, Building2, Star, CreditCard } from "lucide-react";
 import { getDashboardStats } from "../../services/adminService";
 import { formatCurrency } from "../../utils/currency";
 
@@ -31,7 +31,7 @@ export default function DashboardStats() {
 
     const cards = [
         {
-            label: "Members",
+            label: "Website users",
             value: stats ? Number(stats.members ?? stats.users ?? 0).toLocaleString() : "—",
             Icon: Users,
         },
@@ -50,11 +50,22 @@ export default function DashboardStats() {
             value: stats ? Number(stats.contacts || 0).toLocaleString() : "—",
             Icon: MessageSquare,
         },
+        { label: "Published sermons", value: stats ? Number(stats.publishedSermons || 0).toLocaleString() : "—", Icon: BookOpen },
+        { label: "Upcoming events", value: stats ? Number(stats.upcomingEvents || 0).toLocaleString() : "—", Icon: CalendarDays },
+        { label: "Published testimonies", value: stats ? Number(stats.publishedTestimonials || 0).toLocaleString() : "—", Icon: Star },
+        { label: "Gallery pictures", value: stats ? Number(stats.galleryImages || 0).toLocaleString() : "—", Icon: Images },
+        { label: "Gallery videos", value: stats ? Number(stats.galleryVideos || 0).toLocaleString() : "—", Icon: Video },
+        { label: "Volunteer applications", value: stats ? Number(stats.volunteerApplications || 0).toLocaleString() : "—", Icon: HandHeart },
+        { label: "Prayer requests", value: stats ? Number(stats.prayerRequests || 0).toLocaleString() : "—", Icon: HeartHandshake },
+        { label: "Partnership enquiries", value: stats ? Number(stats.partnershipApplications || 0).toLocaleString() : "—", Icon: Building2 },
+        { label: "Newsletter subscribers", value: stats ? Number(stats.newsletterSubscribers || 0).toLocaleString() : "—", Icon: Mail },
+        { label: "Pending payments", value: stats ? Number(stats.pendingDonations || 0).toLocaleString() : "—", Icon: CreditCard },
+        { label: "Failed payments", value: stats ? Number(stats.failedDonations || 0).toLocaleString() : "—", Icon: CreditCard },
     ];
 
     return (
         <section aria-label="Ministry dashboard statistics">
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
                 {cards.map(({ label, value, Icon }) => (
                     <article
                         key={label}

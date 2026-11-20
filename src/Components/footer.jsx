@@ -1,17 +1,20 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getPublicSiteContent } from "../services/publicContentService";
 import {
-    FaFacebookF,
-    FaInstagram,
     FaYoutube,
     FaWhatsapp,
     FaEnvelope,
     FaPhone,
     FaMapMarkerAlt
 } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
 
 import MinistriesLogo from "../assets/royal logo.jpeg";
 export default function Footer() {
     const currentYear = new Date().getFullYear();
+    const [siteContent, setSiteContent] = useState({});
+    useEffect(() => { getPublicSiteContent().then((response) => setSiteContent(response.data?.data || {})).catch(() => {}); }, []);
 
     const quickLinks = [
         { label: "Home", to: "/" },
@@ -34,10 +37,10 @@ export default function Footer() {
     ];
 
     const contactInfo = {
-        email: "royalhigherlifeoutreach@gmail.com",
-        phone: "+234 9157754411",
-        whatsapp: "2349157754411",
-        address: "Ibadan, Oyo State, Nigeria",
+        email: siteContent.email || "royalhigherlifeoutreach@gmail.com",
+        phone: siteContent.phone || "+234 9157754411",
+        whatsapp: (siteContent.phone || "+234 9157754411").replace(/\D/g, ""),
+        address: siteContent.address || "Ibadan, Oyo State, Nigeria",
     };
 
     return (
@@ -54,31 +57,11 @@ export default function Footer() {
                         <span>Royal Higher Life</span>
                     </div>
                     <p className="footer-tagline">
-                        Empowering lives through faith, outreach, and impact. 
-                        Committed to spreading the Gospel of Jesus Christ and raising 
-                        a generation to live a higher life in Him.
+                        {siteContent.footerDescription || "Empowering lives through faith, outreach, and impact. Committed to spreading the Gospel of Jesus Christ and raising a generation to live a higher life of holiness in Christ."}
                     </p>
                     <div className="footer-social">
                         <a 
-                            href="https://facebook.com" 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            aria-label="Follow us on Facebook"
-                            className="social-link facebook"
-                        >
-                            <FaFacebookF aria-hidden="true" />
-                        </a>
-                        <a 
-                            href="https://instagram.com" 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            aria-label="Follow us on Instagram"
-                            className="social-link instagram"
-                        >
-                            <FaInstagram aria-hidden="true" />
-                        </a>
-                        <a 
-                            href="https://youtube.com" 
+                            href={siteContent.youtubeUrl || "https://youtube.com"}
                             target="_blank" 
                             rel="noopener noreferrer" 
                             aria-label="Subscribe on YouTube"
@@ -95,6 +78,9 @@ export default function Footer() {
                         >
                             <FaWhatsapp aria-hidden="true" />
                         </a>
+                        {siteContent.facebookUrl && <a href={siteContent.facebookUrl} target="_blank" rel="noopener noreferrer" aria-label="Visit us on Facebook" className="social-link"><FaFacebookF aria-hidden="true" /></a>}
+                        {siteContent.instagramUrl && <a href={siteContent.instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Visit us on Instagram" className="social-link"><FaInstagram aria-hidden="true" /></a>}
+                        {siteContent.xUrl && <a href={siteContent.xUrl} target="_blank" rel="noopener noreferrer" aria-label="Visit us on X" className="social-link"><FaXTwitter aria-hidden="true" /></a>}
                     </div>
                 </div>
 

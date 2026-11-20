@@ -1,4 +1,5 @@
 import api from "../api/axios";
+import { invalidatePublicSiteContentCache } from "./publicContentService";
 
 // Dashboard
 export const getDashboardStats = () =>
@@ -19,7 +20,7 @@ export const deleteSermon = (id) =>
 
 // Events
 export const getAdminEvents = () =>
-    api.get("/api/events");
+    api.get("/api/events/admin/all");
 
 export const createEvent = (data) =>
     api.post("/api/events", data);
@@ -37,25 +38,32 @@ export const getMinistries = () =>
 export const createMinistry = (data) =>
     api.post("/api/ministries", data);
 
+export const updateMinistry = (id, data) => api.put(`/api/ministries/${id}`, data);
+
 export const deleteMinistry = (id) =>
     api.delete(`/api/ministries/${id}`);
 
 // Gallery
 export const getGalleryImages = () =>
-    api.get("/api/gallery");
+    api.get("/api/gallery/admin/all");
 
-export const uploadGalleryImage = (data) =>
-    api.post("/api/gallery", data, { headers: { "Content-Type": "multipart/form-data" } });
+export const uploadGalleryImage = (data, onUploadProgress) =>
+    api.post("/api/gallery", data, { headers: { "Content-Type": "multipart/form-data" }, onUploadProgress });
+
+export const updateGalleryImage = (id, data, onUploadProgress) =>
+    api.put(`/api/gallery/${id}`, data, { headers: { "Content-Type": "multipart/form-data" }, onUploadProgress });
 
 export const deleteGalleryImage = (id) =>
     api.delete(`/api/gallery/${id}`);
 
 // Announcements
 export const getAnnouncements = () =>
-    api.get("/api/announcements");
+    api.get("/api/announcements/admin/all");
 
 export const createAnnouncement = (data) =>
     api.post("/api/announcements", data);
+
+export const updateAnnouncement = (id, data) => api.put(`/api/announcements/${id}`, data);
 
 export const deleteAnnouncement = (id) =>
     api.delete(`/api/announcements/${id}`);
@@ -123,3 +131,22 @@ export const getUsers = () =>
 // Contacts
 export const getContacts = () =>
     api.get("/api/contacts");
+
+export const getVolunteerApplications = () => api.get("/api/volunteers");
+export const getPartnershipApplications = () => api.get("/api/partnerships");
+export const getNewsletterSubscribers = () => api.get("/api/newsletter");
+export const getEventRegistrations = () => api.get("/api/event-registrations");
+export const getAdminSiteContent = () => api.get("/api/site-content/admin");
+export const saveAdminSiteContent = async (content, publish) => {
+  const response = await api.put("/api/site-content", { content, publish });
+  if (publish) invalidatePublicSiteContentCache();
+  return response;
+};
+export const getAdminUsers = (params) => api.get("/api/admin/administrators", { params });
+export const createAdminUser = (data) => api.post("/api/admin/administrators", data);
+export const updateAdminDetails = (id, data) => api.put(`/api/admin/administrators/${id}/details`, data);
+export const updateAdminUserRole = (id, role) => api.put(`/api/admin/administrators/${id}/role`, { role });
+export const suspendAdminUser = (id) => api.put(`/api/admin/administrators/${id}/suspend`);
+export const reactivateAdminUser = (id) => api.put(`/api/admin/administrators/${id}/reactivate`);
+export const revokeAdminUser = (id) => api.delete(`/api/admin/administrators/${id}`);
+export const getAdminAuditLog = () => api.get("/api/admin/audit");

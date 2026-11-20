@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getPublicSermons, getPublicEvents, getPublicReviews } from "../services/publicContentService";
+import { getPublicSermons, getPublicEvents, getPublicReviews, getPublicSiteContent, getPublicAnnouncements, getPublicMinistries } from "../services/publicContentService";
 import Hero from "../Components/Hero.jsx";
-import SocialLinks from "../Components/SocialLinks.jsx";
 import PrayerForm from "../Components/PrayerForm.jsx";
 import TestimonyForm from "../Components/TestimonyForm.jsx";
 import SEO from "../Components/SEO.jsx";
@@ -10,6 +9,13 @@ import SEO from "../Components/SEO.jsx";
 const asset = (path) => new URL(`../assets/${path}`, import.meta.url).href;
 
 export default function Home() {
+    const [siteContent, setSiteContent] = useState({});
+    const [publicMinistries, setPublicMinistries] = useState([]);
+    useEffect(() => { getPublicSiteContent().then((response) => setSiteContent(response.data?.data || {})).catch(() => {}); }, []);
+    useEffect(() => { getPublicMinistries().then((response) => setPublicMinistries(Array.isArray(response.data?.data) ? response.data.data : [])).catch(() => {}); }, []);
+    const visibleActivities = publicMinistries.length ? publicMinistries.map((item) => ({
+        title: item.name, description: item.description, icon: item.image ? <img src={item.image} alt="" className="h-12 w-12 rounded-full object-cover" /> : "✦", link: "/about#activities",
+    })) : ministryActivities;
     return (
         <>
             <SEO
@@ -20,9 +26,8 @@ export default function Home() {
             />
             
             {/* HERO SECTION */}
-            <Hero title="Welcome to Royal HigherLife">
-                Royal HigherLife Christian Ministries (Outreach) is committed to spreading the Gospel of Jesus Christ through
-                evangelism, discipleship, and compassionate outreach.
+            <Hero title={siteContent.heroHeading || "Welcome to Royal HigherLife"} image={siteContent.heroImageUrl || undefined} ctaText={siteContent.heroCtaText} ctaLink={siteContent.heroCtaLink}>
+                {siteContent.heroDescription || "Royal HigherLife Christian Ministries (Outreach) is committed to spreading the Gospel of Jesus Christ through evangelism, discipleship, and compassionate outreach."}
             </Hero>
 
             {/* WELCOME SECTION */}
@@ -31,12 +36,12 @@ export default function Home() {
                     <div className="welcome-content">
                         <div className="welcome-text">
                             <span className="section-eyebrow">Welcome Message</span>
-                            <h2 className="section-title">A Place to Belong, Believe & Become</h2>
+                            <h2 className="section-title">{siteContent.welcomeHeading || "A Place to Belong, Believe & Become"}</h2>
                             <p className="welcome-intro">
-                                At Royal HigherLife Christian Ministries, we believe everyone has a divine purpose. 
+                                {siteContent.welcomeText || `At Royal HigherLife Christian Ministries, we believe everyone has a divine purpose.
                                 Whether you're seeking God for the first time or looking for a spiritual home, 
                                 you'll find a warm welcome, biblical teaching, and a community committed to 
-                                living the higher life in Christ.
+                                living the higher life in Christ.`}
                             </p>
                             <p className="welcome-details">
                                 Founded on the principles of evangelism, discipleship, and compassionate outreach, 
@@ -80,8 +85,7 @@ export default function Home() {
                             </div>
                             <h3>Our Vision</h3>
                             <p>
-                                To raise a generation of believers who live the higher life of holiness in Christ 
-                                and impact their communities and nations through the power of the Gospel.
+                                {siteContent.vision || `To raise a generation of believers who live the higher life of holiness in Christ and impact their communities and nations through the power of the Gospel.`}
                             </p>
                         </article>
 
@@ -93,9 +97,7 @@ export default function Home() {
                             </div>
                             <h3>Our Mission</h3>
                             <p>
-                                To proclaim the Gospel of Jesus Christ through evangelism and outreach, raise disciples 
-                                through the teaching of God's Word, and empower believers to live holy and victorious 
-                                lives by the power of the Holy Spirit.
+                                {siteContent.mission || `To proclaim the Gospel of Jesus Christ through evangelism and outreach, raise disciples through the teaching of God's Word, and empower believers to live holy and victorious lives by the power of the Holy Spirit.`}
                             </p>
                         </article>
 
@@ -107,9 +109,7 @@ export default function Home() {
                             </div>
                             <h3>Core Beliefs</h3>
                             <p>
-                                We hold to 18 foundational doctrines including the Trinity, salvation by grace, 
-                                sanctification, baptism of the Holy Spirit, divine healing, and the second coming 
-                                of Jesus Christ.
+                                {siteContent.coreBeliefs || `We hold to 18 foundational doctrines including the Trinity, salvation by grace, sanctification, baptism of the Holy Spirit, divine healing, and the second coming of Jesus Christ.`}
                             </p>
                         </article>
 
@@ -135,6 +135,9 @@ export default function Home() {
             {/* UPCOMING EVENTS */}
             <UpcomingEvents />
 
+            {/* PUBLISHED ANNOUNCEMENTS */}
+            <LatestAnnouncements />
+
             {/* MINISTRY ACTIVITIES */}
             <section id="ministry-activities" className="activities-section">
                 <div className="container">
@@ -147,8 +150,8 @@ export default function Home() {
                     </div>
 
                     <div className="activities-grid">
-                        {ministryActivities.map((activity, index) => (
-                            <article key={index} className="activity-card">
+                        {visibleActivities.map((activity, index) => (
+                            <article key={publicMinistries[index]?._id || index} className="activity-card">
                                 <div className="activity-icon">{activity.icon}</div>
                                 <h3 className="activity-title">{activity.title}</h3>
                                 <p className="activity-description">{activity.description}</p>
@@ -270,8 +273,6 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-
-            <SocialLinks />
         </>
     );
 }
@@ -361,6 +362,13 @@ function LatestTestimonies() {
             ))}
         </div>
     );
+}
+
+function LatestAnnouncements() {
+    const [announcements, setAnnouncements] = useState([]);
+    useEffect(() => { getPublicAnnouncements().then((response) => setAnnouncements(Array.isArray(response.data?.data) ? response.data.data.slice(0, 3) : [])).catch(() => setAnnouncements([])); }, []);
+    if (!announcements.length) return null;
+    return <section className="activities-section" aria-labelledby="latest-announcements-title"><div className="container"><div className="page-header"><span className="section-eyebrow">Stay connected</span><h2 id="latest-announcements-title" className="section-title">Ministry News & Announcements</h2></div><div className="activities-grid">{announcements.map((item) => <article key={item._id} className="activity-card">{item.imageUrl && <img src={item.imageUrl} alt="" loading="lazy" />}<h3>{item.title}</h3><p>{item.content || item.message}</p><time dateTime={item.publishAt || item.createdAt}>{new Date(item.publishAt || item.createdAt).toLocaleDateString()}</time></article>)}</div></div></section>;
 }
 
 // Latest Sermons Component

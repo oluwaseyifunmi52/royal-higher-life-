@@ -4,6 +4,8 @@ const API_URL = import.meta.env.VITE_API_URL?.trim() || "";
 const apiConfigurationMissing = !import.meta.env.DEV && !API_URL;
 const publicDonationEndpoint = (url = "") =>
     /^\/?api\/donations\/(?:currencies|campaigns)(?:[/?#]|$)/i.test(url);
+const authFormEndpoint = (url = "") =>
+    /^\/?api\/auth\/(?:admin-login|login|register)(?:[/?#]|$)/i.test(url);
 
 const api = axios.create({
     baseURL: API_URL,
@@ -39,8 +41,11 @@ api.interceptors.response.use(
             const url = error.config?.url || "";
             if (!publicDonationEndpoint(url)) {
                 localStorage.removeItem("token");
-                if (window.location.pathname !== "/login") {
-                    window.location.href = "/login";
+                if (authFormEndpoint(url)) return Promise.reject(error);
+                const adminPath = window.location.pathname.startsWith("/admin") || window.location.pathname === "/register/admin" || window.location.pathname === "/login/admin";
+                const loginPath = adminPath ? "/admin/login" : "/login";
+                if (window.location.pathname !== loginPath) {
+                    window.location.href = loginPath;
                 }
             }
         }

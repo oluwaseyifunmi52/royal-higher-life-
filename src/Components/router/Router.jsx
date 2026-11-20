@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import MainLayout from "../Layouts/MainLayout";
 import ProtectedRoute from "./ProtectedRoute";
@@ -29,6 +29,8 @@ const VerifyEmail = lazy(() => import("../../Pages/VerifyEmail"));
 const ResetPassword = lazy(() => import("../../Pages/ResetPassword"));
 const Dashboard = lazy(() => import("../../Pages/Dashboard"));
 const Admin = lazy(() => import("../../Pages/Admin"));
+const AdminLogin = lazy(() => import("../../Pages/AdminLogin"));
+const AdminAccountRegistration = lazy(() => import("../../Pages/AdminAccountRegistration"));
 const NotFound = lazy(() => import("../../Pages/NotFound"));
 
 function PageFallback() {
@@ -73,8 +75,14 @@ export default function Router() {
 
                     <Route path="*" element={<NotFound />} />
                 </Route>
+                <Route path="/admin/login" element={<AdminLogin />} />
+                <Route path="/login/admin" element={<AdminLogin />} />
+                <Route path="/admin/register" element={<AdminRoute superAdminOnly><AdminAccountRegistration /></AdminRoute>} />
+                <Route path="/register/admin" element={<AdminRoute superAdminOnly><AdminAccountRegistration /></AdminRoute>} />
+                <Route path="/login/admin/register" element={<Navigate to="/admin/login" replace />} />
+                <Route path="/admin/forgot-password" element={<ForgotPassword adminMode />} />
                 <Route
-                    path="/admin"
+                    path="/admin/*"
                     element={
                         <AdminRoute>
                             <Admin />

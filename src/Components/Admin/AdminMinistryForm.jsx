@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { createMinistry } from "../../services/adminService";
+import { useEffect, useState } from "react";
+import { createMinistry, updateMinistry } from "../../services/adminService";
 
 const INITIAL_STATE = {
   name: "",
@@ -8,12 +8,16 @@ const INITIAL_STATE = {
   image: "",
   contactEmail: "",
   category: "General",
+  sortOrder: 0,
+  isActive: true,
 };
 
-export default function AdminMinistryForm({ onClose }) {
+export default function AdminMinistryForm({ ministry, onClose, onSaved }) {
   const [formData, setFormData] = useState(INITIAL_STATE);
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
+  const isEdit = Boolean(ministry?._id);
+  useEffect(() => { if (ministry) setFormData({ ...INITIAL_STATE, ...ministry, contactEmail: ministry.email || "" }); }, [ministry]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,9 +49,12 @@ export default function AdminMinistryForm({ onClose }) {
     setError("");
 
     try {
-      await createMinistry(formData);
+      const payload = { ...formData, email: formData.contactEmail };
+      if (isEdit) await updateMinistry(ministry._id, payload);
+      else await createMinistry(payload);
       setStatus("success");
-      setTimeout(() => onClose(), 1200);
+      await onSaved?.();
+      onClose();
     } catch (err) {
       setStatus("error");
       setError(err.response?.data?.message || "Something went wrong");
@@ -58,7 +65,7 @@ export default function AdminMinistryForm({ onClose }) {
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between p-6 border-b">
-          <h2 className="text-xl font-bold text-gray-900">Add New Ministry</h2>
+          <h2 className="text-xl font-bold text-gray-900">{isEdit ? "Edit Ministry Activity" : "Add New Ministry"}</h2>
           <button
             onClick={onClose}
             className="text-gray-400 hover:text-gray-600 text-2xl leading-none"
@@ -173,6 +180,11 @@ export default function AdminMinistryForm({ onClose }) {
             />
           </div>
 
+          <div className="grid grid-cols-2 gap-4">
+            <label className="block text-sm font-medium text-gray-700">Display order<input type="number" name="sortOrder" min="0" value={formData.sortOrder || 0} onChange={handleChange} className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2" /></label>
+            <label className="flex items-center gap-2 self-end pb-3 text-sm text-gray-700"><input type="checkbox" checked={Boolean(formData.isActive)} onChange={(event) => setFormData((old) => ({ ...old, isActive: event.target.checked }))} />Visible on website</label>
+          </div>
+
           <div className="flex gap-3 pt-4 border-t">
             <button
               type="button"
@@ -186,7 +198,7 @@ export default function AdminMinistryForm({ onClose }) {
               disabled={status === "loading"}
               className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {status === "loading" ? "Creating..." : "Create Ministry"}
+              {status === "loading" ? "Saving..." : isEdit ? "Save Ministry" : "Create Ministry"}
             </button>
           </div>
         </form>

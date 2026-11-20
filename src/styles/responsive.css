@@ -677,16 +677,6 @@
         padding: 3rem 0 4rem;
     }
 
-    .gallery-filters {
-        gap: 0.5rem;
-        padding: 0 0.75rem;
-    }
-
-    .filter-btn {
-        padding: 0.6rem 1rem;
-        font-size: 0.85rem;
-    }
-
     .gallery-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 0.75rem;
@@ -727,18 +717,14 @@
     }
 
     .lightbox-content img {
-        max-height: 70vh;
+        max-height: 100%;
     }
 }
 
 @media (max-width: 480px) {
     .gallery-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .filter-btn {
-        width: 100%;
-        text-align: center;
+        /* Mobile: two equal picture columns per row */
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
@@ -1060,6 +1046,14 @@
     .payment-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .bank-details {
+        grid-template-columns: 1fr;
+    }
+
+    .bank-transfer-panel {
+        padding: 1.2rem;
+    }
 }
 
 @media (max-width: 560px) {
@@ -1069,6 +1063,24 @@
 
     .payment-grid {
         grid-template-columns: 1fr;
+    }
+
+    .payment-methods {
+        grid-template-columns: 1fr;
+    }
+
+    .bank-transfer-panel {
+        gap: 0.9rem;
+        padding: 1.1rem;
+    }
+
+    .bank-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .copy-account-btn {
+        width: 100%;
     }
 
     .form-grid-2 {
@@ -1395,4 +1407,144 @@ textarea,
 .auth-input-shell .auth-icon-button:focus-visible {
     outline: 2px solid var(--primary, #f5b335);
     outline-offset: 1px;
+}
+
+/* ============================================================
+   MINISTRY BOXES — TWO COLUMNS ON MOBILE (<= 900px)
+   About the Ministry (Our Vision / Our Mission / Core Beliefs /
+   Ministry Purpose) and Ministry Activities (Worship / Prayer /
+   Evangelism / Outreach / Community Development).
+   ============================================================ */
+
+@media (max-width: 900px) {
+    /* A. About the Ministry: two boxes per row. */
+    .about-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    /* B. Ministry Activities: exactly two columns. */
+    .activities-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    /* The fifth box (Community Development) sits alone on the final row,
+       centred and exactly as wide as one of the other four cards. */
+    .activities-grid > .activity-card:nth-child(5) {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: calc((100% - 12px) / 2);
+    }
+
+    /* C. Compact mobile cards. */
+    .card,
+    .about-card,
+    .activity-card {
+        padding: 16px 12px;
+    }
+
+    .about-card h3,
+    .activity-title {
+        font-size: 15px;
+        margin-bottom: 0.55rem;
+    }
+
+    .about-card p,
+    .activity-description {
+        font-size: 12px;
+    }
+
+    .activity-description {
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+
+    /* Icons reduced proportionally with the cards. */
+    .about-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        margin-bottom: 0.85rem;
+    }
+
+    .about-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .activity-icon {
+        font-size: 2.25rem;
+        margin-bottom: 0.7rem;
+    }
+}
+
+/* ============================================================
+   FORMS — MOBILE RESPONSIVENESS (<= 560px)
+   Contact, volunteer, prayer, testimony, newsletter, partnership,
+   registration/auth, donation, event registration and dashboard
+   forms all share these controls.
+   ============================================================ */
+
+@media (max-width: 560px) {
+    /* A. Form containers: fit the viewport, never overflow. */
+    .contact-form,
+    .form-box,
+    .auth-box,
+    .auth-panel,
+    .donation-form,
+    .donation-track-form,
+    .review-section form {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding-left: 16px;
+        padding-right: 16px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* The contact page grid must never force a column wider than the
+       viewport (minmax(300px, 1fr) clipped fields at 320px). */
+    .Message-container {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    /* B. Inputs, selects and textareas. 16px text stops the automatic
+       iOS focus zoom; controls keep their existing colours, borders,
+       validation and dropdown behaviour. */
+    input:not([type="checkbox"]):not([type="radio"]),
+    select,
+    textarea {
+        box-sizing: border-box;
+        width: 100%;
+        font-size: 16px;
+        min-height: 46px;
+        padding: 12px 14px;
+        border-radius: 14px;
+    }
+
+    /* C. Side-by-side field rows stack into a single full-width column. */
+    .row,
+    .form-grid-2,
+    .auth-grid-2 {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    /* D. Submit buttons: full width and easy to tap with one hand.
+       Colours, hover/active/disabled states are untouched. */
+    /* min-height needs !important: buttons carrying tabindex="0" also match
+       the global touch-target rule ([tabindex]:not([tabindex="-1"]),
+       specificity 0-2-0) which otherwise pins them to 44px. */
+    button[type="submit"],
+    .submit-btn,
+    .auth-submit,
+    .donate-btn {
+        width: 100%;
+        min-height: 46px !important;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
 }

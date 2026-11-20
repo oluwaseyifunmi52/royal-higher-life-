@@ -13,6 +13,9 @@ const INITIAL_STATE = {
   image: "",
   capacity: "",
   category: "Church Event",
+  isPublished: true,
+  publishAt: "",
+  registrationUrl: "",
 };
 
 export default function AdminEventForm({ event, onClose }) {
@@ -33,6 +36,9 @@ export default function AdminEventForm({ event, onClose }) {
         image: event.image || "",
         capacity: event.capacity || "",
         category: event.category || "Church Event",
+        isPublished: event.isPublished !== false,
+        publishAt: event.publishAt ? event.publishAt.slice(0, 16) : "",
+        registrationUrl: event.registrationUrl || "",
       });
     }
   }, [event]);
@@ -64,6 +70,7 @@ export default function AdminEventForm({ event, onClose }) {
     try {
       const payload = {
         ...formData,
+        publishAt: formData.publishAt || null,
         capacity: formData.capacity ? Number(formData.capacity) : undefined,
       };
 
@@ -121,6 +128,10 @@ export default function AdminEventForm({ event, onClose }) {
               placeholder="Enter event title"
             />
           </div>
+
+          <label className="block text-sm font-medium text-gray-700">Registration link<input type="url" name="registrationUrl" value={formData.registrationUrl} onChange={handleChange} className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2" placeholder="https://…" /></label>
+          <label className="block text-sm font-medium text-gray-700">Schedule publication (optional)<input type="datetime-local" name="publishAt" value={formData.publishAt} onChange={handleChange} className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2" /></label>
+          <label className="flex items-center gap-2 text-sm text-gray-700"><input type="checkbox" name="isPublished" checked={Boolean(formData.isPublished)} onChange={(event) => setFormData((prev) => ({ ...prev, isPublished: event.target.checked }))} />Published (turn off to keep as a draft)</label>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">

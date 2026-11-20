@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import heroImage from "../assets/welcome pics.jpeg";
 
-export default function Hero({ title, children, image }) {
-    const [useVideo, setUseVideo] = useState(true);
+export default function Hero({ title, children, image, ctaText, ctaLink }) {
+    const [useVideo, setUseVideo] = useState(!image);
     const [videoError, setVideoError] = useState(false);
     const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -54,6 +55,7 @@ export default function Hero({ title, children, image }) {
                 <span className="hero-eyebrow">Royal HigherLife Ministries</span>
                 <h1>{title}</h1>
                 <p>{children}</p>
+                {ctaText && ctaLink && <Link className="btn btn-primary" to={ctaLink}>{ctaText}</Link>}
             </div>
         </section>
     );
