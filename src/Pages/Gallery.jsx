@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { getPublicGallery } from "../services/publicContentService";
-
-const asset = (path) => new URL(`../assets/${path}`, import.meta.url).href;
+import { asset, galleryThumbFor } from "../Components/imageUtils";
+import OptimizedImage from "../Components/OptimizedImage";
 
 // These are the ministry photos already bundled with the site. Use them when
 // the public API has not been populated yet, as well as when it is unavailable.
@@ -197,9 +197,11 @@ export default function Gallery() {
         return image.image || image.imageUrl || asset("royal3.jpeg");
     };
 
-    // Get thumbnail URL (same as full image for now, but could be different)
+    // Get thumbnail URL (optimized WebP thumbnail for the grid; full-res kept
+    // for the lightbox).
     const getThumbnailUrl = (image) => {
-        return image.image || image.imageUrl || asset("royal3.jpeg");
+        const src = image.image || image.imageUrl || asset("royal3.jpeg");
+        return galleryThumbFor(src) || src;
     };
 
     return (
@@ -270,10 +272,14 @@ export default function Gallery() {
                                 }}
                             >
                                 <div className="gallery-image-wrapper">
-                                    <img 
-                                        src={getThumbnailUrl(image)} 
+                                    <OptimizedImage
+                                        src={image.image || image.imageUrl || asset("royal3.jpeg")}
+                                        webp={getThumbnailUrl(image)}
                                         alt={image.title}
+                                        width="400"
+                                        height="300"
                                         loading="lazy"
+                                        decoding="async"
                                         onError={(event) => {
                                             event.currentTarget.onerror = null;
                                             event.currentTarget.src = asset("royal3.jpeg");

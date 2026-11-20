@@ -6,6 +6,7 @@ import SocialLinks from "../Components/SocialLinks.jsx";
 import PrayerForm from "../Components/PrayerForm.jsx";
 import TestimonyForm from "../Components/TestimonyForm.jsx";
 import SEO from "../Components/SEO.jsx";
+import OptimizedImage from "../Components/OptimizedImage.jsx";
 
 const asset = (path) => new URL(`../assets/${path}`, import.meta.url).href;
 
@@ -49,10 +50,14 @@ export default function Home() {
                             </Link>
                         </div>
                         <div className="welcome-image">
-                            <img 
-                                src={asset("welcome pics.jpeg")} 
-                                alt="Royal HigherLife Ministries Welcome" 
+                            <OptimizedImage
+                                src={asset("welcome pics.jpeg")}
+                                webp={asset("welcome pics.webp")}
+                                alt="Royal HigherLife Ministries Welcome"
+                                width="600"
+                                height="400"
                                 loading="lazy"
+                                decoding="async"
                             />
                         </div>
                     </div>

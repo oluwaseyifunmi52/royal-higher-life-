@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
-export default function AdminSidebar({ isOpen, onClose }) {
+export default function AdminSidebar({ isOpen, onClose, activeTab, onSelectTab }) {
     const [collapsed, setCollapsed] = useState(false);
 
     const menuItems = [
@@ -29,6 +29,7 @@ export default function AdminSidebar({ isOpen, onClose }) {
             title: "Dashboard",
             icon: LayoutDashboard,
             path: "/admin",
+            tabId: "dashboard",
         },
         {
             title: "Members",
@@ -38,7 +39,8 @@ export default function AdminSidebar({ isOpen, onClose }) {
         {
             title: "Donations",
             icon: HeartHandshake,
-            path: "/admin/donations",
+            path: "/admin",
+            tabId: "donations",
         },
         {
             title: "Payments",
@@ -48,32 +50,38 @@ export default function AdminSidebar({ isOpen, onClose }) {
         {
             title: "Prayer Requests",
             icon: HandHeart,
-            path: "/admin/prayers",
+            path: "/admin",
+            tabId: "prayer-requests",
         },
         {
             title: "Events",
             icon: CalendarDays,
-            path: "/admin/events",
+            path: "/admin",
+            tabId: "events",
         },
         {
             title: "Sermons",
             icon: BookOpen,
-            path: "/admin/sermons",
+            path: "/admin",
+            tabId: "sermons",
         },
         {
             title: "Gallery",
             icon: Image,
-            path: "/admin/gallery",
+            path: "/admin",
+            tabId: "gallery",
         },
         {
             title: "Ministries",
             icon: Building2,
-            path: "/admin/ministries",
+            path: "/admin",
+            tabId: "ministries",
         },
         {
-            title: "Messages",
+            title: "Contact Messages",
             icon: Mail,
-            path: "/admin/messages",
+            path: "/admin",
+            tabId: "contact-messages",
         },
         {
             title: "Reports",
@@ -195,21 +203,25 @@ export default function AdminSidebar({ isOpen, onClose }) {
             <div className="flex-1 px-3 py-6 space-y-2 overflow-y-auto">
                 {menuItems.map((item) => {
                     const Icon = item.icon;
+                    const isActiveTab = item.tabId ? activeTab === item.tabId : false;
                     return (
                         <NavLink
                             key={item.title}
-                            to={item.path}
+                            to={item.tabId ? "/admin" : item.path}
                             onClick={() => {
+                                if (item.tabId && typeof onSelectTab === "function") {
+                                    onSelectTab(item.tabId);
+                                }
                                 if (window.innerWidth < 1024) {
                                     onClose();
                                 }
                             }}
-                            className={({ isActive }) =>
-                                `flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 ${isActive
+                            className={({ isActive }) => {
+                                const active = item.tabId ? isActiveTab : isActive;
+                                return `flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 ${active
                                     ? "bg-yellow-400 text-slate-900 font-semibold shadow-lg"
-                                    : "hover:bg-slate-700"
-                                }`
-                            }
+                                    : "hover:bg-slate-700"}`;
+                            }}
                         >
                             <Icon size={22} aria-hidden="true" />
                             {!collapsed && window.innerWidth >= 1024 && (

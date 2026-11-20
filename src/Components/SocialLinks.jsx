@@ -1,5 +1,5 @@
 import facebook from "../assets/facebook.png";
-import instagram from "../assets/Instagram.png";
+import instagram from "../assets/Instagram.webp";
 import whatsapp from "../assets/whatapp.jpg";
 import xIcon from "../assets/x.avif";
 import youtube from "../assets/youtube.png";
@@ -27,7 +27,7 @@ export default function SocialLinks() {
                             rel="noreferrer"
                             target="_blank"
                         >
-                            <img src={social.icon} alt="" />
+                            <img src={social.icon} alt="" width="32" height="32" decoding="async" />
                             <div>
                                 <strong>{social.label}</strong>
                                 <small>{social.note}</small>
