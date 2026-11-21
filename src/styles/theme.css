@@ -29,12 +29,48 @@
     --font-body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 
+.admin-auth-page { min-height: 100vh; display: grid; place-items: center; padding: 28px 16px; color: #eef2fa; background: radial-gradient(ellipse at 50% 0%, #1b2a45 0%, #0b1220 58%); }
+.admin-auth-card { width: min(100%, 480px); padding: clamp(24px, 6vw, 44px); border: 1px solid rgba(245, 176, 65, .34); border-radius: 22px; background: rgba(13, 22, 38, .96); box-shadow: 0 24px 80px rgba(0,0,0,.38); }
+.admin-auth-brand { display: grid; justify-items: center; gap: 7px; margin-bottom: 28px; color: #ffd46b; letter-spacing: .12em; font-weight: 800; text-align: center; }
+.admin-auth-brand p { margin: 5px 0 0; }
+.admin-auth-brand > span:last-child { color: #a6b2cb; font-size: .68rem; letter-spacing: .2em; }
+.admin-auth-mark { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 16px; color: #0b1220; background: #f5b041; font: 700 1.25rem Georgia, serif; letter-spacing: .03em; }
+.admin-auth-card h1 { margin: 0; color: #f6f8fc; font: 700 clamp(1.7rem, 5vw, 2.1rem) Georgia, serif; }
+.admin-auth-intro { color: #a6b2cb; line-height: 1.6; }
+.admin-auth-form { display: grid; gap: 18px; margin-top: 24px; }
+.admin-auth-form > label { display: grid; gap: 8px; color: #e8ecf4; font-size: .92rem; font-weight: 600; }
+.admin-auth-input { display: flex; align-items: center; gap: 10px; min-height: 50px; padding: 0 13px; border: 1px solid #33415a; border-radius: 10px; color: #a6b2cb; background: #0b1220; }
+.admin-auth-input:focus-within { border-color: #f5b041; box-shadow: 0 0 0 3px rgba(245,176,65,.13); }
+.admin-auth-input input { width: 100%; min-width: 0; border: 0; outline: 0; color: #f6f8fc; background: transparent; font: inherit; }
+.admin-auth-eye { display: grid; place-items: center; padding: 5px; border: 0; color: #a6b2cb; background: transparent; cursor: pointer; }
+.admin-auth-options { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; color: #a6b2cb; font-size: .88rem; }
+.admin-auth-options a,.admin-auth-home { color: #ffd46b; text-decoration: none; }
+.admin-auth-options a:hover,.admin-auth-home:hover { text-decoration: underline; }
+.admin-auth-remember { display: flex; align-items: center; gap: 8px; }
+.admin-auth-remember input { accent-color: #f5b041; }
+.admin-auth-submit,.admin-auth-submit-link { display: grid; place-items: center; width: 100%; min-height: 50px; border: 0; border-radius: 10px; color: #101827; background: linear-gradient(100deg,#f5b041,#ffd46b); font-weight: 800; text-decoration: none; cursor: pointer; }
+.admin-auth-submit:disabled { opacity: .65; cursor: wait; }
+.admin-auth-error { padding: 12px; border: 1px solid #853c45; border-radius: 9px; color: #ffc4c8; background: rgba(112,34,45,.25); }
+.admin-auth-success { color: #9de3c5; }
+.admin-auth-foot { margin: 22px 0 16px; color: #a6b2cb; font-size: .83rem; text-align: center; }
+.admin-auth-home { display: block; margin-top: 18px; text-align: center; }
+.admin-password-rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px 12px; margin: 0; padding: 0; color: #a6b2cb; font-size: .78rem; font-weight: 400; list-style: none; }
+.admin-password-rules .is-valid { color: #9de3c5; }
+.admin-auth-foot a { color: #ffd46b; font-weight: 700; text-decoration: none; }
+.admin-auth-foot a:hover { text-decoration: underline; }
+
 /* ---------- Base ---------- */
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* Author styles set display on many components (flex/grid), so the native
+   [hidden] rule needs to win for conditional sections to stay hidden. */
+[hidden] {
+    display: none !important;
 }
 
 html {
@@ -1128,11 +1164,6 @@ input[type="radio"] {
     padding: 3.5rem 1.5rem;
 }
 
-.socials-section {
-    border-top: 1px solid var(--border);
-    padding-top: 4.5rem;
-}
-
 .contact-wrapper {
     max-width: 1000px;
     margin: 0 auto;
@@ -1209,67 +1240,6 @@ input[type="radio"] {
     color: var(--text-faint);
     font-size: 0.85rem;
     line-height: 1.6;
-}
-
-/* ---------- Social links ---------- */
-
-.social-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-    gap: 18px;
-    margin-top: 2.2rem;
-}
-
-.social-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.8rem;
-    padding: 1.8rem 1rem;
-    border-radius: 20px;
-    background: linear-gradient(160deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-    border: 1px solid var(--border);
-    transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
-}
-
-.social-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-soft);
-}
-
-.social-card img {
-    width: 54px;
-    height: 54px;
-    object-fit: contain;
-    border-radius: 14px;
-}
-
-.social-card strong {
-    color: var(--text);
-}
-
-.social-card small {
-    color: var(--text-muted);
-}
-
-.social-card.facebook:hover {
-    border-color: rgba(66, 103, 178, 0.65);
-}
-
-.social-card.instagram:hover {
-    border-color: rgba(225, 48, 108, 0.65);
-}
-
-.social-card.youtube:hover {
-    border-color: rgba(255, 0, 0, 0.6);
-}
-
-.social-card.whatsapp:hover {
-    border-color: rgba(37, 211, 102, 0.6);
-}
-
-.social-card.twitter:hover {
-    border-color: rgba(29, 161, 242, 0.6);
 }
 
 /* ---------- Donation page ---------- */
@@ -1507,6 +1477,194 @@ input[type="radio"] {
     position: absolute;
     opacity: 0;
     pointer-events: none;
+}
+
+/* ---------- Payment method selector (online payment / bank transfer) ---------- */
+
+.payment-method-fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.payment-methods {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+}
+
+.payment-methods .payment-card {
+    position: relative;
+    margin: 0;
+    cursor: pointer;
+}
+
+.payment-methods .payment-card span {
+    font-size: 0.95rem;
+    color: var(--text);
+}
+
+.payment-methods .payment-card small {
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.45;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.payment-methods .payment-card:focus-within {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* ---------- Bank transfer (manual confirmation) ---------- */
+
+.bank-transfer-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(245, 176, 65, 0.4);
+    border-radius: 18px;
+    background: linear-gradient(160deg, rgba(245, 176, 65, 0.14), rgba(245, 176, 65, 0.05));
+}
+
+.bank-transfer-panel h4 {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin: 0;
+    color: var(--primary);
+    font-size: 1.15rem;
+}
+
+.bank-details {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+    margin: 0;
+}
+
+.bank-detail {
+    min-width: 0;
+    margin: 0;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.bank-detail dt {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.bank-detail dd {
+    margin: 0.4rem 0 0;
+    color: var(--text);
+    font-size: 0.98rem;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.bank-detail dd.bank-account-number {
+    color: var(--primary-strong);
+    font-size: 1.2rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.06em;
+    /* The account number must never break across lines. */
+    white-space: nowrap;
+}
+
+.bank-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.copy-account-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 46px;
+    padding: 0 1.4rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--primary-strong), var(--primary));
+    color: #141a2e;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.copy-account-btn:hover {
+    box-shadow: 0 8px 20px rgba(245, 176, 65, 0.28);
+}
+
+.copy-account-btn:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.copy-account-btn.copied {
+    background: rgba(52, 211, 153, 0.16);
+    border-color: rgba(52, 211, 153, 0.5);
+    color: var(--success);
+    box-shadow: none;
+}
+
+.copy-confirmation {
+    margin: 0;
+    color: var(--primary);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.copy-confirmation.failed {
+    color: var(--danger);
+}
+
+.bank-instructions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.93rem;
+    line-height: 1.65;
+}
+
+.bank-instructions p {
+    margin: 0;
+}
+
+.bank-instructions ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin: 0;
+    padding-left: 1.2rem;
+}
+
+.bank-manual-note {
+    margin: 0;
+    padding: 0.9rem 1.1rem;
+    border-left: 3px solid var(--primary);
+    border-radius: 0 12px 12px 0;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+    font-size: 0.9rem;
+    line-height: 1.65;
 }
 
 .donate-btn {
@@ -1928,6 +2086,35 @@ input[type="radio"] {
 .auth-submit {
     width: 100%;
     min-height: 54px;
+}
+
+.auth-resend {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 54px;
+    padding: 0 26px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary);
+    background: transparent;
+    cursor: pointer;
+    transition: color var(--transition), background var(--transition);
+}
+
+.auth-resend:hover {
+    color: var(--primary-strong);
+    background: rgba(245, 176, 65, 0.1);
+}
+
+.auth-resend:disabled {
+    color: var(--text-faint);
+    cursor: not-allowed;
+    background: transparent;
 }
 
 .auth-divider {
@@ -3538,23 +3725,16 @@ input[type="radio"] {
 }
 
 .gallery-filters {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.7rem;
     margin-bottom: 2.5rem;
-    padding: 0 1rem;
 }
 
 .filter-btn {
-    padding: 0.7rem 1.3rem;
     border-radius: 999px;
     border: 1px solid var(--border);
     background: rgba(255, 255, 255, 0.04);
     color: var(--text-muted);
     font-family: var(--font-body);
     font-weight: 600;
-    font-size: 0.9rem;
     cursor: pointer;
     transition: all var(--transition);
 }
@@ -3824,18 +4004,22 @@ input[type="radio"] {
 }
 
 .lightbox-content {
+    width: 100%;
+    height: 100%;
     max-width: 95vw;
     max-height: 90vh;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 1rem;
 }
 
 .lightbox-content img {
     max-width: 100%;
-    max-height: 85vh;
+    max-height: 100%;
+    min-height: 0;
     object-fit: contain;
     border-radius: 8px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
@@ -3846,6 +4030,7 @@ input[type="radio"] {
     color: var(--text-muted);
     width: 100%;
     max-width: 800px;
+    flex-shrink: 0;
 }
 
 .lightbox-info h3 {
@@ -3872,64 +4057,6 @@ input[type="radio"] {
     font-size: 1rem;
     color: var(--text-faint);
     font-variant-numeric: tabular-nums;
-}
-
-/* Zoom controls */
-.lightbox-zoom-controls {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 1rem;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 999px;
-    margin-top: 0.5rem;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.lightbox-zoom-btn {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all var(--transition);
-    flex-shrink: 0;
-}
-
-.lightbox-zoom-btn:hover:not(:disabled) {
-    background: rgba(245, 176, 65, 0.25);
-    border-color: var(--primary);
-    color: var(--primary-strong);
-}
-
-.lightbox-zoom-btn:focus-visible {
-    outline: 2px solid var(--primary);
-    outline-offset: 2px;
-}
-
-.lightbox-zoom-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
-
-.lightbox-zoom-btn svg {
-    width: 24px;
-    height: 24px;
-}
-
-.lightbox-zoom-level {
-    color: var(--text);
-    font-size: 0.875rem;
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-    min-width: 5ch;
-    text-align: center;
 }
 
 /* Touch swipe indicator */
@@ -3985,7 +4112,8 @@ input[type="radio"] {
 /* Improved lightbox image rendering */
 .lightbox-content img {
     max-width: 100%;
-    max-height: 85vh;
+    max-height: 100%;
+    min-height: 0;
     object-fit: contain;
     border-radius: 8px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
@@ -4076,18 +4204,22 @@ input[type="radio"] {
 }
 
 .lightbox-content {
+    width: 100%;
+    height: 100%;
     max-width: 95vw;
     max-height: 90vh;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 1rem;
 }
 
 .lightbox-content img {
     max-width: 100%;
-    max-height: 85vh;
+    max-height: 100%;
+    min-height: 0;
     object-fit: contain;
     border-radius: 8px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
@@ -4098,6 +4230,7 @@ input[type="radio"] {
     color: var(--text-muted);
     width: 100%;
     max-width: 800px;
+    flex-shrink: 0;
 }
 
 .lightbox-info h3 {
@@ -4179,7 +4312,8 @@ input[type="radio"] {
 /* Improved lightbox image rendering */
 .lightbox-content img {
     max-width: 100%;
-    max-height: 85vh;
+    max-height: 100%;
+    min-height: 0;
     object-fit: contain;
     border-radius: 8px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
@@ -4270,18 +4404,22 @@ input[type="radio"] {
 }
 
 .lightbox-content {
+    width: 100%;
+    height: 100%;
     max-width: 95vw;
     max-height: 90vh;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 1rem;
 }
     
 .lightbox-content img {
     max-width: 100%;
-    max-height: 85vh;
+    max-height: 100%;
+    min-height: 0;
     object-fit: contain;
     border-radius: 8px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
@@ -4292,6 +4430,7 @@ input[type="radio"] {
     color: var(--text-muted);
     width: 100%;
     max-width: 800px;
+    flex-shrink: 0;
 }
 
 .lightbox-info h3 {

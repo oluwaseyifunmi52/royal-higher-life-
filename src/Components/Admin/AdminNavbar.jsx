@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import {
     Search,
     Bell,
@@ -18,8 +20,11 @@ import {
 export default function AdminNavbar({ sidebarOpen, onSidebarToggle }) {
     const [darkMode, setDarkMode] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
+    const { user, logoutUser } = useAuth();
+    const navigate = useNavigate();
+    const handleLogout = () => { logoutUser(); sessionStorage.removeItem("adminRole"); navigate("/admin/login", { replace: true }); };
 
-    const today = new Date().toLocaleDateString("en-US", {
+    const today = new Date().toLocaleDateString("en-NG", {
         weekday: "long",
         month: "long",
         day: "numeric",
@@ -115,16 +120,16 @@ export default function AdminNavbar({ sidebarOpen, onSidebarToggle }) {
                             aria-haspopup="true"
                         >
                             <img
-                                src="https://i.pravatar.cc/150?img=32"
-                                alt="Admin"
+                                src={user?.profileImage || "https://ui-avatars.com/api/?name=Admin&background=0b1220&color=ffd46b"}
+                                alt={user ? `${user.firstName} ${user.lastName}` : "Administrator"}
                                 className="w-9 h-9 md:w-10 md:h-10 rounded-full border-2 border-green-700"
                             />
                             <div className="hidden md:block text-left">
                                 <h4 className="font-semibold text-slate-800 text-sm">
-                                    Admin User
+                                    {user ? `${user.firstName} ${user.lastName}` : "Administrator"}
                                 </h4>
                                 <p className="text-xs text-slate-500">
-                                    Super Admin
+                                    {user?.role || "Administrator"}
                                 </p>
                             </div>
                             <ChevronDown size={16} className={openMenu ? "rotate-180" : ""} />
@@ -145,7 +150,7 @@ export default function AdminNavbar({ sidebarOpen, onSidebarToggle }) {
                                     Settings
                                 </button>
                                 <hr className="my-1 border-slate-200" />
-                                <button className="w-full flex items-center gap-3 px-4 py-3 hover:bg-red-50 text-red-600 text-sm">
+                                <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 hover:bg-red-50 text-red-600 text-sm">
                                     <LogOut size={18} />
                                     Logout
                                 </button>

@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { getProfile } from '../services/authApi';
+import api from '../api/axios';
 
 const AuthContext = createContext(null);
 
@@ -34,8 +35,11 @@ export default function AuthProvider({ children }) {
     };
 
     const logoutUser = () => {
+        const token = localStorage.getItem('token');
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        if (token) api.post('/api/auth/logout', {}, { headers: { Authorization: `Bearer ${token}` } }).catch(() => {});
+        sessionStorage.removeItem('adminRole');
         setUser(null);
     };
 

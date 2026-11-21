@@ -12,7 +12,7 @@ const PENDING_KEY = "rhlm_pending_donation_reference";
 export default function DonationComplete() {
     const [search] = useSearchParams();
     const referenceParam = search.get("reference") || search.get("trxref") || "";
-    const cancelled = search.get("cancelled") === "1";
+    const cancelled = search.get("cancelled") === "1" || search.get("status") === "cancelled";
     const [state, setState] = useState({
         loading: true,
         donation: null,

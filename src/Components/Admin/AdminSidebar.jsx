@@ -20,9 +20,13 @@ import {
     X,
 } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 export default function AdminSidebar({ isOpen, onClose, activeTab, onSelectTab }) {
     const [collapsed, setCollapsed] = useState(false);
+    const navigate = useNavigate();
+    const { user, logoutUser } = useAuth();
 
     const menuItems = [
         {
@@ -70,6 +74,22 @@ export default function AdminSidebar({ isOpen, onClose, activeTab, onSelectTab }
             icon: Image,
             path: "/admin",
             tabId: "gallery",
+        },
+        {
+            title: "Announcements",
+            icon: Bell,
+            path: "/admin/announcements",
+        },
+        {
+            title: "Website Content",
+            icon: Settings,
+            path: "/admin/content",
+        },
+        {
+            title: "Administrator Access",
+            icon: Users,
+            path: "/admin/users",
+            superAdminOnly: true,
         },
         {
             title: "Ministries",
@@ -201,7 +221,19 @@ export default function AdminSidebar({ isOpen, onClose, activeTab, onSelectTab }
 
             {/* Navigation */}
             <div className="flex-1 px-3 py-6 space-y-2 overflow-y-auto">
-                {menuItems.map((item) => {
+                {menuItems.filter((item) => {
+                    if (item.superAdminOnly) return user?.role === "superAdmin";
+                    const role = user?.role;
+                    if (["admin", "superAdmin"].includes(role)) return true;
+                    const rawPath = item.path.replace(/^\/admin\/?/, "").split("/")[0] || "dashboard";
+                    const path = ["prayers", "messages", "volunteers", "partnerships", "event-registrations"].includes(rawPath) ? "submissions" : rawPath;
+                    const rolePaths = {
+                        contentAdmin: ["dashboard", "content", "settings", "gallery", "sermons", "events", "announcements", "testimonies", "ministries"],
+                        mediaAdmin: ["dashboard", "media", "gallery"],
+                        ministryAdmin: ["dashboard", "events", "ministries", "submissions"],
+                    };
+                    return (rolePaths[role] || []).includes(path);
+                }).map((item) => {
                     const Icon = item.icon;
                     const isActiveTab = item.tabId ? activeTab === item.tabId : false;
                     return (
@@ -249,23 +281,23 @@ export default function AdminSidebar({ isOpen, onClose, activeTab, onSelectTab }
             <div className="border-t border-slate-700 p-5">
                 <div className="flex items-center gap-3">
                     <img
-                        src="https://i.pravatar.cc/150?img=12"
-                        alt="Admin"
+                        src={user?.profileImage || "https://ui-avatars.com/api/?name=Admin&background=0b1220&color=ffd46b"}
+                        alt={user ? `${user.firstName} ${user.lastName}` : "Administrator"}
                         className="w-12 h-12 rounded-full border-2 border-yellow-400"
                     />
                     {!collapsed && (
                         <div>
                             <h4 className="font-semibold">
-                                Admin User
+                            {user ? `${user.firstName} ${user.lastName}` : "Administrator"}
                             </h4>
                             <p className="text-slate-300 text-sm">
-                                administrator@royal.org
+                            {user?.email || ""}
                             </p>
                         </div>
                     )}
                 </div>
                 <button
-                    onClick={() => onClose()}
+                    onClick={() => { logoutUser(); sessionStorage.removeItem("adminRole"); onClose(); navigate("/admin/login", { replace: true }); }}
                     className="mt-5 w-full flex items-center justify-center gap-3 bg-red-500 hover:bg-red-600 py-3 rounded-xl transition"
                 >
                     <LogOut size={18} />

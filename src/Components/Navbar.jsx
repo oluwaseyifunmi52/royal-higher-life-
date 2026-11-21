@@ -118,7 +118,7 @@ export default function Navbar() {
                         ) : user ? (
                             <div className="relative hidden items-center gap-3 xl:flex">
                                 <Link to="/dashboard" className="public-account-link min-h-11 inline-flex items-center text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ffd46b]">Dashboard</Link>
-                                {user.role === "admin" && <Link to="/admin" className="public-account-link min-h-11 inline-flex items-center text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ffd46b]">Admin</Link>}
+                                {["admin", "superAdmin", "contentAdmin", "mediaAdmin", "ministryAdmin"].includes(user.role) && <Link to="/admin" className="public-account-link min-h-11 inline-flex items-center text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ffd46b]">Admin</Link>}
                                 <button
                                     type="button"
                                     onClick={() => setProfileOpen((open) => !open)}
@@ -183,7 +183,7 @@ export default function Navbar() {
                             ) : user ? (
                                 <>
                                     <Link to="/dashboard" onClick={closeMobileMenu} className="inline-flex min-h-11 items-center rounded-full border border-white/30 px-4 text-sm font-semibold text-white hover:border-[#f5b335] hover:text-[#ffd46b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ffd46b]">Dashboard</Link>
-                                    {user.role === "admin" && <Link to="/admin" onClick={closeMobileMenu} className="inline-flex min-h-11 items-center rounded-full border border-white/30 px-4 text-sm font-semibold text-white hover:border-[#f5b335] hover:text-[#ffd46b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ffd46b]">Admin</Link>}
+                                {["admin", "superAdmin", "contentAdmin", "mediaAdmin", "ministryAdmin"].includes(user.role) && <Link to="/admin" onClick={closeMobileMenu} className="inline-flex min-h-11 items-center rounded-full border border-white/30 px-4 text-sm font-semibold text-white hover:border-[#f5b335] hover:text-[#ffd46b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ffd46b]">Admin</Link>}
                                     <button type="button" onClick={() => { logoutUser(); closeMobileMenu(); }} className="inline-flex min-h-11 items-center rounded-full border border-white/30 px-4 text-sm font-semibold text-white hover:border-[#f5b335] hover:text-[#ffd46b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ffd46b]">Sign out</button>
                                 </>
                             ) : (

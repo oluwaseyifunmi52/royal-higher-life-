@@ -61,12 +61,10 @@ export function SEO({
           name: siteName,
           url: siteUrl,
           logo: `${siteUrl}/royal-logo.jpeg`,
-          sameAs: [
-            "https://facebook.com",
-            "https://instagram.com",
+sameAs: [
             "https://youtube.com",
             "https://wa.me/2349157754411"
-          ],
+        ],
           contactPoint: {
             "@type": "ContactPoint",
             telephone: "+234-915-775-4411",

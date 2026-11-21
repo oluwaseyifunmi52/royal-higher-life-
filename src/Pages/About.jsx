@@ -1,9 +1,12 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getPublicSiteContent } from "../services/publicContentService";
 import SEO from "../Components/SEO.jsx";
 import OptimizedImage from "../Components/OptimizedImage.jsx";
 import { asset } from "../Components/imageUtils";
 
 export default function About() {
+    const [siteContent, setSiteContent] = useState({});
+    useEffect(() => { getPublicSiteContent().then((response) => setSiteContent(response.data?.data || {})).catch(() => {}); }, []);
     return (
         <>
             <SEO
@@ -28,16 +31,15 @@ export default function About() {
                         <article className="card" id="mission">
                             <h2>Our Mission</h2>
                             <p>
-                                We are dedicated to spreading the Gospel of Jesus Christ and reaching souls in communities, villages,
+                                {siteContent.mission || `We are dedicated to spreading the Gospel of Jesus Christ and reaching souls in communities, villages,
                                 and streets. Our mission is to see lives transformed through salvation, sanctification, the baptism of
-                                the Holy Spirit, and discipleship.
+                                the Holy Spirit, and discipleship.`}
                             </p>
                         </article>
                         <article className="card" id="vision">
                             <h2>Our Vision</h2>
                             <p>
-                                "To raise a generation of believers who live the higher life of holiness in Christ and impact their
-                                communities and nations through the power of the Gospel."
+                                {siteContent.vision || `To raise a generation of believers who live the higher life of holiness in Christ and impact their communities and nations through the power of the Gospel.`}
                             </p>
                         </article>
                     </div>
@@ -46,8 +48,7 @@ export default function About() {
                     <article className="card single-card" id="activities">
                         <h2>What We Do</h2>
                         <p>
-                            We are not a church or a network of churches. We are an evangelistic outreach ministry focused on taking the Gospel 
-                            beyond church walls, reaching communities, making disciples, and transforming lives through the power of God's Word.
+                            {siteContent.aboutText || `We are not a church or a network of churches. We are an evangelistic outreach ministry focused on taking the Gospel beyond church walls, reaching communities, making disciples, and transforming lives through the power of God's Word.`}
                         </p>
                         <h4>Our Core Activities:</h4>
                         <ul>
@@ -114,6 +115,7 @@ export default function About() {
                             <li><strong>Marriage:</strong> Holy covenant between one man and one woman for life (Mark 10:6-12)</li>
                             <li><strong>Water Baptism:</strong> By immersion in the name of the Father, Son, and Holy Spirit (Matthew 28:19)</li>
                             <li><strong>The Lord's Supper:</strong> Remembering Christ's death until He returns (1 Corinthians 11:23-26)</li>
+                            <li><strong>Washing of Disciples' Feet:</strong> Practiced according to the example and commandment Jesus gave (John 13:14-15)</li>
                         </ul>
                     </article>
 
@@ -173,7 +175,7 @@ export default function About() {
                         </p>
                         <p>
                             Through dedication to prayer, teaching the Word of God, and evangelism, the ministry continues to impact
-                            lives and raise believers to live a higher life in Christ.
+                            lives and raise believers to live a higher life of holiness in Christ.
                         </p>
                     </article>
                 </div>

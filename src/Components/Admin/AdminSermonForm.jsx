@@ -13,6 +13,9 @@ const INITIAL_STATE = {
   videoUrl: "",
   imageUrl: "",
   category: "Sunday Service",
+  isPublished: true,
+  publishAt: "",
+  isFeatured: false,
 };
 
 export default function AdminSermonForm({ sermon, onClose }) {
@@ -33,6 +36,9 @@ export default function AdminSermonForm({ sermon, onClose }) {
         videoUrl: sermon.videoUrl || "",
         imageUrl: sermon.imageUrl || sermon.image || "",
         category: sermon.category || "Sunday Service",
+        isPublished: sermon.isPublished !== false,
+        publishAt: sermon.publishAt ? sermon.publishAt.slice(0, 16) : "",
+        isFeatured: Boolean(sermon.isFeatured),
       });
     }
   }, [sermon]);
@@ -62,9 +68,9 @@ export default function AdminSermonForm({ sermon, onClose }) {
 
     try {
       if (isEdit) {
-        await updateSermon(sermon._id, formData);
+        await updateSermon(sermon._id, { ...formData, publishAt: formData.publishAt || null });
       } else {
-        await createSermon(formData);
+        await createSermon({ ...formData, publishAt: formData.publishAt || null });
       }
       setStatus("success");
       setTimeout(() => onClose(), 1200);
@@ -190,6 +196,9 @@ export default function AdminSermonForm({ sermon, onClose }) {
               <option>Guest Speaker</option>
             </select>
           </div>
+          <label className="block text-sm font-medium text-gray-700">Schedule publication (optional)<input type="datetime-local" name="publishAt" value={formData.publishAt} onChange={handleChange} className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2" /></label>
+          <label className="flex items-center gap-2 text-sm text-gray-700"><input type="checkbox" checked={formData.isPublished} onChange={(event) => setFormData((prev) => ({ ...prev, isPublished: event.target.checked }))} />Published (turn off to save a draft)</label>
+          <label className="flex items-center gap-2 text-sm text-gray-700"><input type="checkbox" checked={formData.isFeatured} onChange={(event) => setFormData((prev) => ({ ...prev, isFeatured: event.target.checked }))} />Feature this sermon</label>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">

@@ -8,26 +8,26 @@ import OptimizedImage from "../Components/OptimizedImage";
 const getBundledGalleryImages = () => [
     { _id: "local-1", title: "Worship Session", image: asset("royal12.jpeg"), category: "Worship" },
     { _id: "local-2", title: "Evangelism Outreach", image: asset("royal11.jpeg"), category: "Outreach" },
-    { _id: "local-3", title: "Church Program", image: asset("royal10.jpeg"), category: "Events" },
-    { _id: "local-4", title: "Community Support", image: asset("royal8.jpeg"), category: "Community" },
-    { _id: "local-5", title: "Outreach Program", image: asset("royal7.jpeg"), category: "Outreach" },
-    { _id: "local-6", title: "Evangelism", image: asset("royal5.jpeg"), category: "Outreach" },
-    { _id: "local-7", title: "Community Support", image: asset("royal4.jpeg"), category: "Community" },
-    { _id: "local-8", title: "Evangelism", image: asset("royal3.jpeg"), category: "Outreach" },
-    { _id: "local-9", title: "Church Program", image: asset("royal2.jpeg"), category: "Events" },
-    { _id: "local-10", title: "Outreach", image: asset("rolay1.jpeg"), category: "Outreach" },
-    { _id: "local-11", title: "Community Support", image: asset("oba.jpeg"), category: "Community" },
-    { _id: "local-12", title: "New Ministry", image: asset("new1.jpeg"), category: "Events" },
+    { _id: "local-3", title: "Alagbede Village Service ", image: asset("royal10.jpeg"), category: "Events" },
+    { _id: "local-4", title: "Alasise Village Evangelism ", image: asset("royal8.jpeg"), category: "Community" },
+    { _id: "local-5", title: "Irolu Town Crusade Ijebu Remo", image: asset("royal7.jpeg"), category: "Outreach" },
+    { _id: "local-6", title: "Evangelism Outreach", image: asset("royal5.jpeg"), category: "Outreach" },
+    { _id: "local-7", title: "Asaaba Rep.Of Bennin Village Group", image: asset("royal4.jpeg"), category: "Community" },
+    { _id: "local-8", title: "Jago Village Evangelism ", image: asset("royal3.jpeg"), category: "Outreach" },
+    { _id: "local-9", title: "Another Group Service Jago ", image: asset("royal2.jpeg"), category: "Events" },
+    { _id: "local-10", title: "Agoua Service Rep.Bennin  ", image: asset("rolay1.jpeg"), category: "Outreach" },
+    { _id: "local-11", title: "Ogere Town Semina ijebu ", image: asset("oba.jpeg"), category: "Community" },
+    { _id: "local-12", title: "To Gubi Town Togo", image: asset("new1.jpeg"), category: "Events" },
     { _id: "local-13", title: "New Outreach", image: asset("new2.jpeg"), category: "Outreach" },
-    { _id: "local-14", title: "New Event", image: asset("new3.jpeg"), category: "Events" },
-    { _id: "local-15", title: "New Testimony", image: asset("new4.jpeg"), category: "Testimonies" },
-    { _id: "local-16", title: "Praise Moment", image: asset("new5.jpeg"), category: "Worship" },
-    { _id: "local-17", title: "Prayer Time", image: asset("new6.jpeg"), category: "Prayer" },
-    { _id: "local-18", title: "Royal Higher Life School", image: asset("school 4.jpeg"), category: "School" },
-    { _id: "local-19", title: "Learning and School Activities", image: asset("school 5.jpeg"), category: "School" },
-    { _id: "local-20", title: "Agodi Correctional Service, Oyo State, Nigeria", image: asset("royal1.jpeg"), category: "Correctional Home" },
-    { _id: "local-21", title: "Agoue, Benin Republic", image: asset("royal3 (1).jpeg"), category: "Correctional Home" },
-    { _id: "local-22", title: "Some Members at Agoua", image: asset("RoyalLove.jpeg"), category: "Royal Workers" },
+    { _id: "local-14", title: "Going to Interior Villages Benin.Rep", image: asset("new3.jpeg"), category: "Events" },
+    { _id: "local-15", title: "Preaching At Kaboli Church Togo", image: asset("new4.jpeg"), category: "Testimonies" },
+    { _id: "local-16", title: "Worshipping Center Save Town Rep. Of Benin", image: asset("new5.jpeg"), category: "Worship" },
+    { _id: "local-17", title: "Royal Higherlife Evangelical Team ", image: asset("new6.jpeg"), category: "Prayer" },
+    { _id: "local-18", title: "Royal Higherlife Mission School", image: asset("school 5.jpeg"), category: "School" },
+    { _id: "local-19", title: " ", image: asset("school 4.jpeg"), category: "School" },
+    { _id: "local-20", title: "Agodi Correctional service Oyo state Nigeria", image: asset("royal1.jpeg"), category: "Correctional Home" },
+    { _id: "local-21", title: "Agoue Benin.Rep", image: asset("royal3 (1).jpeg"), category: "Correctional Home" },
+    { _id: "local-22", title: "Some Member At Agoua", image: asset("RoyalLove.jpeg"), category: "Royal Workers" },
 ];
 
 // Merge API images with bundled images while avoiding duplicate IDs and filenames.
@@ -64,7 +64,6 @@ export default function Gallery() {
     const [lightboxIndex, setLightboxIndex] = useState(0);
     const [categories, setCategories] = useState([]);
     const [touchStartX, setTouchStartX] = useState(null);
-    const [zoomLevel, setZoomLevel] = useState(1);
     const lightboxImgRef = useRef(null);
     const previousActiveElement = useRef(null);
 
@@ -105,12 +104,10 @@ export default function Gallery() {
         previousActiveElement.current = document.activeElement;
         setLightboxIndex(index);
         setLightboxOpen(true);
-        setZoomLevel(1);
     }, []);
 
     const closeLightbox = useCallback(() => {
         setLightboxOpen(false);
-        setZoomLevel(1);
         if (previousActiveElement.current) {
             previousActiveElement.current.focus();
         }
@@ -125,28 +122,14 @@ export default function Gallery() {
         });
     }, [filteredImages.length]);
 
-    // Zoom controls
-    const zoomIn = useCallback(() => {
-        setZoomLevel(prev => Math.min(prev + 0.25, 3));
-    }, []);
-
-    const zoomOut = useCallback(() => {
-        setZoomLevel(prev => Math.max(prev - 0.25, 0.5));
-    }, []);
-
-    const resetZoom = useCallback(() => {
-        setZoomLevel(1);
-    }, []);
+    // Zoom controls removed: every photo opens fitted to the screen.
 
     const handleKeyDown = useCallback((e) => {
         if (!lightboxOpen) return;
         if (e.key === "ArrowLeft") navigateLightboxDirection(-1);
         if (e.key === "ArrowRight") navigateLightboxDirection(1);
         if (e.key === "Escape") closeLightbox();
-        if (e.key === "+" || e.key === "=") { e.preventDefault(); zoomIn(); }
-        if (e.key === "-") { e.preventDefault(); zoomOut(); }
-        if (e.key === "0") { e.preventDefault(); resetZoom(); }
-    }, [lightboxOpen, closeLightbox, navigateLightboxDirection, zoomIn, zoomOut, resetZoom]);
+    }, [lightboxOpen, closeLightbox, navigateLightboxDirection]);
 
     // Touch swipe handling
     const handleTouchStart = useCallback((e) => {
@@ -215,12 +198,15 @@ export default function Gallery() {
                 </div>
 
                 {/* Category Filters */}
-                <div className="gallery-filters" role="tablist">
+                <div
+                    className="gallery-filters grid grid-cols-4 gap-2 px-3! max-[360px]:gap-1.5 sm:flex sm:flex-wrap sm:justify-center sm:gap-3 sm:px-4!"
+                    role="tablist"
+                >
                     <button
                         role="tab"
                         aria-selected={activeCategory === "all"}
                         onClick={() => setActiveCategory("all")}
-                        className={`filter-btn ${activeCategory === "all" ? "active" : ""}`}
+                        className={`filter-btn min-w-0! whitespace-nowrap px-0.5! py-[10px]! text-[11px] max-[360px]:text-[10px] sm:px-1! sm:py-[0.6rem]! sm:text-[0.85rem] md:px-[1.3rem]! md:py-[0.7rem]! md:text-[0.9rem] ${activeCategory === "all" ? "active" : ""}`}
                     >
                         All Photos
                     </button>
@@ -230,7 +216,7 @@ export default function Gallery() {
                             role="tab"
                             aria-selected={activeCategory === cat}
                             onClick={() => setActiveCategory(cat)}
-                            className={`filter-btn ${activeCategory === cat ? "active" : ""}`}
+                            className={`filter-btn min-w-0! whitespace-nowrap px-0.5! py-[10px]! text-[11px] max-[360px]:text-[10px] sm:px-1! sm:py-[0.6rem]! sm:text-[0.85rem] md:px-[1.3rem]! md:py-[0.7rem]! md:text-[0.9rem] ${activeCategory === cat ? "active" : ""}`}
                         >
                             {cat}
                         </button>
@@ -238,11 +224,18 @@ export default function Gallery() {
                 </div>
 
                 {/* Image Grid */}
-                <div className="gallery-grid" role="list">
+                <div
+                    className="gallery-grid grid grid-cols-2 gap-[10px]! px-3! min-[641px]:gap-4! min-[769px]:px-4! min-[901px]:grid-cols-3 min-[901px]:gap-6!"
+                    role="list"
+                >
                     {loading ? (
                         [...Array(12)].map((_, i) => (
-                            <div key={i} className="gallery-skeleton" aria-hidden="true">
-                                <div className="skeleton-image"></div>
+                            <div
+                                key={i}
+                                className="gallery-skeleton min-w-0! rounded-[14px]! p-[10px]! min-[641px]:rounded-[18px]! min-[641px]:p-0!"
+                                aria-hidden="true"
+                            >
+                                <div className="skeleton-image aspect-square! min-[641px]:aspect-[4/3]!"></div>
                                 <div className="skeleton-text"></div>
                             </div>
                         ))
@@ -260,7 +253,7 @@ export default function Gallery() {
                         filteredImages.map((image, index) => (
                             <article 
                                 key={image._id || index} 
-                                className="gallery-item" 
+                                className="gallery-item min-w-0! rounded-[14px]! p-[10px]! min-[641px]:rounded-[18px]! min-[641px]:p-0!"
                                 role="listitem"
                                 tabIndex={0}
                                 onClick={() => openLightbox(index)}
@@ -271,9 +264,9 @@ export default function Gallery() {
                                     }
                                 }}
                             >
-                                <div className="gallery-image-wrapper">
+                                <div className="gallery-image-wrapper aspect-square! min-[641px]:aspect-[4/3]!">
                                     <OptimizedImage
-                                        src={image.image || image.imageUrl || asset("royal3.jpeg")}
+                                        src={getFullImageUrl(image)}
                                         webp={getThumbnailUrl(image)}
                                         alt={image.title}
                                         width="400"
@@ -292,10 +285,10 @@ export default function Gallery() {
                                         </svg>
                                     </div>
                                 </div>
-                                <div className="gallery-info">
-                                    <h4 className="gallery-title">{image.title}</h4>
+                                <div className="gallery-info min-w-0! p-0! min-[641px]:px-[1.2rem]! min-[641px]:py-4!">
+                                    <h4 className="gallery-title text-[14px]! min-[641px]:text-base!">{image.title}</h4>
                                     {image.category && (
-                                        <span className="gallery-category">{image.category}</span>
+                                        <span className="gallery-category px-[6px]! py-[2px]! text-[10px]! min-[641px]:px-[0.6rem]! min-[641px]:py-[0.2rem]! min-[641px]:text-[0.7rem]!">{image.category}</span>
                                     )}
                                 </div>
                             </article>
@@ -345,47 +338,10 @@ export default function Gallery() {
                         </svg>
                     </button>
 
-                    {/* Zoom controls */}
-                    <div className="lightbox-zoom-controls" role="group" aria-label="Zoom controls">
-                        <button 
-                            className="lightbox-zoom-btn" 
-                            onClick={zoomOut}
-                            aria-label="Zoom out"
-                            disabled={zoomLevel <= 0.5}
-                        >
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
-                            </svg>
-                        </button>
-                        <span className="lightbox-zoom-level" aria-live="polite">
-                            {Math.round(zoomLevel * 100)}%
-                        </span>
-                        <button 
-                            className="lightbox-zoom-btn" 
-                            onClick={zoomIn}
-                            aria-label="Zoom in"
-                            disabled={zoomLevel >= 3}
-                        >
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16M8 12h8" />
-                            </svg>
-                        </button>
-                        <button 
-                            className="lightbox-zoom-btn" 
-                            onClick={resetZoom}
-                            aria-label="Reset zoom"
-                        >
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </button>
-                    </div>
-
                     <div className="lightbox-content" ref={lightboxImgRef}>
                         <img 
                             src={getFullImageUrl(filteredImages[lightboxIndex])} 
                             alt={filteredImages[lightboxIndex].title}
-                            style={{ transform: `scale(${zoomLevel})`, objectFit: "contain" }}
                             onLoad={() => {
                                 // Image loaded successfully
                             }}

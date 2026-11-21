@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import SocialLinks from "../Components/SocialLinks.jsx";
+import { getPublicGallery } from "../services/publicContentService";
 import { asset } from "../Components/imageUtils";
 import OptimizedImage from "../Components/OptimizedImage";
 
@@ -34,6 +34,21 @@ const galleryImages = [
 
 const slides = ["Welcome - Live Starting Soon", "Worship Session", "Announcement Time"];
 
+function getEmbedUrl(value) {
+    try {
+        const url = new URL(value);
+        if (["youtu.be", "www.youtube.com", "youtube.com"].includes(url.hostname)) {
+            const videoId = url.hostname === "youtu.be" ? url.pathname.slice(1) : url.pathname === "/watch" ? url.searchParams.get("v") : url.pathname.split("/").filter(Boolean).at(-1);
+            return videoId ? `https://www.youtube.com/embed/${encodeURIComponent(videoId)}` : "";
+        }
+        if (["vimeo.com", "www.vimeo.com"].includes(url.hostname)) {
+            const videoId = url.pathname.split("/").filter(Boolean).at(-1);
+            return /^\d+$/.test(videoId || "") ? `https://player.vimeo.com/video/${videoId}` : "";
+        }
+    } catch { return ""; }
+    return "";
+}
+
 function formatCountdown(totalSeconds) {
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -45,6 +60,16 @@ function formatCountdown(totalSeconds) {
 export default function Media() {
     const [countdown, setCountdown] = useState(2 * 60 * 60);
     const [activeSlide, setActiveSlide] = useState(0);
+    const [publishedVideos, setPublishedVideos] = useState([]);
+    const [publishedAudio, setPublishedAudio] = useState([]);
+
+    useEffect(() => {
+        getPublicGallery().then((response) => {
+            const items = Array.isArray(response?.data?.data) ? response.data.data : [];
+            setPublishedVideos(items.filter((item) => item.mediaType === "video" && item.videoUrl));
+            setPublishedAudio(items.filter((item) => item.mediaType === "audio" && item.videoUrl));
+        }).catch(() => setPublishedVideos([]));
+    }, []);
 
     useEffect(() => {
         const timerId = window.setInterval(() => {
@@ -71,7 +96,20 @@ export default function Media() {
                 </p>
 
                 <div className="video-grid">
-                    {videos.map((video) => (
+                    {publishedVideos.length ? publishedVideos.map((item) => (
+                        <div className="video-card" key={item._id}>
+                            {item.mimeType === "video/link" ? (
+                                <iframe title={item.title} src={getEmbedUrl(item.videoUrl)} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+                            ) : (
+                                <video controls preload="none" poster={item.thumbnailUrl || undefined} width="640" height="360" aria-label={item.title}>
+                                    <source src={item.videoUrl} type={item.mimeType || "video/mp4"} />
+                                    Your browser does not support the video tag.
+                                </video>
+                            )}
+                            <h3>{item.title}</h3>
+                            {item.description && <p>{item.description}</p>}
+                        </div>
+                    )) : videos.map((video) => (
                         <div className="video-card" key={video.src}>
                             <video
                                 controls
@@ -88,6 +126,8 @@ export default function Media() {
                     ))}
                 </div>
             </section>
+
+            {publishedAudio.length > 0 && <section className="video-section"><h2 className="section-title">Sermon Audio</h2><div className="video-grid">{publishedAudio.map((item) => <article className="video-card" key={item._id}><h3>{item.title}</h3>{item.description && <p>{item.description}</p>}<audio controls preload="none"><source src={item.videoUrl} type={item.mimeType} />Your browser does not support the audio element.</audio></article>)}</div></section>}
 
             <section id="live" className="live-section">
                 <div className="live-container">
@@ -160,8 +200,6 @@ export default function Media() {
                     ))}
                 </div>
             </section>
-
-            <SocialLinks />
         </>
     );
 }

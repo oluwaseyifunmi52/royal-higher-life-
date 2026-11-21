@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import { asset } from "./imageUtils";
 
-export default function Hero({ title, children, image }) {
+export default function Hero({ title, children, image, ctaText, ctaLink }) {
     const poster = image || asset("welcome pics.webp");
     const backgroundVideo = asset("background.mp4");
     const [videoReady, setVideoReady] = useState(false);
@@ -72,6 +73,7 @@ export default function Hero({ title, children, image }) {
                 <span className="hero-eyebrow">Royal HigherLife Ministries</span>
                 <h1>{title}</h1>
                 <p>{children}</p>
+                {ctaText && ctaLink && <Link className="btn btn-primary" to={ctaLink}>{ctaText}</Link>}
             </div>
         </section>
     );

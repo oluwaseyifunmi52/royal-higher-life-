@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
@@ -6,7 +6,7 @@ import {
     getDonationCampaigns,
     getDonationCurrencies,
 } from "../services/donationService.js";
-import { FaLock, FaCreditCard, FaReceipt } from "react-icons/fa";
+import { FaLock, FaCreditCard, FaReceipt, FaUniversity, FaCopy, FaCheck } from "react-icons/fa";
 import {
     currencySymbol,
     formatCurrency,
@@ -27,6 +27,30 @@ const initialForm = {
     anonymous: false,
     campaignId: "",
 };
+
+// Bank transfer is a MANUAL payment method. These details are shown to the
+// donor so they can pay from their own banking app; no bank verification API
+// is involved and nothing here is ever marked as paid automatically.
+const BANK_TRANSFER = Object.freeze({
+    accountName: "Royal Higher life Christian Ministries",
+    bank: "Ecobank",
+    accountNumber: "2280108251",
+});
+
+const PAYMENT_METHODS = Object.freeze([
+    {
+        id: "online",
+        label: "Online payment",
+        hint: "Card and supported local payment methods, verified by the payment provider.",
+        icon: FaCreditCard,
+    },
+    {
+        id: "bank_transfer",
+        label: "Bank transfer",
+        hint: "Pay from your banking app. Confirmed manually by the ministry.",
+        icon: FaUniversity,
+    },
+]);
 
 function friendlyError(error) {
     if (error?.response) {
@@ -57,7 +81,55 @@ export default function DonationForm() {
     const [status, setStatus] = useState(null);
     const [loadingCurrencies, setLoadingCurrencies] = useState(true);
     const [currencyError, setCurrencyError] = useState("");
+    const [paymentMethod, setPaymentMethod] = useState("online");
+    const [copyState, setCopyState] = useState("idle"); // idle | copied | failed
+    const copyResetTimer = useRef(null);
     const loading = status?.type === "loading";
+    const isOnlinePayment = paymentMethod === "online";
+
+    // Stop any pending copy confirmation reset when the form unmounts.
+    useEffect(() => () => clearTimeout(copyResetTimer.current), []);
+
+    function handlePaymentMethodChange(event) {
+        setPaymentMethod(event.target.value);
+        setStatus(null);
+        setCopyState("idle");
+        clearTimeout(copyResetTimer.current);
+    }
+
+    async function copyAccountNumber() {
+        const value = BANK_TRANSFER.accountNumber;
+        let copied = false;
+        try {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(value);
+                copied = true;
+            }
+        } catch {
+            copied = false;
+        }
+        if (!copied) {
+            // Fallback for browsers/contexts without the async clipboard API.
+            try {
+                const helper = document.createElement("textarea");
+                helper.value = value;
+                helper.setAttribute("readonly", "");
+                helper.style.position = "fixed";
+                helper.style.opacity = "0";
+                document.body.appendChild(helper);
+                helper.select();
+                copied = document.execCommand("copy");
+                document.body.removeChild(helper);
+            } catch {
+                copied = false;
+            }
+        }
+        setCopyState(copied ? "copied" : "failed");
+        clearTimeout(copyResetTimer.current);
+        if (copied) {
+            copyResetTimer.current = setTimeout(() => setCopyState("idle"), 6000);
+        }
+    }
 
     const loadCurrencies = useCallback(async (isCurrent = () => true) => {
         setLoadingCurrencies(true);
@@ -225,6 +297,15 @@ export default function DonationForm() {
 
     async function submitHandler(event) {
         event.preventDefault();
+        // Bank transfer never starts an online payment and never marks a
+        // donation as successful — the ministry confirms it manually.
+        if (!isOnlinePayment) {
+            setStatus({
+                type: "info",
+                text: "You are giving by bank transfer, so no online payment will be started. Use the bank details above; your donation will be confirmed after the ministry verifies that the transfer was received.",
+            });
+            return;
+        }
         if (loading || loadingCurrencies) return;
 
         if (!selectedCurrency || selectedCurrency.availability !== "available") {
@@ -393,7 +474,35 @@ export default function DonationForm() {
                     >
                         <h3 className="form-title">Make a Donation</h3>
 
-                        <div className="form-grid-2">
+                        <fieldset className="payment-method-fieldset">
+                            <legend className="field-label">How would you like to give?</legend>
+                            <div className="payment-methods" role="none">
+                                {PAYMENT_METHODS.map((method) => {
+                                    const Icon = method.icon;
+                                    const active = paymentMethod === method.id;
+                                    return (
+                                        <label
+                                            key={method.id}
+                                            className={`payment-card ${active ? "active" : ""}`}
+                                        >
+                                            <input
+                                                className="payment-radio"
+                                                type="radio"
+                                                name="paymentMethod"
+                                                value={method.id}
+                                                checked={active}
+                                                onChange={handlePaymentMethodChange}
+                                            />
+                                            <Icon aria-hidden="true" />
+                                            <span>{method.label}</span>
+                                            <small>{method.hint}</small>
+                                        </label>
+                                    );
+                                })}
+                            </div>
+                        </fieldset>
+
+                        <div className="form-grid-2" hidden={!isOnlinePayment}>
                             <div className="field-group">
                                 <label className="field-label" htmlFor="firstName">
                                     First name
@@ -424,7 +533,7 @@ export default function DonationForm() {
                             </div>
                         </div>
 
-                        <div className="form-grid-2">
+                        <div className="form-grid-2" hidden={!isOnlinePayment}>
                             <div className="field-group">
                                 <label className="field-label" htmlFor="donation-email">
                                     Email address (for receipt)
@@ -457,7 +566,7 @@ export default function DonationForm() {
                             </div>
                         </div>
 
-                        <div className="field-group">
+                        <div className="field-group" hidden={!isOnlinePayment}>
                             <label className="field-label" htmlFor="donation-currency">
                                 Currency
                             </label>
@@ -521,7 +630,7 @@ export default function DonationForm() {
                                             : "All currencies are currently unavailable for online giving. The list can be opened for review, but payment is blocked until a payment provider is configured."}
                             </small>
                         </div>
-                        <div className="field-group">
+                        <div className="field-group" hidden={!isOnlinePayment}>
                             <label className="field-label" htmlFor="amount">
                                 Donation amount
                             </label>
@@ -563,7 +672,7 @@ export default function DonationForm() {
                         </div>
 
                         {presets.length > 0 && (
-                            <div className="amount-grid" aria-label="Suggested donation amounts">
+                            <div className="amount-grid" aria-label="Suggested donation amounts" hidden={!isOnlinePayment}>
                                 {presets.map((amount) => (
                                     <button
                                         key={`${form.currency}-${amount}`}
@@ -580,7 +689,7 @@ export default function DonationForm() {
                             </div>
                         )}
 
-                        <div className="field-group">
+                        <div className="field-group" hidden={!isOnlinePayment}>
                             <label className="field-label" htmlFor="campaign">
                                 Campaign
                             </label>
@@ -612,7 +721,7 @@ export default function DonationForm() {
                             )}
                         </div>
 
-                        <div className="field-group">
+                        <div className="field-group" hidden={!isOnlinePayment}>
                             <label className="field-label" htmlFor="purpose">
                                 Donation purpose
                             </label>
@@ -639,7 +748,7 @@ export default function DonationForm() {
                             </select>
                         </div>
 
-                        <div className="field-group">
+                        <div className="field-group" hidden={!isOnlinePayment}>
                             <label className="field-label" htmlFor="message">
                                 Message (optional)
                             </label>
@@ -653,7 +762,7 @@ export default function DonationForm() {
                             />
                         </div>
 
-                        <label className="checkbox-row" htmlFor="anonymous">
+                        <label className="checkbox-row" htmlFor="anonymous" hidden={!isOnlinePayment}>
                             <input
                                 id="anonymous"
                                 type="checkbox"
@@ -665,7 +774,7 @@ export default function DonationForm() {
                         </label>
 
                         {Number.isFinite(amountNumber) && amountNumber > 0 && activeCurrency && (
-                            <div className="donation-charge-summary" aria-live="polite">
+                            <div className="donation-charge-summary" aria-live="polite" hidden={!isOnlinePayment}>
                                 <span>You will be charged</span>
                                 <strong>
                                     {formatCurrency(amountNumber, form.currency)}{" "}
@@ -682,20 +791,20 @@ export default function DonationForm() {
                         )}
 
                         {providerNames && (
-                            <p className="donation-provider-note">
+                            <p className="donation-provider-note" hidden={!isOnlinePayment}>
                                 Payments in {form.currency} are processed by {providerNames}. Your
                                 provider will show the payment methods available to you.
                             </p>
                         )}
 
                         {loadingCurrencies && (
-                            <p className="donation-provider-note" role="status">
+                            <p className="donation-provider-note" role="status" hidden={!isOnlinePayment}>
                                 Loading available currencies…
                             </p>
                         )}
 
                         {!loadingCurrencies && currencyError && (
-                            <div className="donation-status error" role="alert">
+                            <div className="donation-status error" role="alert" hidden={!isOnlinePayment}>
                                 <p>{currencyError}</p>
                                 <button
                                     type="button"
@@ -708,7 +817,7 @@ export default function DonationForm() {
                             </div>
                         )}
                         {!loadingCurrencies && !currencyError && !hasAvailableCurrency && (
-                            <p className="donation-status info" role="status">
+                            <p className="donation-status info" role="status" hidden={!isOnlinePayment}>
                                 All nine currencies are listed, but no eligible payment provider is currently
                                 available. You can open the list to review them, but online giving is blocked
                                 until a payment provider is configured. Contact the church office.
@@ -721,6 +830,7 @@ export default function DonationForm() {
                             whileTap={{ scale: loading ? 1 : 0.98 }}
                             className="donate-btn"
                             disabled={loading || loadingCurrencies || !activeCurrency}
+                            hidden={!isOnlinePayment}
                         >
                             {loading ? "Starting secure checkout…" : "Continue to Secure Payment"}
                         </motion.button>
@@ -734,6 +844,106 @@ export default function DonationForm() {
                                 {status.text}
                             </p>
                         )}
+
+                        <section
+                            className="bank-transfer-panel"
+                            hidden={isOnlinePayment}
+                            aria-label="Bank transfer details"
+                        >
+                            <h4>
+                                <FaUniversity aria-hidden="true" /> Bank transfer details
+                            </h4>
+
+                            <dl className="bank-details">
+                                <div className="bank-detail">
+                                    <dt>Account name</dt>
+                                    <dd>{BANK_TRANSFER.accountName}</dd>
+                                </div>
+                                <div className="bank-detail">
+                                    <dt>Bank</dt>
+                                    <dd>{BANK_TRANSFER.bank}</dd>
+                                </div>
+                                <div className="bank-detail">
+                                    <dt>Account number</dt>
+                                    <dd className="bank-account-number">
+                                        {BANK_TRANSFER.accountNumber}
+                                    </dd>
+                                </div>
+                            </dl>
+
+                            <div className="bank-actions">
+                                <button
+                                    type="button"
+                                    className={`copy-account-btn ${
+                                        copyState === "copied" ? "copied" : ""
+                                    }`}
+                                    onClick={copyAccountNumber}
+                                >
+                                    {copyState === "copied" ? (
+                                        <>
+                                            <FaCheck aria-hidden="true" /> Account number copied
+                                        </>
+                                    ) : (
+                                        <>
+                                            <FaCopy aria-hidden="true" /> Copy Account Number
+                                        </>
+                                    )}
+                                </button>
+                                <p
+                                    className={`copy-confirmation ${
+                                        copyState === "failed" ? "failed" : ""
+                                    }`}
+                                    role="status"
+                                    aria-live="polite"
+                                >
+                                    {copyState === "copied"
+                                        ? "Account number copied to your clipboard — paste it into your banking app."
+                                        : copyState === "failed"
+                                            ? `Automatic copy is not available in this browser. Please copy ${BANK_TRANSFER.accountNumber} manually.`
+                                            : ""}
+                                </p>
+                            </div>
+
+                            <div className="bank-instructions">
+                                <p>
+                                    <strong>How to give by bank transfer:</strong>
+                                </p>
+                                <ul>
+                                    <li>
+                                        Transfer your gift to the {BANK_TRANSFER.bank} account
+                                        shown above.
+                                    </li>
+                                    <li>
+                                        Use <strong>your full name</strong> as the transfer
+                                        narration (description), or your donation reference if the
+                                        ministry already gave you one.
+                                    </li>
+                                    <li>
+                                        If the gift is for a specific purpose, add it to the
+                                        narration too — for example{" "}
+                                        <em>Building Project</em>.
+                                    </li>
+                                    <li>
+                                        Keep your bank alert or receipt until your donation has
+                                        been confirmed.
+                                    </li>
+                                </ul>
+                                <p>
+                                    No online payment is taken from this page and you do not need
+                                    to fill in the online form — simply send the transfer from
+                                    your own banking app.
+                                </p>
+                            </div>
+
+                            <p className="bank-manual-note">
+                                <strong>Bank transfers are confirmed manually.</strong> Your
+                                donation is <strong>not</strong> marked successful just because
+                                you chose this option. The ministry first verifies that the funds
+                                reached our account, and only then is your donation confirmed and
+                                a receipt issued. This can take a little while after your
+                                transfer.
+                            </p>
+                        </section>
                     </motion.form>
                 </motion.div>
             </div>

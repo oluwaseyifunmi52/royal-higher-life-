@@ -6,12 +6,6 @@ export const registerUser = (userData) =>
 export const loginUser = (credentials) =>
     api.post("/api/auth/login", credentials);
 
-export const startSocialLogin = (provider) =>
-    api.get(`/api/auth/social/${provider}`);
-
-export const exchangeSocialLoginCode = (code) =>
-    api.post("/api/auth/social/exchange", { code });
-
 export const verifyEmail = (data) =>
     api.post("/api/auth/verify-email", data);
 
