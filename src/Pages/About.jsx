@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { getPublicSiteContent } from "../services/publicContentService";
 import SEO from "../Components/SEO.jsx";
+import OptimizedImage from "../Components/OptimizedImage.jsx";
+import { asset } from "../Components/imageUtils";
 
 export default function About() {
     const [siteContent, setSiteContent] = useState({});
@@ -152,14 +154,18 @@ export default function About() {
                     <article className="card" id="founder">
                         <h2>Founder</h2>
                         <div className="founder-image">
-                            <img 
-                                src="../assets/school 4.jpeg" 
-                                alt="Royal Higherlife Founder" 
+                            <OptimizedImage
+                                src={asset("school 4.jpeg")}
+                                webp={asset("school 4.webp")}
+                                alt="Royal Higherlife Founder"
+                                width="500"
+                                height="400"
                                 loading="lazy"
-                                onError={(event) => { 
-                                    event.currentTarget.onerror = null; 
-                                    event.currentTarget.src = "../assets/royal3.jpeg"; 
-                                }} 
+                                decoding="async"
+                                onError={(event) => {
+                                    event.currentTarget.onerror = null;
+                                    event.currentTarget.src = asset("royal3.jpeg");
+                                }}
                             />
                         </div>
                         <p>

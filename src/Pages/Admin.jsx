@@ -496,7 +496,7 @@ export default function Admin() {
 
   return (
     <div className="flex bg-slate-100 min-h-screen">
-      <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} activeTab={activeTab} onSelectTab={setActiveTab} />
       <div className="flex-1">
         <AdminNavbar sidebarOpen={sidebarOpen} onSidebarToggle={() => setSidebarOpen(!sidebarOpen)} />
         <div className="p-4 md:p-8">

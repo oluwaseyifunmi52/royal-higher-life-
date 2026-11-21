@@ -4,6 +4,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import ministryLogo from "../assets/royal logo.jpeg";
 import { useAuth } from "../context/AuthContext";
+import OptimizedImage from "./OptimizedImage";
+import { asset } from "./imageUtils";
 
 const navItems = [
     { title: "Home", path: "/" },
@@ -74,11 +76,15 @@ export default function Navbar() {
                         className="flex min-w-0 shrink-0 items-center gap-2.5 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ffd46b] sm:gap-3"
                         aria-label="Royal HigherLife Christian Ministries home"
                     >
-                        <img
+                        <OptimizedImage
                             src={ministryLogo}
+                            webp={asset("royal logo.webp")}
                             alt="Royal HigherLife Christian Ministries logo"
                             width="56"
                             height="56"
+                            loading="eager"
+                            decoding="async"
+                            fetchPriority="high"
                             className="h-11 w-11 shrink-0 rounded-full object-contain sm:h-12 sm:w-12 lg:h-14 lg:w-14"
                         />
                         <span className="min-w-0 text-sm font-bold leading-tight sm:text-base lg:text-xl" style={{ fontFamily: "var(--font-display)" }}>
