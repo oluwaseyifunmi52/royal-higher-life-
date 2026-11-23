@@ -666,6 +666,165 @@
    GALLERY PAGE RESPONSIVE
    ============================================================ */
 
+@media (max-width: 640px) {
+    .gallery-filters {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 4px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .gallery-filters .filter-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 0;
+        width: 100%;
+        min-height: 44px;
+        margin: 0;
+        padding: 4px 1px;
+        border-radius: 10px;
+        font-size: 10px;
+        font-weight: 500;
+        line-height: 1.2;
+        text-align: center;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: normal;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 640px) {
+    #mission-project {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: stretch;
+        gap: 8px;
+        width: 100%;
+        padding: 0 12px;
+        box-sizing: border-box;
+        overflow-x: clip;
+    }
+
+    #mission-project > .mission-container {
+        grid-column: 1 / -1;
+        width: 100%;
+        min-width: 0;
+        margin: 0 0 8px;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    #mission-project > .mission-card {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 12px 10px;
+        border-radius: 12px;
+        box-sizing: border-box;
+    }
+
+    #mission-project > .mission-card h2 {
+        min-width: 0;
+        font-family: var(--font-display);
+        font-size: 13.5px;
+        line-height: 1.25;
+        overflow-wrap: anywhere;
+    }
+
+    #mission-project > .mission-card .mission-content {
+        min-width: 0;
+        margin-top: 6px;
+        font-size: 10.5px;
+        line-height: 1.6;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    #mission-project > #community > header {
+        display: contents;
+    }
+
+    #mission-project > #community h2 {
+        order: 0;
+        margin-bottom: 0;
+    }
+
+    #mission-project > #community .mission-content {
+        order: 1;
+    }
+
+    #mission-project > #community .mission-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        order: 2;
+        width: 100%;
+        margin-top: auto;
+        padding-top: 8px;
+    }
+
+    #mission-project > #community .mission-actions .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 34px;
+        height: 34px;
+        padding: 0 8px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 1.2;
+        box-sizing: border-box;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+}
+
+@media (max-width: 359px) {
+    #mission-project > .mission-card .mission-content {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 359px) {
+    .gallery-filters {
+        gap: 3px;
+    }
+
+    .gallery-filters .filter-btn {
+        font-size: 9px;
+    }
+}
+
+@media (min-width: 641px) {
+    .gallery-filters {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        padding: 0 16px;
+    }
+
+    .gallery-filters .filter-btn {
+        padding: 0.6rem 0.25rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .gallery-filters .filter-btn {
+        padding: 0.7rem 1.3rem;
+        font-size: 0.9rem;
+    }
+}
+
 @media (max-width: 1024px) {
     .gallery-grid {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -793,6 +952,101 @@
    ABOUT PAGE RESPONSIVE
    ============================================================ */
 
+.about-main-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 24px;
+    margin: 0 auto 3rem;
+}
+
+.about-intro-card {
+    min-width: 0;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 18px;
+    padding: 2rem;
+}
+
+.about-intro-card h2 {
+    margin-top: 0;
+}
+
+.about-intro-card p {
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+.about-main-grid > .about-intro-card > h2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    color: var(--success);
+}
+
+.about-main-grid > .about-intro-card > h2::before {
+    content: "✦";
+    color: var(--primary);
+    font-size: 0.9rem;
+    line-height: 1;
+}
+
+.about-main-grid > .about-intro-card > h2::after {
+    content: "";
+    width: 34px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--primary);
+}
+
+.about-full-card {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    margin: 0 0 24px;
+    box-sizing: border-box;
+}
+
+#faith .faith-belief-list li {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: start;
+    gap: 16px;
+}
+
+#faith .faith-belief-list strong,
+#faith .faith-belief-list span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+#faith .faith-belief-list strong {
+    display: block;
+    margin: 0;
+}
+
+#founder .founder-image img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.about-intro-card .values-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.about-intro-card .value-item {
+    min-width: 0;
+    padding: 1rem;
+}
+
+.about-intro-card .value-item p {
+    overflow-wrap: anywhere;
+}
+
 @media (max-width: 1024px) {
     .about-section {
         padding: 4rem 1.5rem 2.5rem;
@@ -810,6 +1064,46 @@
 
     .locations {
         grid-template-columns: 1fr;
+    }
+
+    .about-main-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-bottom: 2rem;
+    }
+
+    .about-intro-card {
+        height: 100%;
+        padding: 1rem;
+    }
+
+    .about-intro-card .values-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .about-intro-card .value-item {
+        padding: 0.75rem;
+    }
+
+    .about-intro-card p,
+    .about-intro-card li,
+    .about-intro-card .value-item p {
+        font-size: 0.88rem;
+        line-height: 1.55;
+    }
+
+    .about-intro-card ul {
+        padding-left: 1rem;
+    }
+
+    .about-intro-card li {
+        margin-bottom: 0.45rem;
+    }
+
+    .about-full-card {
+        height: auto;
+        padding: 1.25rem;
     }
 
     .card-container {
@@ -833,6 +1127,31 @@
         min-width: auto;
         display: block;
         margin-bottom: 0.25rem;
+    }
+
+    #faith .faith-belief-list li {
+        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+        gap: 10px;
+        text-align: left;
+    }
+
+    #faith .faith-belief-list strong {
+        min-width: 0;
+        margin: 0;
+    }
+}
+
+@media (max-width: 359px) {
+    .about-main-grid {
+        gap: 8px;
+    }
+
+    .about-intro-card {
+        padding: 0.65rem;
+    }
+
+    .about-intro-card .value-item {
+        padding: 0.6rem;
     }
 }
 
@@ -878,6 +1197,42 @@
     .footer-bottom-content {
         flex-direction: column;
         text-align: center;
+    }
+}
+
+@media (max-width: 640px) {
+    .footer-bottom {
+        padding-bottom: 52px;
+    }
+
+    .footer-bottom-content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+        text-align: initial;
+    }
+
+    .footer-legal {
+        order: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+
+    .footer-legal a {
+        font-size: 12px;
+    }
+
+    .copyright {
+        order: 1;
+        max-width: 56%;
+        margin-left: auto;
+        text-align: right;
+        font-size: 11px;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
     }
 }
 
@@ -1546,5 +1901,324 @@ textarea,
         min-height: 46px !important;
         font-size: 16px;
         box-sizing: border-box;
+    }
+}
+
+@media (max-width: 640px) {
+    .about-section {
+        width: 100%;
+        padding: 12px;
+        box-sizing: border-box;
+        overflow-x: clip;
+    }
+
+    .about-section > .container {
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .about-section .page-header {
+        margin: 0 auto 18px;
+        padding: 0;
+        text-align: center;
+    }
+
+    .about-section .page-header .section-title {
+        color: #f5b942;
+        font-family: var(--font-display);
+        font-size: 21px;
+        line-height: 1.25;
+        text-align: center;
+        overflow-wrap: anywhere;
+    }
+
+    .about-section .page-header .section-subtitle {
+        margin: 10px 0 18px;
+        color: var(--text-muted);
+        font-size: 11px;
+        line-height: 1.6;
+        text-align: center;
+        overflow-wrap: anywhere;
+    }
+
+    .about-section .card {
+        min-width: 0;
+        width: 100%;
+        height: auto;
+        margin: 0;
+        padding: 12px;
+        box-sizing: border-box;
+        border: 1px solid #252f44;
+        border-radius: 12px;
+        background: #171e2e;
+        box-shadow: none;
+    }
+
+    .about-section .card p,
+    .about-section .card li,
+    .about-section .card span {
+        color: var(--text-muted);
+        font-size: 10.5px;
+        line-height: 1.6;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .about-section .card h2 {
+        margin: 0 0 8px;
+        color: #f5b942;
+        font-family: var(--font-display);
+        font-size: 16px;
+        line-height: 1.3;
+        overflow-wrap: anywhere;
+    }
+
+    .about-section .about-main-grid,
+    .about-section .about-intro-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        min-width: 0;
+        margin: 0 0 8px;
+    }
+
+    .about-section .about-intro-card,
+    .about-section .about-full-card,
+    .about-section .about-mobile-wide {
+        min-width: 0;
+        height: auto;
+    }
+
+    .about-section .about-intro-card > h2 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        margin-bottom: 8px;
+        color: #34d1a5;
+        font-size: 15px;
+    }
+
+    .about-section .about-intro-card > h2::before {
+        content: "";
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #f5b942;
+    }
+
+    .about-section .about-intro-card > h2::after {
+        content: "";
+        width: 22px;
+        height: 2px;
+        border-radius: 2px;
+        background: #f5b942;
+    }
+
+    .about-section .about-main-grid > .about-mobile-wide {
+        grid-column: 1 / -1;
+    }
+
+    .about-section .about-intro-card h4 {
+        margin: 8px 0 5px;
+        color: #fff;
+        font-family: var(--font-display);
+        font-size: 12px;
+    }
+
+    .about-section .about-activities-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 8px;
+        row-gap: 5px;
+        margin: 0;
+        padding-left: 15px;
+    }
+
+    .about-section .about-activities-grid li {
+        min-width: 0;
+        padding: 0;
+        color: var(--text);
+        font-size: 10.5px;
+        line-height: 1.5;
+        overflow-wrap: anywhere;
+    }
+
+    .about-section .about-intro-card .values-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+        min-width: 0;
+        margin-top: 8px;
+    }
+
+    .about-section .about-intro-card .value-item {
+        min-width: 0;
+        padding: 8px;
+        border: 1px solid #2a3449;
+        border-radius: 8px;
+        box-sizing: border-box;
+        background: #1c2437;
+    }
+
+    .about-section .about-intro-card .value-item h3 {
+        margin: 0 0 3px;
+        color: #f5b942;
+        font-family: var(--font-display);
+        font-size: 11.5px;
+        line-height: 1.35;
+        overflow-wrap: anywhere;
+    }
+
+    .about-section .about-intro-card .value-item p {
+        margin: 0;
+        color: var(--text);
+        font-size: 9.5px;
+        line-height: 1.5;
+    }
+
+    .about-section #faith,
+    .about-section #fields,
+    .about-section #founder {
+        width: 100%;
+        margin: 0 0 8px;
+        padding: 12px;
+    }
+
+    .about-section #faith h2,
+    .about-section #fields h2,
+    .about-section #founder h2 {
+        color: #f5b942;
+        font-family: var(--font-display);
+        font-size: 16px;
+    }
+
+    .about-section #faith .faith-belief-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .about-section #faith .faith-row {
+        display: grid;
+        grid-template-columns: 34% minmax(0, 1fr);
+        gap: 6px;
+        min-width: 0;
+        padding: 8px 0;
+        border-bottom: 1px solid #252f44;
+        text-align: left;
+    }
+
+    .about-section #faith .faith-row:last-child {
+        border-bottom: none;
+    }
+
+    .about-section #faith .faith-row strong {
+        display: block;
+        min-width: 0;
+        margin: 0;
+        color: #f5b942;
+        font-family: var(--font-display);
+        font-size: 10px;
+        line-height: 1.5;
+        overflow-wrap: anywhere;
+    }
+
+    .about-section #faith .faith-row span {
+        min-width: 0;
+        color: var(--text);
+        font-size: 10px;
+        line-height: 1.5;
+        overflow-wrap: anywhere;
+    }
+
+    .about-section #fields > p {
+        margin-bottom: 10px;
+    }
+
+    .about-section #fields .mission-fields-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 10px;
+        row-gap: 12px;
+        min-width: 0;
+        margin-top: 8px;
+        text-align: left;
+    }
+
+    .about-section #fields .mission-fields-grid > div {
+        min-width: 0;
+        padding: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .about-section #fields .mission-fields-grid h3 {
+        margin: 0 0 3px;
+        color: #f5b942;
+        font-family: var(--font-display);
+        font-size: 11.5px;
+        line-height: 1.4;
+        overflow-wrap: anywhere;
+    }
+
+    .about-section #fields .mission-fields-grid p {
+        margin: 0;
+        color: var(--text);
+        font-size: 9.5px;
+        line-height: 1.5;
+    }
+
+    .about-section #founder .founder-image {
+        display: none;
+    }
+
+    .about-section #founder p {
+        margin: 0 0 8px;
+        color: var(--text-muted);
+        font-size: 11px;
+        line-height: 1.7;
+    }
+
+    .about-section #founder p:last-child {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 359px) {
+    .about-section .card p,
+    .about-section .card li,
+    .about-section .card span {
+        font-size: 10px;
+    }
+
+    .about-section .about-intro-card .value-item p,
+    .about-section #fields .mission-fields-grid p {
+        font-size: 9px;
+    }
+
+    .about-section #founder p {
+        font-size: 10.5px;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-section .about-intro-card {
+        padding: 0.9rem;
+    }
+
+    .about-section .about-intro-card .value-item {
+        padding: 0.75rem;
+    }
+}
+
+@media (max-width: 359px) {
+    .about-section .about-intro-card {
+        padding: 0.65rem;
+    }
+
+    .about-section .about-intro-card .value-item {
+        padding: 0.6rem;
     }
 }

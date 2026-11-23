@@ -85,9 +85,6 @@ export const getPrayerRequests = () =>
 export const updatePrayerRequest = (id, data) =>
     api.put(`/api/prayers/${id}`, data);
 
-export const retryPrayerNotification = (id) =>
-    api.post(`/api/prayers/${id}/retry-notification`);
-
 export const deletePrayerRequest = (id) =>
     api.delete(`/api/prayers/${id}`);
 

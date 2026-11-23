@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { getPublicSiteContent } from "../services/publicContentService";
 import SEO from "../Components/SEO.jsx";
-import OptimizedImage from "../Components/OptimizedImage.jsx";
-import { asset } from "../Components/imageUtils";
+
+const founderImage = new URL("../assets/school 4.jpeg", import.meta.url).href;
+const founderFallbackImage = new URL("../assets/royal3.jpeg", import.meta.url).href;
 
 export default function About() {
     const [siteContent, setSiteContent] = useState({});
@@ -27,8 +28,8 @@ export default function About() {
                     </div>
 
                     {/* Mission & Vision */}
-                    <div className="card-container">
-                        <article className="card" id="mission">
+                    <div className="about-main-grid about-intro-grid">
+                        <article className="card about-intro-card" id="mission">
                             <h2>Our Mission</h2>
                             <p>
                                 {siteContent.mission || `We are dedicated to spreading the Gospel of Jesus Christ and reaching souls in communities, villages,
@@ -36,22 +37,21 @@ export default function About() {
                                 the Holy Spirit, and discipleship.`}
                             </p>
                         </article>
-                        <article className="card" id="vision">
+                        <article className="card about-intro-card" id="vision">
                             <h2>Our Vision</h2>
                             <p>
                                 {siteContent.vision || `To raise a generation of believers who live the higher life of holiness in Christ and impact their communities and nations through the power of the Gospel.`}
                             </p>
                         </article>
-                    </div>
-
                     {/* What We Do */}
-                    <article className="card single-card" id="activities">
+                    <article className="card about-intro-card about-mobile-wide" id="activities">
                         <h2>What We Do</h2>
+                        <p>Royal HigherLife is an evangelistic outreach ministry, not a church or a network of churches.</p>
                         <p>
-                            {siteContent.aboutText || `We are not a church or a network of churches. We are an evangelistic outreach ministry focused on taking the Gospel beyond church walls, reaching communities, making disciples, and transforming lives through the power of God's Word.`}
+                            {siteContent.aboutText || `We focus on taking the Gospel beyond church walls, reaching communities, making disciples, and transforming lives through the power of God's Word.`}
                         </p>
                         <h4>Our Core Activities:</h4>
-                        <ul>
+                        <ul className="about-activities-grid">
                             <li>Street Evangelism</li>
                             <li>Village Outreach</li>
                             <li>Youth & Children Ministry</li>
@@ -68,7 +68,7 @@ export default function About() {
                     </article>
 
                     {/* Core Values */}
-                    <article className="card single-card" id="values">
+                    <article className="card about-intro-card about-mobile-wide" id="values">
                         <h2>Core Values</h2>
                         <div className="values-grid">
                             <div className="value-item">
@@ -97,36 +97,37 @@ export default function About() {
                             </div>
                         </div>
                     </article>
+                    </div>
 
                     {/* Statement of Faith */}
-                    <article className="card single-card" id="faith">
+                    <article className="card single-card about-full-card" id="faith">
                         <h2>Statement of Faith</h2>
                         <p>We hold to these fundamental truths:</p>
-                        <ul>
-                            <li><strong>The Bible:</strong> The inspired, infallible, authoritative Word of God (2 Timothy 3:16-17)</li>
-                            <li><strong>The Trinity:</strong> One God in three Persons: Father, Son, and Holy Spirit (Matthew 28:19)</li>
-                            <li><strong>Jesus Christ:</strong> Son of God, virgin birth, sinless life, miracles, atoning death, resurrection, ascension (John 3:16)</li>
-                            <li><strong>Salvation:</strong> By grace through faith in Christ alone (Ephesians 2:8-9)</li>
-                            <li><strong>Sanctification:</strong> The act of God's grace making us holy (Hebrews 13:12)</li>
-                            <li><strong>Baptism of the Holy Spirit:</strong> Enduement of power for service (Acts 1:8)</li>
-                            <li><strong>Divine Healing:</strong> Provided through Christ's atonement (James 5:14-16)</li>
-                            <li><strong>Second Coming:</strong> Literal, visible return of Jesus Christ (1 Thessalonians 4:16-17)</li>
-                            <li><strong>Eternal Judgment:</strong> Heaven and Hell are real places (Matthew 25:41-46)</li>
-                            <li><strong>Marriage:</strong> Holy covenant between one man and one woman for life (Mark 10:6-12)</li>
-                            <li><strong>Water Baptism:</strong> By immersion in the name of the Father, Son, and Holy Spirit (Matthew 28:19)</li>
-                            <li><strong>The Lord's Supper:</strong> Remembering Christ's death until He returns (1 Corinthians 11:23-26)</li>
-                            <li><strong>Washing of Disciples' Feet:</strong> Practiced according to the example and commandment Jesus gave (John 13:14-15)</li>
+                        <ul className="faith-belief-list">
+                            <li className="faith-row"><strong>The Bible:</strong><span>The inspired, infallible, authoritative Word of God (2 Timothy 3:16-17)</span></li>
+                            <li className="faith-row"><strong>The Trinity:</strong><span>One God in three Persons: Father, Son, and Holy Spirit (Matthew 28:19)</span></li>
+                            <li className="faith-row"><strong>Jesus Christ:</strong><span>Son of God, virgin birth, sinless life, miracles, atoning death, resurrection, ascension (John 3:16)</span></li>
+                            <li className="faith-row"><strong>Salvation:</strong><span>By grace through faith in Christ alone (Ephesians 2:8-9)</span></li>
+                            <li className="faith-row"><strong>Sanctification:</strong><span>The act of God's grace making us holy (Hebrews 13:12)</span></li>
+                            <li className="faith-row"><strong>Baptism of the Holy Spirit:</strong><span>Enduement of power for service (Acts 1:8)</span></li>
+                            <li className="faith-row"><strong>Divine Healing:</strong><span>Provided through Christ's atonement (James 5:14-16)</span></li>
+                            <li className="faith-row"><strong>Second Coming:</strong><span>Literal, visible return of Jesus Christ (1 Thessalonians 4:16-17)</span></li>
+                            <li className="faith-row"><strong>Eternal Judgment:</strong><span>Heaven and Hell are real places (Matthew 25:41-46)</span></li>
+                            <li className="faith-row"><strong>Marriage:</strong><span>Holy covenant between one man and one woman for life (Mark 10:6-12)</span></li>
+                            <li className="faith-row"><strong>Water Baptism:</strong><span>By immersion in the name of the Father, Son, and Holy Spirit (Matthew 28:19)</span></li>
+                            <li className="faith-row"><strong>The Lord's Supper:</strong><span>Remembering Christ's death until He returns (1 Corinthians 11:23-26)</span></li>
+                            <li className="faith-row"><strong>Washing of Disciples' Feet:</strong><span>Practiced according to the example and commandment Jesus gave (John 13:14-15)</span></li>
                         </ul>
                     </article>
 
                     {/* Mission Fields */}
-                    <article className="card wide-card" id="fields">
+                    <article className="card wide-card about-full-card" id="fields">
                         <h2>Our Mission Fields</h2>
                         <p>
                             The areas listed below are our mission fields. We regularly go into these communities
                             to preach, disciple, and support spiritual growth.
                         </p>
-                        <div className="locations">
+                        <div className="locations mission-fields-grid">
                             <div>
                                 <h3>Ogun State</h3>
                                 <p>Alabata, Fojobayi, Ayeogun, Onisemo, Alata, Dopamu, Kobape, Ibara-rile, Isaga-Orile, Ilewo-Orile, Sagamu, Abeokuta Township and environs</p>
@@ -151,20 +152,16 @@ export default function About() {
                     </article>
 
                     {/* Founder */}
-                    <article className="card" id="founder">
+                    <article className="card about-full-card" id="founder">
                         <h2>Founder</h2>
                         <div className="founder-image">
-                            <OptimizedImage
-                                src={asset("school 4.jpeg")}
-                                webp={asset("school 4.webp")}
+                            <img
+                                src={founderImage}
                                 alt="Royal Higherlife Founder"
-                                width="500"
-                                height="400"
                                 loading="lazy"
-                                decoding="async"
                                 onError={(event) => {
                                     event.currentTarget.onerror = null;
-                                    event.currentTarget.src = asset("royal3.jpeg");
+                                    event.currentTarget.src = founderFallbackImage;
                                 }}
                             />
                         </div>

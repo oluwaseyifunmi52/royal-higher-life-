@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { getPublicGallery } from "../services/publicContentService";
-import { asset, galleryThumbFor } from "../Components/imageUtils";
-import OptimizedImage from "../Components/OptimizedImage";
+
+const asset = (path) => new URL(`../assets/${path}`, import.meta.url).href;
 
 // These are the ministry photos already bundled with the site. Use them when
 // the public API has not been populated yet, as well as when it is unavailable.
@@ -25,36 +25,10 @@ const getBundledGalleryImages = () => [
     { _id: "local-17", title: "Royal Higherlife Evangelical Team ", image: asset("new6.jpeg"), category: "Prayer" },
     { _id: "local-18", title: "Royal Higherlife Mission School", image: asset("school 5.jpeg"), category: "School" },
     { _id: "local-19", title: " ", image: asset("school 4.jpeg"), category: "School" },
-    { _id: "local-20", title: "Agodi Correctional service Oyo state Nigeria", image: asset("royal1.jpeg"), category: "Correctional Home" },
-    { _id: "local-21", title: "Agoue Benin.Rep", image: asset("royal3 (1).jpeg"), category: "Correctional Home" },
-    { _id: "local-22", title: "Some Member At Agoua", image: asset("RoyalLove.jpeg"), category: "Royal Workers" },
-];
-
-// Merge API images with bundled images while avoiding duplicate IDs and filenames.
-const mergeGalleryImages = (apiImages, bundledImages) => {
-    const filenameOf = (img) => {
-        const src = String(img.image || img.imageUrl || "");
-        const cleanSrc = src.split(/[?#]/)[0];
-        const segments = cleanSrc.split(/[\/\\]+/).filter(Boolean);
-        return (segments[segments.length - 1] || "").toLowerCase();
-    };
-
-    const displayedImages = [...bundledImages];
-    const seenIds = new Set(bundledImages.map((img) => String(img._id || img.id || "")).filter(Boolean));
-    const seenFilenames = new Set(bundledImages.map(filenameOf).filter(Boolean));
-
-    for (const item of apiImages) {
-        if (!item || typeof item !== "object") continue;
-        const id = String(item._id || item.id || "");
-        const filename = filenameOf(item);
-        if ((id && seenIds.has(id)) || (filename && seenFilenames.has(filename))) continue;
-        displayedImages.push(item);
-        if (id) seenIds.add(id);
-        if (filename) seenFilenames.add(filename);
-    }
-
-    return displayedImages;
-};
+    {_id:  "local-20", title: "Agodi Correctional service Oyo state Nigeria", image: asset("royal1.jpeg"),category:"Correctional Home" },
+    {_id:  "local-21", title: "Agoue Benin.Rep", image: asset("royal3 (1).jpeg"),category:"Correctional Home" },
+    {_id: "local-22", title: "Some Member At Agoua", image: asset("RoyalLove.jpeg"), category: "Royal Workers" },
+]
 
 export default function Gallery() {
     const [images, setImages] = useState([]);
@@ -73,10 +47,9 @@ export default function Gallery() {
             const res = await getPublicGallery();
             const data = Array.isArray(res?.data?.data) ? res.data.data : [];
             const imageData = data.filter((item) => !item.mediaType || item.mediaType === "image");
-            const bundledImages = getBundledGalleryImages();
-            const displayedImages = mergeGalleryImages(imageData, bundledImages);
+            const displayedImages = imageData.length > 0 ? imageData : getBundledGalleryImages();
             setImages(displayedImages);
-            
+
             // Extract unique categories
             const uniqueCategories = [...new Set(displayedImages.map(img => img.category).filter(Boolean))];
             setCategories(uniqueCategories);
@@ -95,8 +68,8 @@ export default function Gallery() {
     }, []);
 
     // Filter images by category - single declaration
-    const filteredImages = activeCategory === "all" 
-        ? images 
+    const filteredImages = activeCategory === "all"
+        ? images
         : images.filter(img => img.category === activeCategory);
 
     // Lightbox navigation
@@ -180,11 +153,9 @@ export default function Gallery() {
         return image.image || image.imageUrl || asset("royal3.jpeg");
     };
 
-    // Get thumbnail URL (optimized WebP thumbnail for the grid; full-res kept
-    // for the lightbox).
+    // Get thumbnail URL (same as full image for now, but could be different)
     const getThumbnailUrl = (image) => {
-        const src = image.image || image.imageUrl || asset("royal3.jpeg");
-        return galleryThumbFor(src) || src;
+        return image.image || image.imageUrl || asset("royal3.jpeg");
     };
 
     return (
@@ -199,14 +170,14 @@ export default function Gallery() {
 
                 {/* Category Filters */}
                 <div
-                    className="gallery-filters grid grid-cols-4 gap-2 px-3! max-[360px]:gap-1.5 sm:flex sm:flex-wrap sm:justify-center sm:gap-3 sm:px-4!"
+                    className="gallery-filters"
                     role="tablist"
                 >
                     <button
                         role="tab"
                         aria-selected={activeCategory === "all"}
                         onClick={() => setActiveCategory("all")}
-                        className={`filter-btn min-w-0! whitespace-nowrap px-0.5! py-[10px]! text-[11px] max-[360px]:text-[10px] sm:px-1! sm:py-[0.6rem]! sm:text-[0.85rem] md:px-[1.3rem]! md:py-[0.7rem]! md:text-[0.9rem] ${activeCategory === "all" ? "active" : ""}`}
+                        className={`filter-btn ${activeCategory === "all" ? "active" : ""}`}
                     >
                         All Photos
                     </button>
@@ -216,7 +187,7 @@ export default function Gallery() {
                             role="tab"
                             aria-selected={activeCategory === cat}
                             onClick={() => setActiveCategory(cat)}
-                            className={`filter-btn min-w-0! whitespace-nowrap px-0.5! py-[10px]! text-[11px] max-[360px]:text-[10px] sm:px-1! sm:py-[0.6rem]! sm:text-[0.85rem] md:px-[1.3rem]! md:py-[0.7rem]! md:text-[0.9rem] ${activeCategory === cat ? "active" : ""}`}
+                            className={`filter-btn ${activeCategory === cat ? "active" : ""}`}
                         >
                             {cat}
                         </button>
@@ -251,8 +222,8 @@ export default function Gallery() {
                         </div>
                     ) : (
                         filteredImages.map((image, index) => (
-                            <article 
-                                key={image._id || index} 
+                            <article
+                                key={image._id || index}
                                 className="gallery-item min-w-0! rounded-[14px]! p-[10px]! min-[641px]:rounded-[18px]! min-[641px]:p-0!"
                                 role="listitem"
                                 tabIndex={0}
@@ -265,14 +236,11 @@ export default function Gallery() {
                                 }}
                             >
                                 <div className="gallery-image-wrapper aspect-square! min-[641px]:aspect-[4/3]!">
-                                    <OptimizedImage
-                                        src={getFullImageUrl(image)}
-                                        webp={getThumbnailUrl(image)}
+                                    <img
+                                        className="h-full! w-full! object-cover!"
+                                        src={getThumbnailUrl(image)}
                                         alt={image.title}
-                                        width="400"
-                                        height="300"
                                         loading="lazy"
-                                        decoding="async"
                                         onError={(event) => {
                                             event.currentTarget.onerror = null;
                                             event.currentTarget.src = asset("royal3.jpeg");
@@ -299,17 +267,17 @@ export default function Gallery() {
 
             {/* Full-screen Lightbox Modal */}
             {lightboxOpen && filteredImages.length > 0 && (
-                <div 
-                    className="lightbox-overlay" 
+                <div
+                    className="lightbox-overlay"
                     onClick={(e) => { if (e.target === e.currentTarget) closeLightbox(); }}
-                    role="dialog" 
-                    aria-modal="true" 
+                    role="dialog"
+                    aria-modal="true"
                     aria-label="Image gallery"
                     onTouchStart={handleTouchStart}
                     onTouchEnd={handleTouchEnd}
                 >
-                    <button 
-                        className="lightbox-close" 
+                    <button
+                        className="lightbox-close"
                         onClick={closeLightbox}
                         aria-label="Close lightbox"
                     >
@@ -318,8 +286,8 @@ export default function Gallery() {
                         </svg>
                     </button>
 
-                    <button 
-                        className="lightbox-nav lightbox-prev" 
+                    <button
+                        className="lightbox-nav lightbox-prev"
                         onClick={(e) => { e.stopPropagation(); navigateLightboxDirection(-1); }}
                         aria-label="Previous image"
                     >
@@ -328,8 +296,8 @@ export default function Gallery() {
                         </svg>
                     </button>
 
-                    <button 
-                        className="lightbox-nav lightbox-next" 
+                    <button
+                        className="lightbox-nav lightbox-next"
                         onClick={(e) => { e.stopPropagation(); navigateLightboxDirection(1); }}
                         aria-label="Next image"
                     >
@@ -339,8 +307,8 @@ export default function Gallery() {
                     </button>
 
                     <div className="lightbox-content" ref={lightboxImgRef}>
-                        <img 
-                            src={getFullImageUrl(filteredImages[lightboxIndex])} 
+                        <img
+                            src={getFullImageUrl(filteredImages[lightboxIndex])}
                             alt={filteredImages[lightboxIndex].title}
                             onLoad={() => {
                                 // Image loaded successfully

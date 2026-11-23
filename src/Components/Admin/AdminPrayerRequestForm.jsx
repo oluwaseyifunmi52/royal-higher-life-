@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import {
   updatePrayerRequest,
-  retryPrayerNotification,
 } from "../../services/adminService";
 
 const INITIAL_STATE = {
@@ -19,7 +18,6 @@ export default function AdminPrayerRequestForm({ prayerRequest, onClose, onSaved
   const [formData, setFormData] = useState(INITIAL_STATE);
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
-  const [retryingNotification, setRetryingNotification] = useState(false);
 
   const isEdit = Boolean(prayerRequest);
 
@@ -76,20 +74,6 @@ export default function AdminPrayerRequestForm({ prayerRequest, onClose, onSaved
     } catch (err) {
       setStatus("error");
       setError(err.response?.data?.message || "Something went wrong");
-    }
-  };
-
-  const handleRetryNotification = async () => {
-    if (!prayerRequest?._id || retryingNotification) return;
-    setRetryingNotification(true);
-    setError("");
-    try {
-      await retryPrayerNotification(prayerRequest._id);
-      if (onSaved) await onSaved();
-    } catch (err) {
-      setError(err.response?.data?.message || "Could not retry the ministry notification.");
-    } finally {
-      setRetryingNotification(false);
     }
   };
 
@@ -244,11 +228,6 @@ export default function AdminPrayerRequestForm({ prayerRequest, onClose, onSaved
           </div>
 
           <div className="flex gap-3 pt-4 border-t">
-            {prayerRequest?.notificationStatus !== "accepted" && (
-              <button type="button" onClick={handleRetryNotification} disabled={retryingNotification} className="flex-1 px-4 py-2 border border-amber-500 rounded-lg text-amber-800 hover:bg-amber-50 font-medium disabled:opacity-50">
-                {retryingNotification ? "Retrying..." : "Retry ministry notification"}
-              </button>
-            )}
             <button
               type="button"
               onClick={onClose}

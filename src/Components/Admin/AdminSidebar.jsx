@@ -23,7 +23,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
-export default function AdminSidebar({ isOpen, onClose, activeTab, onSelectTab }) {
+export default function AdminSidebar({ isOpen, onClose }) {
     const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate();
     const { user, logoutUser } = useAuth();
@@ -32,8 +32,7 @@ export default function AdminSidebar({ isOpen, onClose, activeTab, onSelectTab }
         {
             title: "Dashboard",
             icon: LayoutDashboard,
-            path: "/admin",
-            tabId: "dashboard",
+            path: "/admin/dashboard",
         },
         {
             title: "Members",
@@ -43,8 +42,7 @@ export default function AdminSidebar({ isOpen, onClose, activeTab, onSelectTab }
         {
             title: "Donations",
             icon: HeartHandshake,
-            path: "/admin",
-            tabId: "donations",
+            path: "/admin/donations",
         },
         {
             title: "Payments",
@@ -54,26 +52,22 @@ export default function AdminSidebar({ isOpen, onClose, activeTab, onSelectTab }
         {
             title: "Prayer Requests",
             icon: HandHeart,
-            path: "/admin",
-            tabId: "prayer-requests",
+            path: "/admin/prayers",
         },
         {
             title: "Events",
             icon: CalendarDays,
-            path: "/admin",
-            tabId: "events",
+            path: "/admin/events",
         },
         {
             title: "Sermons",
             icon: BookOpen,
-            path: "/admin",
-            tabId: "sermons",
+            path: "/admin/sermons",
         },
         {
             title: "Gallery",
             icon: Image,
-            path: "/admin",
-            tabId: "gallery",
+            path: "/admin/gallery",
         },
         {
             title: "Announcements",
@@ -94,14 +88,12 @@ export default function AdminSidebar({ isOpen, onClose, activeTab, onSelectTab }
         {
             title: "Ministries",
             icon: Building2,
-            path: "/admin",
-            tabId: "ministries",
+            path: "/admin/ministries",
         },
         {
-            title: "Contact Messages",
+            title: "Messages",
             icon: Mail,
-            path: "/admin",
-            tabId: "contact-messages",
+            path: "/admin/messages",
         },
         {
             title: "Reports",
@@ -235,25 +227,21 @@ export default function AdminSidebar({ isOpen, onClose, activeTab, onSelectTab }
                     return (rolePaths[role] || []).includes(path);
                 }).map((item) => {
                     const Icon = item.icon;
-                    const isActiveTab = item.tabId ? activeTab === item.tabId : false;
                     return (
                         <NavLink
                             key={item.title}
-                            to={item.tabId ? "/admin" : item.path}
+                            to={item.path}
                             onClick={() => {
-                                if (item.tabId && typeof onSelectTab === "function") {
-                                    onSelectTab(item.tabId);
-                                }
                                 if (window.innerWidth < 1024) {
                                     onClose();
                                 }
                             }}
-                            className={({ isActive }) => {
-                                const active = item.tabId ? isActiveTab : isActive;
-                                return `flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 ${active
+                            className={({ isActive }) =>
+                                `flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 ${isActive
                                     ? "bg-yellow-400 text-slate-900 font-semibold shadow-lg"
-                                    : "hover:bg-slate-700"}`;
-                            }}
+                                    : "hover:bg-slate-700"
+                                }`
+                            }
                         >
                             <Icon size={22} aria-hidden="true" />
                             {!collapsed && window.innerWidth >= 1024 && (

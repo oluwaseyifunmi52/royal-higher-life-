@@ -1,35 +1,35 @@
 import { useEffect, useState } from "react";
 import { getPublicGallery } from "../services/publicContentService";
-import { asset } from "../Components/imageUtils";
-import OptimizedImage from "../Components/OptimizedImage";
 
-const liveVideo = asset("video.mp4");
+const asset = (path) => new URL(`../assets/${path}`, import.meta.url).href;
+
+ const liveVideo = asset("video.mp4");
 
 const videos = [
-    { src: asset("video.mp4"), poster: asset("welcome pics.webp"), label: "Live Service" },
-    { src: asset("video1.mp4"), poster: asset("royal3.webp"), label: "Worship Session" },
-    { src: asset("video2.mp4"), poster: asset("royal3.webp"), label: "Outreach" },
-    { src: asset("video3.mp4"), poster: asset("royal3.webp"), label: "Teaching" },
+    liveVideo,
+    asset("video1.mp4"),
+    asset("video2.mp4"),
+    asset("video3.mp4"),
 ];
 
 const galleryImages = [
-    { src: asset("royal12.jpeg"), webp: asset("thumb-royal12.webp"), alt: "Outreach" },
-    { src: asset("royal11.jpeg"), webp: asset("thumb-royal11.webp"), alt: "Evangelism" },
-    { src: asset("royal10.jpeg"), webp: asset("thumb-royal10.webp"), alt: "Church Program" },
-    { src: asset("royal8.jpeg"), webp: asset("thumb-royal8.webp"), alt: "Community Support" },
-    { src: asset("royal7.jpeg"), webp: asset("thumb-royal7.webp"), alt: "Outreach" },
-    { src: asset("royal5.jpeg"), webp: asset("thumb-royal5.webp"), alt: "Evangelism" },
-    { src: asset("royal4.jpeg"), webp: asset("thumb-royal4.webp"), alt: "Community Support" },
-    { src: asset("royal3.jpeg"), webp: asset("thumb-royal3.webp"), alt: "Evangelism" },
-    { src: asset("royal2.jpeg"), webp: asset("thumb-royal2.webp"), alt: "Church Program" },
-    { src: asset("rolay1.jpeg"), webp: asset("thumb-rolay1.webp"), alt: "Outreach" },
-    { src: asset("oba.jpeg"), webp: asset("thumb-oba.webp"), alt: "Community Support" },
-    { src: asset("new1.jpeg"), webp: asset("thumb-new1.webp"), alt: "New ministry" },
-    { src: asset("new2.jpeg"), webp: asset("thumb-new2.webp"), alt: "New outreach" },
-    { src: asset("new3.jpeg"), webp: asset("thumb-new3.webp"), alt: "New event" },
-    { src: asset("new4.jpeg"), webp: asset("thumb-new4.webp"), alt: "New testimony" },
-    { src: asset("new5.jpeg"), webp: asset("thumb-new5.webp"), alt: "Praise moment" },
-    { src: asset("new6.jpeg"), webp: asset("thumb-new6.webp"), alt: "Prayer time" },
+    { src: asset("royal12.jpeg"), alt: "Outreach" },
+    { src: asset("royal11.jpeg"), alt: "Evangelism" },
+    { src: asset("royal10.jpeg"), alt: "Church Program" },
+    { src: asset("royal8.jpeg"), alt: "Community Support" },
+    { src: asset("royal7.jpeg"), alt: "Outreach" },
+    { src: asset("royal5.jpeg"), alt: "Evangelism" },
+    { src: asset("royal4.jpeg"), alt: "Community Support" },
+    { src: asset("royal3.jpeg"), alt: "Evangelism" },
+    { src: asset("royal2.jpeg"), alt: "Church Program" },
+    { src: asset("rolay1.jpeg"), alt: "Outreach" },
+    { src: asset("oba.jpeg"), alt: "Community Support" },
+    { src: asset("new1.jpeg"), alt: "New ministry" },
+    { src: asset("new2.jpeg"), alt: "New outreach" },
+    { src: asset("new3.jpeg"), alt: "New event" },
+    { src: asset("new4.jpeg"), alt: "New testimony" },
+    { src: asset("new5.jpeg"), alt: "Praise moment" },
+    { src: asset("new6.jpeg"), alt: "Prayer time" },
 ];
 
 const slides = ["Welcome - Live Starting Soon", "Worship Session", "Announcement Time"];
@@ -98,30 +98,13 @@ export default function Media() {
                 <div className="video-grid">
                     {publishedVideos.length ? publishedVideos.map((item) => (
                         <div className="video-card" key={item._id}>
-                            {item.mimeType === "video/link" ? (
-                                <iframe title={item.title} src={getEmbedUrl(item.videoUrl)} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
-                            ) : (
-                                <video controls preload="none" poster={item.thumbnailUrl || undefined} width="640" height="360" aria-label={item.title}>
-                                    <source src={item.videoUrl} type={item.mimeType || "video/mp4"} />
-                                    Your browser does not support the video tag.
-                                </video>
-                            )}
+                            {item.mimeType === "video/link" ? <iframe title={item.title} src={getEmbedUrl(item.videoUrl)} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen /> : <video controls poster={item.thumbnailUrl || undefined}><source src={item.videoUrl} type={item.mimeType || "video/mp4"} />Your browser does not support the video tag.</video>}
                             <h3>{item.title}</h3>
                             {item.description && <p>{item.description}</p>}
                         </div>
                     )) : videos.map((video) => (
-                        <div className="video-card" key={video.src}>
-                            <video
-                                controls
-                                preload="none"
-                                poster={video.poster}
-                                width="640"
-                                height="360"
-                                aria-label={video.label}
-                            >
-                                <source src={video.src} type="video/mp4" />
-                                Your browser does not support the video tag.
-                            </video>
+                        <div className="video-card" key={video}>
+                            <video controls><source src={video} type="video/mp4" />Your browser does not support the video tag.</video>
                         </div>
                     ))}
                 </div>
@@ -145,15 +128,7 @@ export default function Media() {
                     </div>
 
                     <div className="video-area">
-                        <video
-                            controls
-                            preload="none"
-                            poster={asset("welcome pics.webp")}
-                            className="live-video"
-                            width="640"
-                            height="360"
-                            aria-label="Live service"
-                        >
+                        <video controls autoPlay muted loop className="live-video">
                             <source src={liveVideo} type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
@@ -166,7 +141,6 @@ export default function Media() {
                         <iframe
                             src="https://www.youtube.com/embed/live_stream?channel=UCabc123REALID"
                             title="Royal Higher Life live service"
-                            loading="lazy"
                         />
 
                         <div className="live-buttons">
@@ -186,17 +160,7 @@ export default function Media() {
 
                 <div className="gallery-container">
                     {galleryImages.map((image) => (
-                        <OptimizedImage
-                            key={image.src}
-                            src={image.src}
-                            webp={image.webp}
-                            alt={image.alt}
-                            width="400"
-                            height="300"
-                            loading="lazy"
-                            decoding="async"
-                            className="media-gallery-img"
-                        />
+                        <img src={image.src} alt={image.alt} key={image.src} />
                     ))}
                 </div>
             </section>

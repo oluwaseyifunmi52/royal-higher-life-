@@ -5,7 +5,6 @@ import Hero from "../Components/Hero.jsx";
 import PrayerForm from "../Components/PrayerForm.jsx";
 import TestimonyForm from "../Components/TestimonyForm.jsx";
 import SEO from "../Components/SEO.jsx";
-import OptimizedImage from "../Components/OptimizedImage.jsx";
 
 const asset = (path) => new URL(`../assets/${path}`, import.meta.url).href;
 
@@ -25,7 +24,7 @@ export default function Home() {
                 url="/"
                 type="website"
             />
-            
+
             {/* HERO SECTION */}
             <Hero title={siteContent.heroHeading || "Welcome to Royal HigherLife"} image={siteContent.heroImageUrl || undefined} ctaText={siteContent.heroCtaText} ctaLink={siteContent.heroCtaLink}>
                 {siteContent.heroDescription || "Royal HigherLife Christian Ministries (Outreach) is committed to spreading the Gospel of Jesus Christ through evangelism, discipleship, and compassionate outreach."}
@@ -40,14 +39,14 @@ export default function Home() {
                             <h2 className="section-title">{siteContent.welcomeHeading || "A Place to Belong, Believe & Become"}</h2>
                             <p className="welcome-intro">
                                 {siteContent.welcomeText || `At Royal HigherLife Christian Ministries, we believe everyone has a divine purpose.
-                                Whether you're seeking God for the first time or looking for a spiritual home, 
-                                you'll find a warm welcome, biblical teaching, and a community committed to 
+                                Whether you're seeking God for the first time or looking for a spiritual home,
+                                you'll find a warm welcome, biblical teaching, and a community committed to
                                 living the higher life in Christ.`}
                             </p>
                             <p className="welcome-details">
-                                Founded on the principles of evangelism, discipleship, and compassionate outreach, 
-                                our ministry spans across Nigeria, Republic of Benin, and Togo — planting churches, 
-                                reaching the lost, and raising a generation of believers who impact nations through 
+                                Founded on the principles of evangelism, discipleship, and compassionate outreach,
+                                our ministry spans across Nigeria, Republic of Benin, and Togo — planting churches,
+                                reaching the lost, and raising a generation of believers who impact nations through
                                 the power of the Gospel.
                             </p>
                             <Link to="/about" className="btn btn-primary">
@@ -55,14 +54,10 @@ export default function Home() {
                             </Link>
                         </div>
                         <div className="welcome-image">
-                            <OptimizedImage
+                            <img
                                 src={asset("welcome pics.jpeg")}
-                                webp={asset("welcome pics.webp")}
                                 alt="Royal HigherLife Ministries Welcome"
-                                width="600"
-                                height="400"
                                 loading="lazy"
-                                decoding="async"
                             />
                         </div>
                     </div>
@@ -126,7 +121,7 @@ export default function Home() {
                             </div>
                             <h3>Ministry Purpose</h3>
                             <p>
-                                We exist to reach the unreached, plant churches in strategic communities, support 
+                                We exist to reach the unreached, plant churches in strategic communities, support
                                 the needy, distribute Bibles, and equip ministers for effective kingdom service.
                             </p>
                         </article>
@@ -183,7 +178,7 @@ export default function Home() {
                     <LatestTestimonies />
 
                     <TestimonyForm />
-                    
+
                     <div className="section-cta">
                         <Link to="/reviews" className="btn btn-outline">
                             Read More Testimonies
@@ -200,7 +195,7 @@ export default function Home() {
                             <span className="section-eyebrow">Need Prayer?</span>
                             <h2 className="section-title">We're Here to Pray With You</h2>
                             <p className="prayer-intro">
-                                Whatever you're facing — illness, financial pressure, family struggles, 
+                                Whatever you're facing — illness, financial pressure, family struggles,
                                 or spiritual warfare — our prayer team is ready to stand with you in faith.
                             </p>
                             <ul className="prayer-features">
@@ -233,8 +228,8 @@ export default function Home() {
                             <span className="section-eyebrow">Partner With Us</span>
                             <h2 className="section-title">Sow Into The Harvest</h2>
                             <p className="giving-intro">
-                                Your generosity fuels church planting, evangelism, community development, 
-                                Bible distribution, and leadership training across nations. Every gift 
+                                Your generosity fuels church planting, evangelism, community development,
+                                Bible distribution, and leadership training across nations. Every gift
                                 makes an eternal impact.
                             </p>
                             <div className="giving-methods">
@@ -403,10 +398,10 @@ function LatestSermons() {
         if (!dateString) return "";
         const date = new Date(dateString);
         if (Number.isNaN(date.getTime())) return "";
-        return date.toLocaleDateString("en-US", { 
-            year: "numeric", 
-            month: "short", 
-            day: "numeric" 
+        return date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric"
         });
     };
 
@@ -463,16 +458,16 @@ function LatestSermons() {
                                     <div className="sermon-thumbnail">
                                         {isYouTubeUrl(sermon.videoUrl) ? (
                                             <>
-                                                <img 
-                                                    src={getYouTubeThumbnail(sermon.videoUrl) || sermon.image || sermon.imageUrl || asset("royal3.jpeg")} 
+                                                <img
+                                                    src={getYouTubeThumbnail(sermon.videoUrl) || sermon.image || sermon.imageUrl || asset("royal3.jpeg")}
                                                     alt={sermon.title}
                                                     loading="lazy"
                                                     onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = asset("royal3.jpeg"); }}
                                                 />
-                                                <Link 
+                                                <Link
                                                     to={`/sermons/${sermon._id}`}
-                                                    
-                                                    
+
+
                                                     className="play-button"
                                                     aria-label={`Watch: ${sermon.title}`}
                                                 >
@@ -483,17 +478,17 @@ function LatestSermons() {
                                             </>
                                         ) : sermon.videoUrl ? (
                                             <>
-                                                <video 
-                                                    src={sermon.videoUrl} 
+                                                <video
+                                                    src={sermon.videoUrl}
                                                     poster={sermon.image || sermon.imageUrl || asset("royal3.jpeg")}
                                                     muted
                                                     preload="metadata"
                                                     onError={(event) => { event.currentTarget.poster = asset("royal3.jpeg"); }}
                                                 />
-                                                <Link 
+                                                <Link
                                                     to={`/sermons/${sermon._id}`}
-                                                    
-                                                    
+
+
                                                     className="play-button"
                                                     aria-label={`Watch: ${sermon.title}`}
                                                 >
@@ -503,8 +498,8 @@ function LatestSermons() {
                                                 </Link>
                                             </>
                                         ) : (
-                                            <img 
-                                                src={sermon.image || sermon.imageUrl || asset("royal3.jpeg")} 
+                                            <img
+                                                src={sermon.image || sermon.imageUrl || asset("royal3.jpeg")}
                                                 alt={sermon.title}
                                                 loading="lazy"
                                                 onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = asset("royal3.jpeg"); }}
@@ -514,10 +509,10 @@ function LatestSermons() {
                                             <span className="sermon-category">{sermon.category}</span>
                                         )}
                                     </div>
-                                    
+
                                     <div className="sermon-content">
                                         <h3 className="sermon-title">{sermon.title}</h3>
-                                        
+
                                         <div className="sermon-meta">
                                             <span className="sermon-speaker">
                                                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -547,7 +542,7 @@ function LatestSermons() {
                                             {sermon.videoUrl && sermon.audioUrl ? " · Audio available" : ""}
                                         </p>
 
-                                        <Link 
+                                        <Link
                                             to={sermon._id ? `/sermons/${sermon._id}` : "/sermons"}
                                             className="btn btn-primary watch-btn"
                                         >
@@ -608,10 +603,10 @@ function UpcomingEvents() {
         if (!dateString) return "";
         const date = new Date(dateString);
         if (Number.isNaN(date.getTime())) return "";
-        return date.toLocaleDateString("en-US", { 
-            year: "numeric", 
-            month: "short", 
-            day: "numeric" 
+        return date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric"
         });
     };
 
@@ -650,8 +645,8 @@ function UpcomingEvents() {
                             {upcomingEvents.map((event) => (
                                 <article key={event._id} className="event-card">
                                     <div className="event-image">
-                                        <img 
-                                            src={event.image || event.imageUrl || asset("royal3.jpeg")} 
+                                        <img
+                                            src={event.image || event.imageUrl || asset("royal3.jpeg")}
                                             alt={event.title}
                                             loading="lazy"
                                             onError={(imageEvent) => { imageEvent.currentTarget.onerror = null; imageEvent.currentTarget.src = asset("royal3.jpeg"); }}
@@ -660,7 +655,7 @@ function UpcomingEvents() {
                                             <span className={`event-status ${event.status}`}>{event.status}</span>
                                         )}
                                     </div>
-                                    
+
                                     <div className="event-content">
                                         <div className="event-meta">
                                             <span className="event-date">
@@ -680,7 +675,7 @@ function UpcomingEvents() {
                                         </div>
 
                                         <h3 className="event-title">{event.title}</h3>
-                                        
+
                                         {event.location && (
                                             <p className="event-location">
                                                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

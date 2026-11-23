@@ -32,6 +32,8 @@ const Admin = lazy(() => import("../../Pages/Admin"));
 const AdminLogin = lazy(() => import("../../Pages/AdminLogin"));
 const AdminAccountRegistration = lazy(() => import("../../Pages/AdminAccountRegistration"));
 const NotFound = lazy(() => import("../../Pages/NotFound"));
+const TermsOfService = lazy(() => import("../../Pages/TermsOfService"));
+const PrivacyPolicy = lazy(() => import("../../Pages/PrivacyPolicy"));
 
 function PageFallback() {
     return <div className="page-fallback" role="status">Loading...</div>;
@@ -55,6 +57,8 @@ export default function Router() {
                     <Route path="/media" element={<Media />} />
                     <Route path="/reviews" element={<Reviews />} />
                     <Route path="/contact" element={<Contact />} />
+                    <Route path="/privacy" element={<PrivacyPolicy />} />
+                    <Route path="/terms" element={<TermsOfService />} />
                     <Route path="/donate" element={<Donate />} />
                     <Route path="/donations/complete" element={<DonationComplete />} />
                     <Route path="/donations/track" element={<DonationTrack />} />
