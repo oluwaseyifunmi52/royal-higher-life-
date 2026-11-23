@@ -123,7 +123,7 @@ export default function AdminContactMessageForm({ contactMessage, onClose, onSav
           <div className="rounded-lg bg-slate-50 p-3 text-sm text-slate-700">
             <p><strong>Reference:</strong> {contactMessage?.reference || "Legacy message"}</p>
             <p><strong>Submitted:</strong> {contactMessage?.createdAt ? new Date(contactMessage.createdAt).toLocaleString() : "—"}</p>
-            <p><strong>Ministry notification:</strong> {contactMessage?.notificationStatus || "Unknown"}{contactMessage?.notificationFailure ? ` (${contactMessage.notificationFailure})` : ""}</p>
+            <p><strong>Ministry notification:</strong> {(contactMessage?.notificationQueueStatus || contactMessage?.notificationStatus || "pending").replace(/^./, (letter) => letter.toUpperCase())}</p>
             <p><strong>Provider delivery:</strong> {contactMessage?.notificationDeliveryStatus || "Unknown"}</p>
             {contactMessage?.notificationProviderId && <p><strong>Provider message ID:</strong> {contactMessage.notificationProviderId}</p>}
             {contactMessage?.notificationAttemptCount > 0 && <p><strong>Attempts:</strong> {contactMessage.notificationAttemptCount}</p>}
@@ -213,7 +213,7 @@ export default function AdminContactMessageForm({ contactMessage, onClose, onSav
           </div>
 
           <div className="flex gap-3 pt-4 border-t">
-            {isEdit && contactMessage?.notificationStatus !== "accepted" && (
+            {isEdit && contactMessage?.notificationQueueStatus === "failed" && (
               <button type="button" onClick={handleRetryNotification} disabled={retryingNotification} className="flex-1 px-4 py-2 border border-amber-500 rounded-lg text-amber-800 hover:bg-amber-50 font-medium disabled:opacity-50">
                 {retryingNotification ? "Retrying..." : "Retry ministry notification"}
               </button>

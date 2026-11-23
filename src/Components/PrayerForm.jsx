@@ -1,8 +1,25 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { sendPrayerRequest } from "../services/prayerService.js";
 
 export default function PrayerForm() {
     const [status, setStatus] = useState(null);
+    const submissionKey = useRef("");
+
+    function getSubmissionKey() {
+        if (submissionKey.current) return submissionKey.current;
+        try { submissionKey.current = sessionStorage.getItem("rhl-prayer-submission-key") || ""; } catch { /* storage may be unavailable */ }
+        if (!submissionKey.current) {
+            submissionKey.current = globalThis.crypto?.randomUUID?.() ||
+                `prayer_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+            try { sessionStorage.setItem("rhl-prayer-submission-key", submissionKey.current); } catch { /* in-memory retry remains available */ }
+        }
+        return submissionKey.current;
+    }
+
+    function clearSubmissionKey() {
+        submissionKey.current = "";
+        try { sessionStorage.removeItem("rhl-prayer-submission-key"); } catch { /* ignore storage errors */ }
+    }
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -11,12 +28,16 @@ export default function PrayerForm() {
         setStatus({ type: "loading", text: "Submitting prayer request..." });
 
         try {
-            const response = await sendPrayerRequest(Object.fromEntries(new FormData(form)));
+            const response = await sendPrayerRequest({
+                ...Object.fromEntries(new FormData(form)),
+                submissionKey: getSubmissionKey(),
+            });
             const result = response.data?.data;
             form.reset();
+            clearSubmissionKey();
             setStatus({
                 type: "success",
-                text: `Your confidential prayer request was received. Reference: ${result?.reference || "received"}.${response.data?.emailNotificationsSent === false ? " Email delivery could not be confirmed, but the request was saved." : ""}`,
+                text: `Your confidential prayer request was received. Reference: ${result?.reference || "received"}.${response.data?.emailNotificationQueued ? " Email notifications are queued for processing." : response.data?.emailNotificationsSent === false ? " Email delivery could not be confirmed, but the request was saved." : ""}`,
             });
         } catch (error) {
             setStatus({ type: "error", text: error.response?.data?.message || "We could not submit your prayer request. Check your connection and try again." });
@@ -24,7 +45,12 @@ export default function PrayerForm() {
     }
 
     return (
-        <form className="form-box" id="prayerForm" onSubmit={handleSubmit}>
+        <form className="form-box" id="prayerForm" onSubmit={handleSubmit} onInput={() => {
+            if (status?.type === "loading") return;
+            let storedKey = false;
+            try { storedKey = Boolean(sessionStorage.getItem("rhl-prayer-submission-key")); } catch { /* storage may be unavailable */ }
+            if (submissionKey.current || storedKey) clearSubmissionKey();
+        }}>
             <h3>Prayer Request Form</h3>
             <p className="headline">Share Your Prayer - We Are Here to Pray With You</p>
             <p>Fill out the form below to submit your prayer request.</p>

@@ -5,31 +5,47 @@ export default function ContactForm() {
     const [status, setStatus] = useState(null);
     const submissionKey = useRef("");
 
+    function getSubmissionKey() {
+        if (submissionKey.current) return submissionKey.current;
+        try { submissionKey.current = sessionStorage.getItem("rhl-contact-submission-key") || ""; } catch { /* storage may be unavailable */ }
+        if (!submissionKey.current) {
+            submissionKey.current = globalThis.crypto?.randomUUID?.() ||
+                `contact_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+            try { sessionStorage.setItem("rhl-contact-submission-key", submissionKey.current); } catch { /* in-memory retry remains available */ }
+        }
+        return submissionKey.current;
+    }
+
+    function clearSubmissionKey() {
+        submissionKey.current = "";
+        try { sessionStorage.removeItem("rhl-contact-submission-key"); } catch { /* ignore storage errors */ }
+    }
+
     async function handleSubmit(event) {
         event.preventDefault();
 
         const form = event.currentTarget;
-        if (!submissionKey.current) {
-            submissionKey.current = globalThis.crypto?.randomUUID?.() ||
-                `contact_${Date.now()}_${Math.random().toString(36).slice(2)}`;
-        }
+        const activeSubmissionKey = getSubmissionKey();
         setStatus({ type: "loading", text: "Sending message..." });
 
         try {
             const response = await sendContactMessage({
                 ...Object.fromEntries(new FormData(form)),
-                submissionKey: submissionKey.current,
+                submissionKey: activeSubmissionKey,
             });
             form.reset();
-            submissionKey.current = "";
+            clearSubmissionKey();
             const body = response.data || {};
             const result = body.data || {};
             const reference = result.reference || body.reference || "";
             const accepted = result.notificationStatus === "accepted" || body.emailNotificationAccepted === true || body.emailNotificationsSent === true;
+            const queued = result.notificationStatus === "pending" || body.emailNotificationQueued === true;
             setStatus({
                 type: "success",
                 text: accepted
                     ? "Thank you for contacting Royal HigherLife Christian Ministries. Your enquiry has been received successfully. Our ministry team will review your message and respond as soon as possible."
+                    : queued
+                        ? `Your enquiry has been received successfully. Email notifications are queued for processing.${reference ? ` Your reference number is ${reference}.` : ""}`
                     : `Your enquiry has been received successfully, but our email notification service is temporarily unavailable.${reference ? ` Your reference number is ${reference}.` : ""} Our team can still access your enquiry.`,
             });
         } catch (error) {
@@ -38,7 +54,12 @@ export default function ContactForm() {
     }
 
     return (
-        <form className="contact-form" id="contactForm" onSubmit={handleSubmit}>
+        <form className="contact-form" id="contactForm" onSubmit={handleSubmit} onInput={() => {
+            if (status?.type === "loading") return;
+            let storedKey = false;
+            try { storedKey = Boolean(sessionStorage.getItem("rhl-contact-submission-key")); } catch { /* storage may be unavailable */ }
+            if (submissionKey.current || storedKey) clearSubmissionKey();
+        }}>
             <h1>Contact Us</h1>
             <p className="subtitle">We would love to hear from you! Send us a message and we will respond quickly.</p>
             <div className="row">

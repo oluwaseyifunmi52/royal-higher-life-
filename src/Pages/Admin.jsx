@@ -464,6 +464,7 @@ export default function Admin() {
       render: (val, item) => val || (item.isAnswered ? "completed" : "pending"),
     },
     { key: "createdAt", label: "Submitted", render: (val) => val ? new Date(val).toLocaleDateString() : "—" },
+    { key: "notificationQueueStatus", label: "Ministry Email", render: (val) => (val || "pending").replace(/^./, (letter) => letter.toUpperCase()) },
   ];
 
   const contactMessageColumns = [
@@ -471,7 +472,7 @@ export default function Admin() {
     { key: "email", label: "Email" },
     { key: "reference", label: "Reference" },
     { key: "subject", label: "Subject" },
-    { key: "notificationStatus", label: "Ministry Email", render: (val, item) => `${val || "unknown"}${item.notificationDeliveryStatus === "delivered" ? " · delivered" : " · delivery unconfirmed"}` },
+    { key: "notificationQueueStatus", label: "Ministry Email", render: (val) => (val || "pending").replace(/^./, (letter) => letter.toUpperCase()) },
     { key: "createdAt", label: "Submitted", render: (val) => val ? new Date(val).toLocaleDateString() : "—" },
     {
       key: "status",

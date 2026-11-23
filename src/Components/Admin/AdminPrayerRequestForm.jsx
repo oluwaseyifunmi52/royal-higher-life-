@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import {
   updatePrayerRequest,
+  retryPrayerNotification,
 } from "../../services/adminService";
 
 const INITIAL_STATE = {
@@ -18,6 +19,7 @@ export default function AdminPrayerRequestForm({ prayerRequest, onClose, onSaved
   const [formData, setFormData] = useState(INITIAL_STATE);
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
+  const [retryingNotification, setRetryingNotification] = useState(false);
 
   const isEdit = Boolean(prayerRequest);
 
@@ -77,6 +79,21 @@ export default function AdminPrayerRequestForm({ prayerRequest, onClose, onSaved
     }
   };
 
+  const handleRetryNotification = async () => {
+    if (!prayerRequest?._id || retryingNotification) return;
+    setRetryingNotification(true);
+    setError("");
+    try {
+      await retryPrayerNotification(prayerRequest._id);
+      if (onSaved) await onSaved();
+      onClose();
+    } catch (err) {
+      setError(err.response?.data?.message || "Could not retry the ministry notification.");
+    } finally {
+      setRetryingNotification(false);
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
@@ -108,7 +125,7 @@ export default function AdminPrayerRequestForm({ prayerRequest, onClose, onSaved
           <div className="rounded-lg bg-slate-50 p-3 text-sm text-slate-700">
             <p><strong>Reference:</strong> {prayerRequest?.reference || "Legacy request"}</p>
             <p><strong>Submitted:</strong> {prayerRequest?.createdAt ? new Date(prayerRequest.createdAt).toLocaleString() : "—"}</p>
-            <p><strong>Email notifications:</strong> {prayerRequest?.notificationStatus || "Unknown"}{prayerRequest?.notificationFailure ? ` (${prayerRequest.notificationFailure})` : ""}</p>
+            <p><strong>Email notifications:</strong> {(prayerRequest?.notificationQueueStatus || prayerRequest?.notificationStatus || "pending").replace(/^./, (letter) => letter.toUpperCase())}</p>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
@@ -228,6 +245,11 @@ export default function AdminPrayerRequestForm({ prayerRequest, onClose, onSaved
           </div>
 
           <div className="flex gap-3 pt-4 border-t">
+            {isEdit && prayerRequest?.notificationQueueStatus === "failed" && (
+              <button type="button" onClick={handleRetryNotification} disabled={retryingNotification} className="flex-1 px-4 py-2 border border-amber-500 rounded-lg text-amber-800 hover:bg-amber-50 font-medium disabled:opacity-50">
+                {retryingNotification ? "Retrying..." : "Retry ministry notification"}
+              </button>
+            )}
             <button
               type="button"
               onClick={onClose}
