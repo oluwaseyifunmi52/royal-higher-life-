@@ -27,6 +27,10 @@
     --transition: 0.3s ease;
     --font-display: "Fraunces", Georgia, "Times New Roman", serif;
     --font-body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --public-cream: #f5f0e7;
+    --public-paper: #fffdf8;
+    --public-ink: #192235;
+    --public-muted: #596274;
 }
 
 .admin-auth-page { min-height: 100vh; display: grid; place-items: center; padding: 28px 16px; color: #eef2fa; background: radial-gradient(ellipse at 50% 0%, #1b2a45 0%, #0b1220 58%); }
@@ -86,10 +90,7 @@ body {
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    background:
-        radial-gradient(1400px 700px at 88% -8%, rgba(245, 176, 65, 0.09), transparent 60%),
-        radial-gradient(1100px 620px at -8% 26%, rgba(56, 110, 255, 0.1), transparent 55%),
-        linear-gradient(180deg, #0b1220 0%, #0a1019 100%);
+    background: linear-gradient(180deg, #0b1220 0%, #0a1019 100%);
     background-attachment: fixed;
 }
 
@@ -152,6 +153,120 @@ a {
 
 .public-navbar .public-give-link {
     color: #0d1426;
+}
+
+/* Public pages use quieter surfaces and restrained interactions. Admin and
+   dashboard styling continues to use the original shared dark tokens. */
+.public-site .section-title {
+    color: var(--primary-strong);
+}
+
+.public-site .card,
+.public-site .mission-card,
+.public-site .team-card,
+.public-site .sermon-card,
+.public-site .video-card {
+    border-radius: 12px;
+    box-shadow: none;
+}
+
+.public-site .cta {
+    border: 1px solid rgba(245, 176, 65, 0.22);
+    border-radius: 12px;
+    background: #111d32;
+    box-shadow: none;
+}
+
+.public-site .welcome-section {
+    background: var(--public-cream);
+    color: var(--public-ink);
+}
+
+.public-site .welcome-text .section-title {
+    color: var(--public-ink);
+}
+
+.public-site .welcome-intro,
+.public-site .welcome-details {
+    color: var(--public-muted);
+}
+
+.public-site .welcome-image {
+    border-radius: 12px;
+    box-shadow: none;
+}
+
+.public-site .cta-buttons a.support {
+    background: var(--primary);
+    box-shadow: none;
+}
+
+.public-site .cta-buttons a.support:hover {
+    background: var(--primary-strong);
+    filter: none;
+}
+
+.public-site .gallery-item:hover,
+.public-site .gallery-container img:hover {
+    transform: none;
+}
+
+.public-site .gallery-item:hover .gallery-image-wrapper img,
+.public-site .sermon-card:hover .sermon-thumbnail img,
+.public-site .sermon-card:hover .sermon-thumbnail video {
+    transform: none;
+}
+
+.public-site .card:hover,
+.public-site .mission-card:hover,
+.public-site .team-card:hover,
+.public-site .sermon-card:hover,
+.public-site .video-card:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.public-site .btn,
+.public-site .btn-primary,
+.public-site .submit-btn,
+.public-site .donate-btn,
+.public-site button[type="submit"] {
+    border-radius: 8px;
+    background: var(--primary);
+    box-shadow: none;
+    transition: background-color 160ms ease, color 160ms ease;
+}
+
+.public-site .btn:hover,
+.public-site .btn-primary:hover,
+.public-site .submit-btn:hover,
+.public-site .donate-btn:hover,
+.public-site button[type="submit"]:hover {
+    transform: none;
+    filter: none;
+    background: var(--primary-strong);
+    box-shadow: none;
+}
+
+.public-site :where(p, li) {
+    overflow-wrap: anywhere;
+}
+
+.public-site :where(img, video, iframe) {
+    max-width: 100%;
+}
+
+.public-site input:not([type="checkbox"]):not([type="radio"]),
+.public-site select,
+.public-site textarea {
+    border-radius: 8px;
+    background: #111d32;
+}
+
+.public-site input:not([type="checkbox"]):not([type="radio"]):focus,
+.public-site select:focus,
+.public-site textarea:focus {
+    background: #14223a;
 }
 
 img,
@@ -348,11 +463,11 @@ button {
 
 .hero {
     position: relative;
-    min-height: 88vh;
+    min-height: 72vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 130px 24px;
+    padding: 90px 24px;
     overflow: hidden;
 }
 
@@ -495,7 +610,47 @@ button:disabled {
     transform: none;
 }
 
-/* ---------- Forms: shared controls ---------- */
+/* ---------- Primary button variant ---------- */
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 50px;
+    padding: 0 26px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-family: var(--font-body);
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: #141a2e;
+    background: linear-gradient(135deg, var(--primary-strong) 0%, var(--primary) 45%, var(--primary-dark) 100%);
+    box-shadow: 0 14px 30px rgba(245, 176, 65, 0.22);
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform var(--transition), box-shadow var(--transition), filter var(--transition);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.04);
+    box-shadow: 0 18px 40px rgba(245, 176, 65, 0.32);
+}
+
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ---------- Page container ---------- */
+
+.page-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
 
 input:not([type="checkbox"]):not([type="radio"]),
 select,
@@ -545,6 +700,19 @@ input[type="radio"] {
     margin-bottom: 0.9rem;
     color: var(--primary);
     text-align: center;
+}
+
+.section-title-left {
+    text-align: left;
+    margin-left: 0;
+}
+
+.section-intro {
+    max-width: 640px;
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.85;
+    margin: 0 0 2.2rem 0;
 }
 
 .section-subtitle {
@@ -840,6 +1008,17 @@ input[type="radio"] {
 .mission-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow);
+}
+
+.mission-section {
+    padding: 4rem 0;
+}
+
+.mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
 }
 
 .mission-card header {
@@ -1205,6 +1384,18 @@ input[type="radio"] {
 .headline {
     color: var(--text);
     font-weight: 600;
+}
+
+/* ----- Contact Page Layout ----- */
+.Message-section {
+    padding: 4rem 0;
+}
+
+.Message-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
 }
 
 .row {
@@ -2623,12 +2814,131 @@ input[type="radio"] {
 /* ---------- Misc pages ---------- */
 
 .about-section {
-    padding: 5rem 2rem 3rem;
+    padding: 4rem 2rem 3rem;
 }
 
-.container {
-    max-width: 1100px;
-    margin: 0 auto;
+/* About page grid layout */
+.about-main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.about-main-grid > article {
+    min-width: 0;
+}
+
+.about-activities-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+}
+
+.about-activities-grid li {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.5;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1rem;
+}
+
+.value-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem;
+}
+
+.value-item h3 {
+    color: var(--primary);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.value-item p {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.faith-belief-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.75rem;
+}
+
+.faith-row {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 0.88rem;
+    color: var(--text);
+}
+
+.faith-row strong {
+    color: var(--primary);
+    font-size: 0.85rem;
+    min-width: 95px;
+}
+
+.faith-row span {
+    color: var(--text-muted);
+    line-height: 1.5;
+    font-size: 0.88rem;
+}
+
+.mission-fields-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.mission-fields-grid > div h3 {
+    color: var(--primary);
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+}
+
+.mission-fields-grid > div p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.founder-image {
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #0d1526;
+}
+
+.founder-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 320px;
+    object-fit: cover;
 }
 
 .overlay {
@@ -3872,6 +4182,183 @@ input[type="radio"] {
     border-radius: 0 0 18px 18px;
 }
 
+/* ============================================================
+   MEDIA PAGE
+   ============================================================ */
+
+.media-section {
+    padding: 4rem 0;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.video-card {
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.video-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+    border-color: rgba(245, 176, 65, 0.35);
+}
+
+.video-card video,
+.video-card iframe {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #0d1526;
+    display: block;
+}
+
+.video-card audio {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.video-card h3 {
+    color: var(--text);
+    font-size: 1.1rem;
+    margin: 1rem 1.25rem 0.5rem;
+    line-height: 1.4;
+}
+
+.video-card p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0 1.25rem 1.25rem;
+}
+
+.live-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.live-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.countdown-box {
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+}
+
+.countdown-box h3 {
+    color: var(--primary);
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.countdown-box p#countdown {
+    font-family: var(--font-body);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+    letter-spacing: 0.03em;
+}
+
+.slides {
+    border-radius: 18px;
+    overflow: hidden;
+    background: #0d1526;
+    border: 1px solid var(--border);
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide {
+    display: none;
+    text-align: center;
+    color: var(--text);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.slide.active {
+    display: block;
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.video-area {
+    border-radius: 18px;
+    overflow: hidden;
+    background: #0d1526;
+    border: 1px solid var(--border);
+}
+
+.live-video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    min-height: 320px;
+}
+
+.chat-area {
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.chat-area h2 {
+    color: var(--primary);
+    font-size: 1.15rem;
+    margin: 0;
+}
+
+.chat-area p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.live-buttons {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: auto;
+}
+
+.live-buttons .btn {
+    flex: 1;
+}
+
+/* Media gallery reuses .gallery-grid from gallery page */
+
 @keyframes shimmer {
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
@@ -4059,6 +4546,7 @@ input[type="radio"] {
     font-variant-numeric: tabular-nums;
 }
 
+<<<<<<< HEAD
 /* Touch swipe indicator */
 .lightbox-swipe-hint {
     position: absolute;
@@ -4259,6 +4747,8 @@ input[type="radio"] {
     font-variant-numeric: tabular-nums;
 }
 
+=======
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
 /* Touch swipe indicator */
 .lightbox-swipe-hint {
     position: absolute;
@@ -4279,6 +4769,18 @@ input[type="radio"] {
     0%, 100% { opacity: 0.4; }
     50% { opacity: 0.8; }
 }
+
+/* ============================================================
+   GALLERY LIGHTBOX ENHANCEMENTS
+   ============================================================ */
+
+/* Focus visible states for lightbox */
+.lightbox-overlay *:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+
 
 /* ============================================================
    TOP BAR (Header)
@@ -4309,6 +4811,7 @@ input[type="radio"] {
     outline-offset: 2px;
 }
 
+<<<<<<< HEAD
 /* Improved lightbox image rendering */
 .lightbox-content img {
     max-width: 100%;
@@ -4319,89 +4822,9 @@ input[type="radio"] {
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     transition: opacity 0.2s ease;
 }
+=======
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
 
-/* Loading state for lightbox image */
-.lightbox-content img[loading="lazy"] {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.lightbox-content img[loading="lazy"][src] {
-    opacity: 1;
-}
-
-/* Lightbox navigation improvements */
-.lightbox-nav {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all var(--transition);
-    z-index: 10;
-    flex-shrink: 0;
-}
-
-.lightbox-nav:hover {
-    background: rgba(245, 176, 65, 0.2);
-    border-color: var(--primary);
-    color: var(--primary-strong);
-}
-
-.lightbox-nav:focus-visible {
-    outline: 2px solid var(--primary);
-    outline-offset: 2px;
-}
-
-.lightbox-nav svg {
-    width: 32px;
-    height: 32px;
-}
-
-.lightbox-prev {
-    left: 1rem;
-}
-
-.lightbox-next {
-    right: 1rem;
-}
-
-.lightbox-close {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all var(--transition);
-    z-index: 10;
-    flex-shrink: 0;
-}
-
-.lightbox-close:hover {
-    background: rgba(248, 113, 113, 0.15);
-    border-color: rgba(248, 113, 113, 0.4);
-    color: #fca5a5;
-}
-
-.lightbox-close:focus-visible {
-    outline: 2px solid var(--primary);
-    outline-offset: 2px;
-}
-
-.lightbox-close svg {
-    width: 28px;
-    height: 28px;
-}
 
 .lightbox-content {
     width: 100%;
@@ -4457,16 +4880,6 @@ input[type="radio"] {
     font-size: 1rem;
     color: var(--text-faint);
     font-variant-numeric: tabular-nums;
-}
-
-/* ============================================================
-   FOOTER
-   ============================================================ */
-
-.footer {
-    margin-top: 3rem;
-    background: #070b14;
-    border-top: 1px solid var(--border);
 }
 
 /* ============================================================
@@ -4807,6 +5220,35 @@ input[type="radio"] {
     margin-top: 1.5rem;
 }
 
+/* About page values list - simpler than grid cards */
+.values-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.value-marker {
+    color: var(--primary);
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.values-list h3 {
+    color: var(--primary);
+    font-size: 1.05rem;
+    margin-bottom: 0.25rem;
+}
+
+.values-list p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin: 0;
+}
+
 .value-item {
     padding: 1.5rem;
     background: rgba(255, 255, 255, 0.03);
@@ -4875,7 +5317,7 @@ input[type="radio"] {
 
 /* ----- Welcome Section ----- */
 .welcome-section {
-    padding: 5rem 0;
+    padding: 4rem 0;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
 }
 
@@ -4920,7 +5362,7 @@ input[type="radio"] {
 
 /* ----- About Overview Section ----- */
 .about-overview-section {
-    padding: 5rem 0;
+    padding: 4rem 0;
 }
 
 .section-header {
@@ -4985,7 +5427,7 @@ input[type="radio"] {
 
 /* ----- Sermons Home Section ----- */
 .sermons-home-section {
-    padding: 5rem 0;
+    padding: 4rem 0;
     background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.02));
 }
 
@@ -5186,7 +5628,7 @@ input[type="radio"] {
 
 /* ----- Events Home Section ----- */
 .events-home-section {
-    padding: 5rem 0;
+    padding: 4rem 0;
 }
 
 .events-home-section .events-grid {
@@ -5333,7 +5775,7 @@ input[type="radio"] {
 
 /* ----- Ministry Activities Section ----- */
 .activities-section {
-    padding: 5rem 0;
+    padding: 4rem 0;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
 }
 
@@ -5363,6 +5805,20 @@ input[type="radio"] {
     font-size: 3rem;
     margin-bottom: 1rem;
     line-height: 1;
+}
+
+.activity-badge {
+    display: inline-block;
+    padding: 0.45rem 0.9rem;
+    border-radius: 10px;
+    background: rgba(245, 176, 65, 0.15);
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(245, 176, 65, 0.3);
 }
 
 .activity-title {
@@ -5398,7 +5854,7 @@ input[type="radio"] {
 
 /* ----- Testimonies Section ----- */
 .testimonies-section {
-    padding: 5rem 0;
+    padding: 4rem 0;
 }
 
 .testimonies-grid {
@@ -5473,7 +5929,7 @@ input[type="radio"] {
 
 /* ----- Prayer Section ----- */
 .prayer-section {
-    padding: 5rem 0;
+    padding: 4rem 0;
     background: linear-gradient(180deg, transparent, rgba(245, 176, 65, 0.03));
 }
 
@@ -5530,7 +5986,7 @@ input[type="radio"] {
 
 /* ----- Giving Section ----- */
 .giving-section {
-    padding: 5rem 0;
+    padding: 4rem 0;
     background: linear-gradient(180deg, rgba(245, 176, 65, 0.05), transparent);
 }
 

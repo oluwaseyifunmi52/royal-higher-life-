@@ -685,7 +685,11 @@
         margin: 0;
         padding: 4px 1px;
         border-radius: 10px;
+<<<<<<< HEAD
         font-size: 10px;
+=======
+        font-size: 13px;
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         font-weight: 500;
         line-height: 1.2;
         text-align: center;
@@ -732,7 +736,11 @@
     #mission-project > .mission-card h2 {
         min-width: 0;
         font-family: var(--font-display);
+<<<<<<< HEAD
         font-size: 13.5px;
+=======
+        font-size: 15px;
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.25;
         overflow-wrap: anywhere;
     }
@@ -740,7 +748,11 @@
     #mission-project > .mission-card .mission-content {
         min-width: 0;
         margin-top: 6px;
+<<<<<<< HEAD
         font-size: 10.5px;
+=======
+        font-size: 13px;
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.6;
         white-space: normal;
         overflow-wrap: anywhere;
@@ -778,7 +790,11 @@
         height: 34px;
         padding: 0 8px;
         border-radius: 999px;
+<<<<<<< HEAD
         font-size: 11px;
+=======
+        font-size: 13px;
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         font-weight: 700;
         line-height: 1.2;
         box-sizing: border-box;
@@ -789,7 +805,11 @@
 
 @media (max-width: 359px) {
     #mission-project > .mission-card .mission-content {
+<<<<<<< HEAD
         font-size: 10px;
+=======
+        font-size: 13px;
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
     }
 }
 
@@ -799,7 +819,11 @@
     }
 
     .gallery-filters .filter-btn {
+<<<<<<< HEAD
         font-size: 9px;
+=======
+        font-size: 12px;
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
     }
 }
 
@@ -884,7 +908,115 @@
     .gallery-grid {
         /* Mobile: two equal picture columns per row */
         grid-template-columns: repeat(2, minmax(0, 1fr));
+<<<<<<< HEAD
+=======
     }
+}
+
+/* Portrait video gallery items - compact, consistent sizing */
+.gallery-item video {
+    width: auto;
+    height: auto;
+    max-height: 320px;
+    max-width: 100%;
+    object-fit: contain;
+    background: #0b1220;
+    display: block;
+    margin: 0 auto;
+}
+
+.video-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+}
+
+/* Mobile: two columns, compact videos */
+@media (max-width: 640px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .gallery-item video {
+        max-height: 240px;
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
+    }
+
+    .video-wrapper {
+        min-height: 160px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .gallery-item video {
+        max-height: 200px;
+    }
+
+    .video-wrapper {
+        min-height: 140px;
+    }
+}
+
+/* Tablet: two columns */
+@media (min-width: 641px) and (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+
+    .gallery-item video {
+        max-height: 280px;
+    }
+
+    .video-wrapper {
+        min-height: 200px;
+    }
+}
+
+/* Laptop: three columns */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+
+    .gallery-item video {
+        max-height: 300px;
+    }
+
+    .video-wrapper {
+        min-height: 220px;
+    }
+}
+
+/* Desktop and ultrawide: constrain content width */
+@media (min-width: 1025px) {
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .gallery-item video {
+        max-height: 320px;
+    }
+
+    .video-wrapper {
+        min-height: 240px;
+    }
+}
+
+/* Video category filter button styling */
+.gallery-filters .filter-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.gallery-filters .filter-btn.active {
+    box-shadow: 0 2px 8px rgba(245, 176, 65, 0.2);
 }
 
 /* ============================================================
@@ -1230,7 +1362,11 @@
         max-width: 56%;
         margin-left: auto;
         text-align: right;
+<<<<<<< HEAD
         font-size: 11px;
+=======
+        font-size: 13px;
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.6;
         overflow-wrap: anywhere;
     }
@@ -1937,7 +2073,11 @@ textarea,
     .about-section .page-header .section-subtitle {
         margin: 10px 0 18px;
         color: var(--text-muted);
+<<<<<<< HEAD
         font-size: 11px;
+=======
+        font-size: 13px;
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.6;
         text-align: center;
         overflow-wrap: anywhere;
@@ -1960,7 +2100,11 @@ textarea,
     .about-section .card li,
     .about-section .card span {
         color: var(--text-muted);
+<<<<<<< HEAD
         font-size: 10.5px;
+=======
+        font-size: 13px;
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.6;
         white-space: normal;
         overflow-wrap: anywhere;
@@ -2041,7 +2185,11 @@ textarea,
         min-width: 0;
         padding: 0;
         color: var(--text);
+<<<<<<< HEAD
         font-size: 10.5px;
+=======
+        font-size: 13px;
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.5;
         overflow-wrap: anywhere;
     }
@@ -2067,7 +2215,11 @@ textarea,
         margin: 0 0 3px;
         color: #f5b942;
         font-family: var(--font-display);
+<<<<<<< HEAD
         font-size: 11.5px;
+=======
+        font-size: 14px;
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.35;
         overflow-wrap: anywhere;
     }
@@ -2121,7 +2273,11 @@ textarea,
         margin: 0;
         color: #f5b942;
         font-family: var(--font-display);
+<<<<<<< HEAD
         font-size: 10px;
+=======
+        font-size: 13px;
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.5;
         overflow-wrap: anywhere;
     }
@@ -2129,7 +2285,11 @@ textarea,
     .about-section #faith .faith-row span {
         min-width: 0;
         color: var(--text);
+<<<<<<< HEAD
         font-size: 10px;
+=======
+        font-size: 13px;
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.5;
         overflow-wrap: anywhere;
     }
@@ -2158,7 +2318,11 @@ textarea,
         margin: 0 0 3px;
         color: #f5b942;
         font-family: var(--font-display);
+<<<<<<< HEAD
         font-size: 11.5px;
+=======
+        font-size: 14px;
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.4;
         overflow-wrap: anywhere;
     }
@@ -2177,7 +2341,11 @@ textarea,
     .about-section #founder p {
         margin: 0 0 8px;
         color: var(--text-muted);
+<<<<<<< HEAD
         font-size: 11px;
+=======
+        font-size: 13px;
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.7;
     }
 
@@ -2190,16 +2358,28 @@ textarea,
     .about-section .card p,
     .about-section .card li,
     .about-section .card span {
+<<<<<<< HEAD
         font-size: 10px;
+=======
+        font-size: 13px;
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
     }
 
     .about-section .about-intro-card .value-item p,
     .about-section #fields .mission-fields-grid p {
+<<<<<<< HEAD
         font-size: 9px;
     }
 
     .about-section #founder p {
         font-size: 10.5px;
+=======
+        font-size: 12px;
+    }
+
+    .about-section #founder p {
+        font-size: 13px;
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
     }
 }
 
@@ -2211,6 +2391,14 @@ textarea,
     .about-section .about-intro-card .value-item {
         padding: 0.75rem;
     }
+<<<<<<< HEAD
+=======
+
+    .Message-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
 }
 
 @media (max-width: 359px) {
@@ -2222,3 +2410,179 @@ textarea,
         padding: 0.6rem;
     }
 }
+<<<<<<< HEAD
+=======
+
+/* ============================================================
+   PHONE COMPOSITIONS (320px - 430px)
+   Intentional single-column layouts, fluid type, comfortable
+   touch targets, portrait-aware video sizing. Placed last so
+   these rules win over wider breakpoints on phone screens.
+   ============================================================ */
+@media (max-width: 430px) {
+    .section-title {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+    }
+
+    .section-subtitle,
+    .section-intro {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+
+    .gallery-grid,
+    .sermons-grid,
+    .events-grid,
+    .activities-grid,
+    .testimonies-grid,
+    .video-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .gallery-item video,
+    .video-card video,
+    .live-video,
+    .hero-video,
+    video {
+        max-height: 200px;
+        width: auto;
+        max-width: 100%;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .btn,
+    button[type="submit"],
+    .submit-btn,
+    .auth-submit {
+        min-height: 46px;
+        min-width: 46px;
+        font-size: 0.95rem;
+    }
+
+    input,
+    select,
+    textarea {
+        min-height: 46px;
+        font-size: 1rem;
+    }
+
+    .container,
+    .page-container {
+        width: min(100%, 92%);
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero {
+        min-height: 55vh;
+        padding: 56px 16px;
+    }
+
+    .hero h1 {
+        font-size: clamp(1.9rem, 8vw, 2.8rem);
+    }
+
+    .cta {
+        padding: 3rem 1.25rem;
+    }
+
+    .gallery-image-wrapper,
+    .video-wrapper {
+        min-height: 0;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+}
+
+/* ============================================================
+   ULTRAWIDE DISPLAYS (2560px and above)
+   Controlled maximum-width containers so content never
+   stretches excessively; intentional, centred composition.
+   ============================================================ */
+@media (min-width: 2560px) {
+    .container,
+    .page-container,
+    .footer-container,
+    .hero-content,
+    .cta {
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
+}
+
+/* Public pages: one controlled content measure, with phone-specific layout
+   corrections placed after the legacy component breakpoints above. */
+.public-site .container,
+.public-site .page-container,
+.public-site .footer-container {
+    width: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: clamp(1rem, 3vw, 2rem);
+    padding-right: clamp(1rem, 3vw, 2rem);
+}
+
+.public-site :where(.gallery-image-wrapper, .video-wrapper, .sermon-thumbnail, .team-image) {
+    overflow: hidden;
+}
+
+.public-site :where(.gallery-image-wrapper img, .team-image img, .welcome-image img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (max-width: 430px) {
+    .public-site :where(.about-main-grid, .about-intro-grid, .about-activities-grid, .mission-grid, .donation-grid, .contact-container) {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .public-site .about-section .card p,
+    .public-site .about-section .card li,
+    .public-site .about-section .card span,
+    .public-site .about-section .value-item p,
+    .public-site .about-section #fields .mission-fields-grid p {
+        font-size: 14px;
+        line-height: 1.65;
+    }
+
+    .public-site .about-section .about-intro-card .value-item p,
+    .public-site .about-section #fields .mission-fields-grid p {
+        font-size: 13px;
+    }
+
+    .public-site .Message-container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .public-site .section-cta :where(a, button),
+    .public-site .cta-buttons :where(a, button) {
+        min-height: 46px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .public-site .container,
+    .public-site .page-container,
+    .public-site .footer-container {
+        max-width: 1360px;
+    }
+}
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)

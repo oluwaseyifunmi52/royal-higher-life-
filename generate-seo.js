@@ -18,7 +18,7 @@ const pages = [
 ];
 
 function generateSitemap() {
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split('T');
   
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -35,8 +35,12 @@ ${pages.map(page => `  <url>
     fs.mkdirSync(publicDir, { recursive: true });
   }
   
-  fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemap);
-  console.log('✅ sitemap.xml generated in public/');
+  try {
+    fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemap);
+    console.log('✅ sitemap.xml generated in public/');
+  } catch (err) {
+    console.warn('⚠️  Could not write sitemap.xml (file may be locked by OneDrive):', err.message);
+  }
 }
 
 function generateRobotsTxt() {
@@ -60,8 +64,12 @@ Crawl-delay: 10
 `;
 
   const publicDir = path.join(process.cwd(), 'public');
-  fs.writeFileSync(path.join(publicDir, 'robots.txt'), robots);
-  console.log('✅ robots.txt generated in public/');
+  try {
+    fs.writeFileSync(path.join(publicDir, 'robots.txt'), robots);
+    console.log('✅ robots.txt generated in public/');
+  } catch (err) {
+    console.warn('⚠️  Could not write robots.txt (file may be locked by OneDrive):', err.message);
+  }
 }
 
 generateSitemap();

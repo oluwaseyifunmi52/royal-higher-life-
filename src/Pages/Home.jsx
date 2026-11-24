@@ -14,7 +14,11 @@ export default function Home() {
     useEffect(() => { getPublicSiteContent().then((response) => setSiteContent(response.data?.data || {})).catch(() => {}); }, []);
     useEffect(() => { getPublicMinistries().then((response) => setPublicMinistries(Array.isArray(response.data?.data) ? response.data.data : [])).catch(() => {}); }, []);
     const visibleActivities = publicMinistries.length ? publicMinistries.map((item) => ({
+<<<<<<< HEAD
         title: item.name, description: item.description, icon: item.image ? <img src={item.image} alt="" className="h-12 w-12 rounded-full object-cover" /> : "✦", link: "/about#activities",
+=======
+        title: item.name, description: item.description, icon: item.image ? <img src={item.image} alt="" className="h-12 w-12 rounded-full object-cover" /> : item.name.substring(0, 2), link: "/about#activities",
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
     })) : ministryActivities;
     return (
         <>
@@ -32,15 +36,23 @@ export default function Home() {
 
             {/* WELCOME SECTION */}
             <section id="welcome" className="welcome-section">
-                <div className="container">
+                <div className="container page-container">
+                    <h2 className="section-title section-title-left">{siteContent.welcomeHeading || "A Place to Belong, Believe &amp; Become"}</h2>
                     <div className="welcome-content">
                         <div className="welcome-text">
+<<<<<<< HEAD
                             <span className="section-eyebrow">Welcome Message</span>
                             <h2 className="section-title">{siteContent.welcomeHeading || "A Place to Belong, Believe & Become"}</h2>
                             <p className="welcome-intro">
                                 {siteContent.welcomeText || `At Royal HigherLife Christian Ministries, we believe everyone has a divine purpose.
                                 Whether you're seeking God for the first time or looking for a spiritual home,
                                 you'll find a warm welcome, biblical teaching, and a community committed to
+=======
+                            <p className="welcome-intro">
+                                {siteContent.welcomeText || `At Royal HigherLife Christian Ministries, we believe everyone has a divine purpose.
+                                Whether you're seeking God for the first time or looking for a spiritual home, 
+                                you'll find a warm welcome, biblical teaching, and a community committed to 
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                                 living the higher life in Christ.`}
                             </p>
                             <p className="welcome-details">
@@ -54,9 +66,15 @@ export default function Home() {
                             </Link>
                         </div>
                         <div className="welcome-image">
+<<<<<<< HEAD
                             <img
                                 src={asset("welcome pics.jpeg")}
                                 alt="Royal HigherLife Ministries Welcome"
+=======
+                            <img 
+                                src={asset("welcome pics.jpeg")} 
+                                alt="Royal HigherLife Ministries welcome gathering" 
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                                 loading="lazy"
                             />
                         </div>
@@ -64,6 +82,7 @@ export default function Home() {
                 </div>
             </section>
 
+<<<<<<< HEAD
             {/* ABOUT THE MINISTRY - QUICK OVERVIEW */}
             <section id="about-overview" className="about-overview-section">
                 <div className="container">
@@ -139,20 +158,29 @@ export default function Home() {
             <LatestAnnouncements />
 
             {/* MINISTRY ACTIVITIES */}
+=======
+            {/* MINISTRY WORK */}
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
             <section id="ministry-activities" className="activities-section">
-                <div className="container">
-                    <div className="page-header">
-                        <span className="section-eyebrow">Our Work</span>
-                        <h2 className="section-title">Ministry Activities</h2>
-                        <p className="section-subtitle">
-                            Five pillars of our outreach, each transforming lives for God's glory.
-                        </p>
-                    </div>
-
+                <div className="container page-container">
+                    <h2 className="section-title section-title-left">Ministry Activities</h2>
+                    <p className="section-intro">
+                        Five pillars of our outreach, each transforming lives for God's glory.
+                    </p>
                     <div className="activities-grid">
                         {visibleActivities.map((activity, index) => (
                             <article key={publicMinistries[index]?._id || index} className="activity-card">
+<<<<<<< HEAD
                                 <div className="activity-icon">{activity.icon}</div>
+=======
+                                <div className="activity-icon">
+                                    {typeof activity.icon === "string" ? (
+                                        <span className="activity-badge">{activity.icon}</span>
+                                    ) : (
+                                        activity.icon
+                                    )}
+                                </div>
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                                 <h3 className="activity-title">{activity.title}</h3>
                                 <p className="activity-description">{activity.description}</p>
                                 <Link to={activity.link} className="activity-link">
@@ -164,53 +192,53 @@ export default function Home() {
                 </div>
             </section>
 
+            {/* LATEST SERMONS */}
+            <LatestSermons />
+
+            {/* UPCOMING EVENTS */}
+            <UpcomingEvents />
+
+            {/* PUBLISHED ANNOUNCEMENTS */}
+            <LatestAnnouncements />
+
             {/* TESTIMONIES */}
             <section id="testimonies" className="testimonies-section">
-                <div className="container">
-                    <div className="page-header">
-                        <span className="section-eyebrow">Changed Lives</span>
-                        <h2 className="section-title">Testimonies</h2>
-                        <p className="section-subtitle">
-                            Real stories of God's faithfulness and transforming power.
-                        </p>
-                    </div>
-
+                <div className="container page-container">
+                    <h2 className="section-title section-title-left">Testimonies</h2>
+                    <p className="section-intro">
+                        Real stories of God's faithfulness and transforming power.
+                    </p>
                     <LatestTestimonies />
+<<<<<<< HEAD
 
                     <TestimonyForm />
 
                     <div className="section-cta">
+=======
+                    <div className="section-cta" style={{ marginTop: "2rem" }}>
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                         <Link to="/reviews" className="btn btn-outline">
                             Read More Testimonies
                         </Link>
                     </div>
+                    <TestimonyForm />
                 </div>
             </section>
 
             {/* PRAYER REQUEST */}
             <section id="prayer" className="prayer-section">
-                <div className="container">
+                <div className="container page-container">
+                    <h2 className="section-title section-title-left">We're Here to Pray With You</h2>
                     <div className="prayer-content">
                         <div className="prayer-info">
-                            <span className="section-eyebrow">Need Prayer?</span>
-                            <h2 className="section-title">We're Here to Pray With You</h2>
                             <p className="prayer-intro">
                                 Whatever you're facing — illness, financial pressure, family struggles,
                                 or spiritual warfare — our prayer team is ready to stand with you in faith.
                             </p>
                             <ul className="prayer-features">
-                                <li>
-                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                    <span>Confidential & Respectful</span>
-                                </li>
-                                <li>
-                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                    <span>Prayed Over by Our Team</span>
-                                </li>
-                                <li>
-                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                    <span>Follow-up Available</span>
-                                </li>
+                                <li>Confidential &amp; Respectful</li>
+                                <li>Prayed Over by Our Team</li>
+                                <li>Follow-up Available</li>
                             </ul>
                         </div>
                         <div className="prayer-form-wrapper">
@@ -222,11 +250,10 @@ export default function Home() {
 
             {/* GIVING SECTION */}
             <section id="giving" className="giving-section">
-                <div className="container">
+                <div className="container page-container">
+                    <h2 className="section-title section-title-left">Sow Into The Harvest</h2>
                     <div className="giving-content">
                         <div className="giving-info">
-                            <span className="section-eyebrow">Partner With Us</span>
-                            <h2 className="section-title">Sow Into The Harvest</h2>
                             <p className="giving-intro">
                                 Your generosity fuels church planting, evangelism, community development,
                                 Bible distribution, and leadership training across nations. Every gift
@@ -236,21 +263,18 @@ export default function Home() {
                                 <h4>Ways to Give</h4>
                                 <ul>
                                     <li>
-                                        <span className="method-icon">🏦</span>
                                         <div>
                                             <strong>Bank Transfer</strong>
                                             <span>Contact ministry for account details</span>
                                         </div>
                                     </li>
                                     <li>
-                                        <span className="method-icon">📱</span>
                                         <div>
                                             <strong>Mobile Money</strong>
-                                            <span>Available in Nigeria, Benin & Togo</span>
+                                            <span>Available in Nigeria, Benin &amp; Togo</span>
                                         </div>
                                     </li>
                                     <li>
-                                        <span className="method-icon">💳</span>
                                         <div>
                                             <strong>Online Giving</strong>
                                             <span>Secure payment portal coming soon</span>
@@ -263,7 +287,7 @@ export default function Home() {
                             </p>
                         </div>
                         <div className="giving-cta">
-                            <Link to="/donate" className="btn btn-primary btn-lg">
+                            <Link to="/donate" className="btn btn-primary">
                                 Give Now
                             </Link>
                             <p className="giving-note">
@@ -280,31 +304,31 @@ export default function Home() {
 // Ministry Activities Data
 const ministryActivities = [
     {
-        icon: "🎵",
+        icon: "WORSHIP",
         title: "Worship",
         description: "Spirit-filled worship sessions that usher in God's presence and transform atmospheres.",
         link: "/gallery#worship"
     },
     {
-        icon: "🙏",
+        icon: "PRAYER",
         title: "Prayer",
         description: "Dedicated intercession and prayer meetings for healing, breakthrough, and revival.",
         link: "/contact#prayerForm"
     },
     {
-        icon: "📖",
+        icon: "EVANGELISM",
         title: "Evangelism",
         description: "Taking the Gospel to streets, villages, and communities across nations.",
         link: "/mission#evangelism"
     },
     {
-        icon: "🤝",
+        icon: "OUTREACH",
         title: "Outreach",
         description: "Compassionate outreach to the needy, prisons, hospitals, and underserved communities.",
         link: "/mission#community"
     },
     {
-        icon: "🏘️",
+        icon: "COMMUNITY",
         title: "Community Development",
         description: "Building schools, clinics, and sustainable projects that transform entire communities.",
         link: "/about#mission"
@@ -368,7 +392,11 @@ function LatestAnnouncements() {
     const [announcements, setAnnouncements] = useState([]);
     useEffect(() => { getPublicAnnouncements().then((response) => setAnnouncements(Array.isArray(response.data?.data) ? response.data.data.slice(0, 3) : [])).catch(() => setAnnouncements([])); }, []);
     if (!announcements.length) return null;
+<<<<<<< HEAD
     return <section className="activities-section" aria-labelledby="latest-announcements-title"><div className="container"><div className="page-header"><span className="section-eyebrow">Stay connected</span><h2 id="latest-announcements-title" className="section-title">Ministry News & Announcements</h2></div><div className="activities-grid">{announcements.map((item) => <article key={item._id} className="activity-card">{item.imageUrl && <img src={item.imageUrl} alt="" loading="lazy" />}<h3>{item.title}</h3><p>{item.content || item.message}</p><time dateTime={item.publishAt || item.createdAt}>{new Date(item.publishAt || item.createdAt).toLocaleDateString()}</time></article>)}</div></div></section>;
+=======
+    return <section className="activities-section" aria-labelledby="latest-announcements-title"><div className="container page-container"><h2 className="section-title section-title-left">Ministry News &amp; Announcements</h2><div className="activities-grid">{announcements.map((item) => <article key={item._id} className="activity-card">{item.imageUrl && <img src={item.imageUrl} alt="" loading="lazy" />}<h3>{item.title}</h3><p>{item.content || item.message}</p><time dateTime={item.publishAt || item.createdAt}>{new Date(item.publishAt || item.createdAt).toLocaleDateString()}</time></article>)}</div></div></section>;
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
 }
 
 // Latest Sermons Component
@@ -423,14 +451,11 @@ function LatestSermons() {
 
     return (
         <section id="latest-sermons" className="sermons-home-section">
-            <div className="container">
-                <div className="page-header">
-                    <span className="section-eyebrow">Recent Messages</span>
-                    <h2 className="section-title">Latest Sermons</h2>
-                    <p className="section-subtitle">
-                        Be encouraged, challenged, and transformed by the preaching of God's Word.
-                    </p>
-                </div>
+            <div className="container page-container">
+                <h2 className="section-title section-title-left">Latest Sermons</h2>
+                <p className="section-intro">
+                    Be encouraged, challenged, and transformed by the preaching of God's Word.
+                </p>
 
                 {loading ? (
                     <div className="sermons-grid">
@@ -466,8 +491,11 @@ function LatestSermons() {
                                                 />
                                                 <Link
                                                     to={`/sermons/${sermon._id}`}
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                                                     className="play-button"
                                                     aria-label={`Watch: ${sermon.title}`}
                                                 >
@@ -487,8 +515,11 @@ function LatestSermons() {
                                                 />
                                                 <Link
                                                     to={`/sermons/${sermon._id}`}
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                                                     className="play-button"
                                                     aria-label={`Watch: ${sermon.title}`}
                                                 >
@@ -556,7 +587,7 @@ function LatestSermons() {
                                 </article>
                             ))}
                         </div>
-                        <div className="section-cta">
+                        <div className="section-cta" style={{ marginTop: "2rem" }}>
                             <Link to="/sermons" className="btn btn-outline">
                                 View All Sermons
                             </Link>
@@ -612,14 +643,11 @@ function UpcomingEvents() {
 
     return (
         <section id="upcoming-events" className="events-home-section">
-            <div className="container">
-                <div className="page-header">
-                    <span className="section-eyebrow">What's Coming</span>
-                    <h2 className="section-title">Upcoming Events</h2>
-                    <p className="section-subtitle">
-                        Join us for powerful gatherings, conferences, and ministry events.
-                    </p>
-                </div>
+            <div className="container page-container">
+                <h2 className="section-title section-title-left">Upcoming Events</h2>
+                <p className="section-intro">
+                    Join us for powerful gatherings, conferences, and ministry events.
+                </p>
 
                 {loading ? (
                     <div className="events-grid">
@@ -689,14 +717,14 @@ function UpcomingEvents() {
 
                                         <div className="event-actions">
                                             <Link to="/events" className="btn btn-primary">
-                                                Event Details & Registration
+                                                Event Details &amp; Registration
                                             </Link>
                                         </div>
                                     </div>
                                 </article>
                             ))}
                         </div>
-                        <div className="section-cta">
+                        <div className="section-cta" style={{ marginTop: "2rem" }}>
                             <Link to="/events" className="btn btn-outline">
                                 View All Events
                             </Link>

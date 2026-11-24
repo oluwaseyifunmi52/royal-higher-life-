@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "node generate-seo.js && vite build",
+    "dev": "vite --configLoader native",
+    "build": "node generate-seo.js && vite build --configLoader native",
     "test": "node --test src/utils/currency.test.js",
     "lint": "oxlint",
     "preview": "vite preview",

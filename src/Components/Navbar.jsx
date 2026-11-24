@@ -66,7 +66,7 @@ export default function Navbar() {
     const closeMobileMenu = () => setMobileOpen(false);
 
     return (
-        <header className={`public-navbar sticky top-0 z-50 border-b border-[#1f2a44] text-white transition-colors duration-200 ${scrolled ? "bg-[#0d1426]/95 shadow-lg backdrop-blur-md" : "bg-[#0d1426]"}`}>
+        <header className={`public-navbar sticky top-0 z-50 border-b border-[#1f2a44] bg-[#0d1426] text-white ${scrolled ? "shadow-sm" : ""}`}>
             <div className="mx-auto w-full max-w-[1920px] px-4 sm:px-6 xl:px-8">
                 <div className="flex min-h-16 items-center justify-between gap-3 lg:min-h-[76px]">
                     <Link

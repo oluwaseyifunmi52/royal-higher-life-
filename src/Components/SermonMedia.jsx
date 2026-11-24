@@ -42,7 +42,7 @@ export default function SermonMedia({ sermon }) {
 
     if (videoUrl) {
         if (videoUnavailable) {
-            return <p className="rounded-lg bg-slate-100 p-4 text-sm text-slate-700" role="alert">This sermon video could not be loaded. Please try again later.</p>;
+            return <p className="rounded-lg bg-slate-100 p-4 text-sm" role="alert" style={{ color: "var(--text)" }}>This sermon video could not be loaded. Please try again later.</p>;
         }
 
         return <video className="aspect-video w-full rounded-xl bg-black object-contain" controls playsInline preload="metadata" poster={sermon.image || sermon.imageUrl || undefined} onError={() => setVideoUnavailable(true)}><source src={videoUrl} />Your browser does not support video playback.</video>;
@@ -52,5 +52,5 @@ export default function SermonMedia({ sermon }) {
         return <audio className="w-full" controls preload="metadata"><source src={audioUrl} />Your browser does not support audio playback.</audio>;
     }
 
-    return <p className="rounded-lg bg-slate-100 p-4 text-sm text-slate-700">Playback is not available for this sermon yet.</p>;
+    return <p className="rounded-lg bg-slate-100 p-4 text-sm" style={{ color: "var(--text)" }}>Playback is not available for this sermon yet.</p>;
 }

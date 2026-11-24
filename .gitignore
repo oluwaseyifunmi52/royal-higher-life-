@@ -29,3 +29,6 @@ Thumbs.db
 
 # media
 # *.mp4 (removed - videos are needed for the site) 
+opencode.jsonc
+.kilo/
+.opencode/
