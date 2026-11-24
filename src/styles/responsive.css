@@ -685,11 +685,7 @@
         margin: 0;
         padding: 4px 1px;
         border-radius: 10px;
-<<<<<<< HEAD
-        font-size: 10px;
-=======
         font-size: 13px;
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         font-weight: 500;
         line-height: 1.2;
         text-align: center;
@@ -736,11 +732,7 @@
     #mission-project > .mission-card h2 {
         min-width: 0;
         font-family: var(--font-display);
-<<<<<<< HEAD
-        font-size: 13.5px;
-=======
         font-size: 15px;
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.25;
         overflow-wrap: anywhere;
     }
@@ -748,11 +740,7 @@
     #mission-project > .mission-card .mission-content {
         min-width: 0;
         margin-top: 6px;
-<<<<<<< HEAD
-        font-size: 10.5px;
-=======
         font-size: 13px;
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.6;
         white-space: normal;
         overflow-wrap: anywhere;
@@ -790,11 +778,7 @@
         height: 34px;
         padding: 0 8px;
         border-radius: 999px;
-<<<<<<< HEAD
-        font-size: 11px;
-=======
         font-size: 13px;
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         font-weight: 700;
         line-height: 1.2;
         box-sizing: border-box;
@@ -805,11 +789,7 @@
 
 @media (max-width: 359px) {
     #mission-project > .mission-card .mission-content {
-<<<<<<< HEAD
-        font-size: 10px;
-=======
         font-size: 13px;
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
     }
 }
 
@@ -819,11 +799,7 @@
     }
 
     .gallery-filters .filter-btn {
-<<<<<<< HEAD
-        font-size: 9px;
-=======
         font-size: 12px;
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
     }
 }
 
@@ -908,8 +884,6 @@
     .gallery-grid {
         /* Mobile: two equal picture columns per row */
         grid-template-columns: repeat(2, minmax(0, 1fr));
-<<<<<<< HEAD
-=======
     }
 }
 
@@ -940,7 +914,6 @@
 
     .gallery-item video {
         max-height: 240px;
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
     }
 
     .video-wrapper {
@@ -1362,11 +1335,7 @@
         max-width: 56%;
         margin-left: auto;
         text-align: right;
-<<<<<<< HEAD
-        font-size: 11px;
-=======
         font-size: 13px;
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.6;
         overflow-wrap: anywhere;
     }
@@ -2073,11 +2042,7 @@ textarea,
     .about-section .page-header .section-subtitle {
         margin: 10px 0 18px;
         color: var(--text-muted);
-<<<<<<< HEAD
-        font-size: 11px;
-=======
         font-size: 13px;
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.6;
         text-align: center;
         overflow-wrap: anywhere;
@@ -2100,11 +2065,7 @@ textarea,
     .about-section .card li,
     .about-section .card span {
         color: var(--text-muted);
-<<<<<<< HEAD
-        font-size: 10.5px;
-=======
         font-size: 13px;
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.6;
         white-space: normal;
         overflow-wrap: anywhere;
@@ -2185,11 +2146,7 @@ textarea,
         min-width: 0;
         padding: 0;
         color: var(--text);
-<<<<<<< HEAD
-        font-size: 10.5px;
-=======
         font-size: 13px;
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.5;
         overflow-wrap: anywhere;
     }
@@ -2215,11 +2172,7 @@ textarea,
         margin: 0 0 3px;
         color: #f5b942;
         font-family: var(--font-display);
-<<<<<<< HEAD
-        font-size: 11.5px;
-=======
         font-size: 14px;
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.35;
         overflow-wrap: anywhere;
     }
@@ -2273,11 +2226,7 @@ textarea,
         margin: 0;
         color: #f5b942;
         font-family: var(--font-display);
-<<<<<<< HEAD
-        font-size: 10px;
-=======
         font-size: 13px;
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.5;
         overflow-wrap: anywhere;
     }
@@ -2285,11 +2234,7 @@ textarea,
     .about-section #faith .faith-row span {
         min-width: 0;
         color: var(--text);
-<<<<<<< HEAD
-        font-size: 10px;
-=======
         font-size: 13px;
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.5;
         overflow-wrap: anywhere;
     }
@@ -2318,11 +2263,7 @@ textarea,
         margin: 0 0 3px;
         color: #f5b942;
         font-family: var(--font-display);
-<<<<<<< HEAD
-        font-size: 11.5px;
-=======
         font-size: 14px;
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.4;
         overflow-wrap: anywhere;
     }
@@ -2341,11 +2282,7 @@ textarea,
     .about-section #founder p {
         margin: 0 0 8px;
         color: var(--text-muted);
-<<<<<<< HEAD
-        font-size: 11px;
-=======
         font-size: 13px;
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         line-height: 1.7;
     }
 
@@ -2358,28 +2295,16 @@ textarea,
     .about-section .card p,
     .about-section .card li,
     .about-section .card span {
-<<<<<<< HEAD
-        font-size: 10px;
-=======
         font-size: 13px;
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
     }
 
     .about-section .about-intro-card .value-item p,
     .about-section #fields .mission-fields-grid p {
-<<<<<<< HEAD
-        font-size: 9px;
-    }
-
-    .about-section #founder p {
-        font-size: 10.5px;
-=======
         font-size: 12px;
     }
 
     .about-section #founder p {
         font-size: 13px;
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
     }
 }
 
@@ -2391,14 +2316,11 @@ textarea,
     .about-section .about-intro-card .value-item {
         padding: 0.75rem;
     }
-<<<<<<< HEAD
-=======
 
     .Message-container {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
 }
 
 @media (max-width: 359px) {
@@ -2410,8 +2332,6 @@ textarea,
         padding: 0.6rem;
     }
 }
-<<<<<<< HEAD
-=======
 
 /* ============================================================
    PHONE COMPOSITIONS (320px - 430px)
@@ -2585,4 +2505,3 @@ textarea,
         max-width: 1360px;
     }
 }
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)

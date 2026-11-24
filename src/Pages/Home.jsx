@@ -14,11 +14,7 @@ export default function Home() {
     useEffect(() => { getPublicSiteContent().then((response) => setSiteContent(response.data?.data || {})).catch(() => {}); }, []);
     useEffect(() => { getPublicMinistries().then((response) => setPublicMinistries(Array.isArray(response.data?.data) ? response.data.data : [])).catch(() => {}); }, []);
     const visibleActivities = publicMinistries.length ? publicMinistries.map((item) => ({
-<<<<<<< HEAD
-        title: item.name, description: item.description, icon: item.image ? <img src={item.image} alt="" className="h-12 w-12 rounded-full object-cover" /> : "✦", link: "/about#activities",
-=======
         title: item.name, description: item.description, icon: item.image ? <img src={item.image} alt="" className="h-12 w-12 rounded-full object-cover" /> : item.name.substring(0, 2), link: "/about#activities",
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
     })) : ministryActivities;
     return (
         <>
@@ -37,22 +33,12 @@ export default function Home() {
             {/* WELCOME SECTION */}
             <section id="welcome" className="welcome-section">
                 <div className="container page-container">
-                    <h2 className="section-title section-title-left">{siteContent.welcomeHeading || "A Place to Belong, Believe &amp; Become"}</h2>
                     <div className="welcome-content">
                         <div className="welcome-text">
-<<<<<<< HEAD
-                            <span className="section-eyebrow">Welcome Message</span>
-                            <h2 className="section-title">{siteContent.welcomeHeading || "A Place to Belong, Believe & Become"}</h2>
-                            <p className="welcome-intro">
-                                {siteContent.welcomeText || `At Royal HigherLife Christian Ministries, we believe everyone has a divine purpose.
-                                Whether you're seeking God for the first time or looking for a spiritual home,
-                                you'll find a warm welcome, biblical teaching, and a community committed to
-=======
                             <p className="welcome-intro">
                                 {siteContent.welcomeText || `At Royal HigherLife Christian Ministries, we believe everyone has a divine purpose.
                                 Whether you're seeking God for the first time or looking for a spiritual home, 
                                 you'll find a warm welcome, biblical teaching, and a community committed to 
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                                 living the higher life in Christ.`}
                             </p>
                             <p className="welcome-details">
@@ -66,15 +52,9 @@ export default function Home() {
                             </Link>
                         </div>
                         <div className="welcome-image">
-<<<<<<< HEAD
-                            <img
-                                src={asset("welcome pics.jpeg")}
-                                alt="Royal HigherLife Ministries Welcome"
-=======
                             <img 
                                 src={asset("welcome pics.jpeg")} 
                                 alt="Royal HigherLife Ministries welcome gathering" 
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                                 loading="lazy"
                             />
                         </div>
@@ -82,7 +62,6 @@ export default function Home() {
                 </div>
             </section>
 
-<<<<<<< HEAD
             {/* ABOUT THE MINISTRY - QUICK OVERVIEW */}
             <section id="about-overview" className="about-overview-section">
                 <div className="container">
@@ -148,19 +127,7 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* LATEST SERMONS */}
-            <LatestSermons />
-
-            {/* UPCOMING EVENTS */}
-            <UpcomingEvents />
-
-            {/* PUBLISHED ANNOUNCEMENTS */}
-            <LatestAnnouncements />
-
             {/* MINISTRY ACTIVITIES */}
-=======
-            {/* MINISTRY WORK */}
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
             <section id="ministry-activities" className="activities-section">
                 <div className="container page-container">
                     <h2 className="section-title section-title-left">Ministry Activities</h2>
@@ -170,9 +137,6 @@ export default function Home() {
                     <div className="activities-grid">
                         {visibleActivities.map((activity, index) => (
                             <article key={publicMinistries[index]?._id || index} className="activity-card">
-<<<<<<< HEAD
-                                <div className="activity-icon">{activity.icon}</div>
-=======
                                 <div className="activity-icon">
                                     {typeof activity.icon === "string" ? (
                                         <span className="activity-badge">{activity.icon}</span>
@@ -180,7 +144,6 @@ export default function Home() {
                                         activity.icon
                                     )}
                                 </div>
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                                 <h3 className="activity-title">{activity.title}</h3>
                                 <p className="activity-description">{activity.description}</p>
                                 <Link to={activity.link} className="activity-link">
@@ -209,14 +172,7 @@ export default function Home() {
                         Real stories of God's faithfulness and transforming power.
                     </p>
                     <LatestTestimonies />
-<<<<<<< HEAD
-
-                    <TestimonyForm />
-
-                    <div className="section-cta">
-=======
                     <div className="section-cta" style={{ marginTop: "2rem" }}>
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                         <Link to="/reviews" className="btn btn-outline">
                             Read More Testimonies
                         </Link>
@@ -392,11 +348,7 @@ function LatestAnnouncements() {
     const [announcements, setAnnouncements] = useState([]);
     useEffect(() => { getPublicAnnouncements().then((response) => setAnnouncements(Array.isArray(response.data?.data) ? response.data.data.slice(0, 3) : [])).catch(() => setAnnouncements([])); }, []);
     if (!announcements.length) return null;
-<<<<<<< HEAD
     return <section className="activities-section" aria-labelledby="latest-announcements-title"><div className="container"><div className="page-header"><span className="section-eyebrow">Stay connected</span><h2 id="latest-announcements-title" className="section-title">Ministry News & Announcements</h2></div><div className="activities-grid">{announcements.map((item) => <article key={item._id} className="activity-card">{item.imageUrl && <img src={item.imageUrl} alt="" loading="lazy" />}<h3>{item.title}</h3><p>{item.content || item.message}</p><time dateTime={item.publishAt || item.createdAt}>{new Date(item.publishAt || item.createdAt).toLocaleDateString()}</time></article>)}</div></div></section>;
-=======
-    return <section className="activities-section" aria-labelledby="latest-announcements-title"><div className="container page-container"><h2 className="section-title section-title-left">Ministry News &amp; Announcements</h2><div className="activities-grid">{announcements.map((item) => <article key={item._id} className="activity-card">{item.imageUrl && <img src={item.imageUrl} alt="" loading="lazy" />}<h3>{item.title}</h3><p>{item.content || item.message}</p><time dateTime={item.publishAt || item.createdAt}>{new Date(item.publishAt || item.createdAt).toLocaleDateString()}</time></article>)}</div></div></section>;
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
 }
 
 // Latest Sermons Component
@@ -491,11 +443,8 @@ function LatestSermons() {
                                                 />
                                                 <Link
                                                     to={`/sermons/${sermon._id}`}
-<<<<<<< HEAD
 
 
-=======
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                                                     className="play-button"
                                                     aria-label={`Watch: ${sermon.title}`}
                                                 >
@@ -515,11 +464,8 @@ function LatestSermons() {
                                                 />
                                                 <Link
                                                     to={`/sermons/${sermon._id}`}
-<<<<<<< HEAD
 
 
-=======
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                                                     className="play-button"
                                                     aria-label={`Watch: ${sermon.title}`}
                                                 >

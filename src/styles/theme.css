@@ -4546,7 +4546,6 @@ input[type="radio"] {
     font-variant-numeric: tabular-nums;
 }
 
-<<<<<<< HEAD
 /* Touch swipe indicator */
 .lightbox-swipe-hint {
     position: absolute;
@@ -4747,8 +4746,6 @@ input[type="radio"] {
     font-variant-numeric: tabular-nums;
 }
 
-=======
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
 /* Touch swipe indicator */
 .lightbox-swipe-hint {
     position: absolute;
@@ -4811,7 +4808,6 @@ input[type="radio"] {
     outline-offset: 2px;
 }
 
-<<<<<<< HEAD
 /* Improved lightbox image rendering */
 .lightbox-content img {
     max-width: 100%;
@@ -4822,8 +4818,6 @@ input[type="radio"] {
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     transition: opacity 0.2s ease;
 }
-=======
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
 
 
 .lightbox-content {

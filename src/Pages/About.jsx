@@ -2,16 +2,9 @@ import { useEffect, useState } from "react";
 import { getPublicSiteContent } from "../services/publicContentService";
 import SEO from "../Components/SEO.jsx";
 
-const founderImage = new URL("../assets/school 4.jpeg", import.meta.url).href;
-const founderFallbackImage = new URL("../assets/royal3.jpeg", import.meta.url).href;
-
 export default function About() {
     const [siteContent, setSiteContent] = useState({});
     useEffect(() => { getPublicSiteContent().then((response) => setSiteContent(response.data?.data || {})).catch(() => {}); }, []);
-<<<<<<< HEAD
-=======
-
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
     return (
         <>
             <SEO
@@ -30,7 +23,6 @@ export default function About() {
                         A Christian outreach ministry dedicated to spreading the Gospel of Jesus Christ and raising people to live a victorious and holy life in Him.
                     </p>
 
-<<<<<<< HEAD
                     {/* Mission & Vision */}
                     <div className="about-main-grid about-intro-grid">
                         <article className="card about-intro-card" id="mission">
@@ -39,14 +31,6 @@ export default function About() {
                                 {siteContent.mission || `We are dedicated to spreading the Gospel of Jesus Christ and reaching souls in communities, villages,
                                 and streets. Our mission is to see lives transformed through salvation, sanctification, the baptism of
                                 the Holy Spirit, and discipleship.`}
-=======
-                    {/* Mission & Vision side by side */}
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2.5rem", marginBottom: "3rem", alignItems: "start" }}>
-                        <article className="card" id="mission">
-                            <h2>Our Mission</h2>
-                            <p>
-                                {siteContent.mission || `We are dedicated to spreading the Gospel of Jesus Christ and reaching souls in communities, villages, and streets. Our mission is to see lives transformed through salvation, sanctification, the baptism of the Holy Spirit, and discipleship.`}
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                             </p>
                         </article>
                         <article className="card about-intro-card" id="vision">
@@ -55,30 +39,14 @@ export default function About() {
                                 {siteContent.vision || `To raise a generation of believers who live the higher life of holiness in Christ and impact their communities and nations through the power of the Gospel.`}
                             </p>
                         </article>
-<<<<<<< HEAD
                     {/* What We Do */}
                     <article className="card about-intro-card about-mobile-wide" id="activities">
-=======
-                    </div>
-
-                    {/* What We Do - full width */}
-                    <article className="card" id="activities">
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                         <h2>What We Do</h2>
                         <p>Royal HigherLife is an evangelistic outreach ministry, not a church or a network of churches.</p>
                         <p>
-<<<<<<< HEAD
                             {siteContent.aboutText || `We focus on taking the Gospel beyond church walls, reaching communities, making disciples, and transforming lives through the power of God's Word.`}
                         </p>
                         <h4>Our Core Activities:</h4>
-=======
-                            Royal HigherLife is an evangelistic outreach ministry, not a church or a network of churches.
-                        </p>
-                        <p>
-                            {siteContent.aboutText || `We focus on taking the Gospel beyond church walls, reaching communities, making disciples, and transforming lives through the power of God's Word.`}
-                        </p>
-                        <h4 style={{ marginTop: "1.25rem", marginBottom: "0.75rem", color: "var(--primary)" }}>Our Core Activities:</h4>
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                         <ul className="about-activities-grid">
                             <li>Street Evangelism</li>
                             <li>Village Outreach</li>
@@ -95,7 +63,6 @@ export default function About() {
                         </ul>
                     </article>
 
-<<<<<<< HEAD
                     {/* Core Values */}
                     <article className="card about-intro-card about-mobile-wide" id="values">
                         <h2>Core Values</h2>
@@ -130,59 +97,6 @@ export default function About() {
 
                     {/* Statement of Faith */}
                     <article className="card single-card about-full-card" id="faith">
-=======
-                    {/* Core Values - simple list instead of grid cards */}
-                    <section id="values" style={{ marginBottom: "3rem" }}>
-                        <h2>Core Values</h2>
-                        <ul className="values-list">
-                            <li style={{ display: "flex", alignItems: "flex-start", gap: "1rem", marginBottom: "1rem" }}>
-                                <span className="value-marker">✦</span>
-                                <div>
-                                    <h3>Christ-Centered</h3>
-                                    <p>Jesus Christ is the center of everything we do.</p>
-                                </div>
-                            </li>
-                            <li style={{ display: "flex", alignItems: "flex-start", gap: "1rem", marginBottom: "1rem" }}>
-                                <span className="value-marker">✦</span>
-                                <div>
-                                    <h3>Biblical Authority</h3>
-                                    <p>The Bible is our final authority for faith and practice.</p>
-                                </div>
-                            </li>
-                            <li style={{ display: "flex", alignItems: "flex-start", gap: "1rem", marginBottom: "1rem" }}>
-                                <span className="value-marker">✦</span>
-                                <div>
-                                    <h3>Holiness</h3>
-                                    <p>We pursue a life of holiness and purity.</p>
-                                </div>
-                            </li>
-                            <li style={{ display: "flex", alignItems: "flex-start", gap: "1rem", marginBottom: "1rem" }}>
-                                <span className="value-marker">✦</span>
-                                <div>
-                                    <h3>Compassion</h3>
-                                    <p>We serve with the heart of Christ.</p>
-                                </div>
-                            </li>
-                            <li style={{ display: "flex", alignItems: "flex-start", gap: "1rem", marginBottom: "1rem" }}>
-                                <span className="value-marker">✦</span>
-                                <div>
-                                    <h3>Excellence</h3>
-                                    <p>We give our best to God in every endeavor.</p>
-                                </div>
-                            </li>
-                            <li style={{ display: "flex", alignItems: "flex-start", gap: "1rem", marginBottom: "0" }}>
-                                <span className="value-marker">✦</span>
-                                <div>
-                                    <h3>Multiplication</h3>
-                                    <p>We invest in leaders who reproduce disciples and ministries.</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </section>
-
-                    {/* Statement of Faith */}
-                    <section id="faith" style={{ marginBottom: "3rem" }}>
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                         <h2>Statement of Faith</h2>
                         <p>We hold to these fundamental truths:</p>
                         <ul className="faith-belief-list">
@@ -200,23 +114,15 @@ export default function About() {
                             <li className="faith-row"><strong>The Lord's Supper:</strong><span>Remembering Christ's death until He returns (1 Corinthians 11:23-26)</span></li>
                             <li className="faith-row"><strong>Washing of Disciples' Feet:</strong><span>Practiced according to the example and commandment Jesus gave (John 13:14-15)</span></li>
                         </ul>
-                    </section>
+                    </article>
 
                     {/* Mission Fields */}
-<<<<<<< HEAD
                     <article className="card wide-card about-full-card" id="fields">
-=======
-                    <section id="fields" style={{ marginBottom: "3rem" }}>
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                         <h2>Our Mission Fields</h2>
                         <p>
                             The areas listed below are our mission fields. We regularly go into these communities to preach, disciple, and support spiritual growth.
                         </p>
-<<<<<<< HEAD
                         <div className="locations mission-fields-grid">
-=======
-                        <div className="mission-fields-grid">
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                             <div>
                                 <h3>Ogun State</h3>
                                 <p>Alabata, Fojobayi, Ayeogun, Onisemo, Alata, Dopamu, Kobape, Ibara-rile, Isaga-Orile, Ilewo-Orile, Sagamu, Abeokuta Township and environs</p>
@@ -238,35 +144,17 @@ export default function About() {
                                 <p>Kaboli, Brekete, Gubi</p>
                             </div>
                         </div>
-                    </section>
+                    </article>
 
                     {/* Founder */}
                     <article className="card about-full-card" id="founder">
                         <h2>Founder</h2>
-<<<<<<< HEAD
-                        <div className="founder-image">
-                            <img
-                                src={founderImage}
-                                alt="Royal Higherlife Founder"
-                                loading="lazy"
-                                onError={(event) => {
-                                    event.currentTarget.onerror = null;
-                                    event.currentTarget.src = founderFallbackImage;
-                                }}
-                            />
-                        </div>
-=======
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                         <p>
                             The ministry was founded by a passionate servant of God with a burden to reach souls and raise disciples for Christ. Beginning with a small group of children, the outreach has grown into active evangelism across communities and villages.
                         </p>
                         <p>
-<<<<<<< HEAD
                             Through dedication to prayer, teaching the Word of God, and evangelism, the ministry continues to impact
                             lives and raise believers to live a higher life of holiness in Christ.
-=======
-                            Through dedication to prayer, teaching the Word of God, and evangelism, the ministry continues to impact lives and raise believers to live a higher life of holiness in Christ.
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                         </p>
                     </article>
                 </div>

@@ -62,21 +62,15 @@ export default function Media() {
     const [activeSlide, setActiveSlide] = useState(0);
     const [publishedVideos, setPublishedVideos] = useState([]);
     const [publishedAudio, setPublishedAudio] = useState([]);
-<<<<<<< HEAD
-=======
     const [liveStreamUrl, setLiveStreamUrl] = useState("");
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
 
     useEffect(() => {
         getPublicGallery().then((response) => {
             const items = Array.isArray(response?.data?.data) ? response.data.data : [];
             setPublishedVideos(items.filter((item) => item.mediaType === "video" && item.videoUrl));
             setPublishedAudio(items.filter((item) => item.mediaType === "audio" && item.videoUrl));
-<<<<<<< HEAD
-=======
             const liveItem = items.find((item) => item.mediaType === "live" || item.isLive);
             if (liveItem?.videoUrl) setLiveStreamUrl(liveItem.videoUrl);
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
         }).catch(() => setPublishedVideos([]));
     }, []);
 
@@ -107,18 +101,6 @@ export default function Media() {
                         </p>
                     </div>
 
-<<<<<<< HEAD
-                <div className="video-grid">
-                    {publishedVideos.length ? publishedVideos.map((item) => (
-                        <div className="video-card" key={item._id}>
-                            {item.mimeType === "video/link" ? <iframe title={item.title} src={getEmbedUrl(item.videoUrl)} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen /> : <video controls poster={item.thumbnailUrl || undefined}><source src={item.videoUrl} type={item.mimeType || "video/mp4"} />Your browser does not support the video tag.</video>}
-                            <h3>{item.title}</h3>
-                            {item.description && <p>{item.description}</p>}
-                        </div>
-                    )) : videos.map((video) => (
-                        <div className="video-card" key={video}>
-                            <video controls><source src={video} type="video/mp4" />Your browser does not support the video tag.</video>
-=======
                     <div className="video-grid">
                         {publishedVideos.length ? publishedVideos.map((item) => (
                             <article className="video-card" key={item._id}>
@@ -175,28 +157,18 @@ export default function Media() {
                                 <source src={liveVideo} type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                         </div>
 
-<<<<<<< HEAD
-            {publishedAudio.length > 0 && <section className="video-section"><h2 className="section-title">Sermon Audio</h2><div className="video-grid">{publishedAudio.map((item) => <article className="video-card" key={item._id}><h3>{item.title}</h3>{item.description && <p>{item.description}</p>}<audio controls preload="none"><source src={item.videoUrl} type={item.mimeType} />Your browser does not support the audio element.</audio></article>)}</div></section>}
-
-            <section id="live" className="live-section">
-                <div className="live-container">
-                    <div className="countdown-box">
-                        <h3>Service starts in:</h3>
-                        <p id="countdown">{formatCountdown(countdown)}</p>
-                    </div>
-=======
                         <div className="chat-area">
                             <h2>Live Service</h2>
                             <p>Join us live and be blessed.</p>
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
 
-                            {liveStreamUrl ? (
+                            {getEmbedUrl(liveStreamUrl) ? (
                                 <iframe
-                                    src={liveStreamUrl}
+                                    src={getEmbedUrl(liveStreamUrl)}
                                     title="Royal Higher Life live service"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
                                 />
                             ) : (
                                 <div className="live-unavailable">

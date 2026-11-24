@@ -25,11 +25,6 @@ const getBundledGalleryImages = () => [
     { _id: "local-17", title: "Royal Higherlife Evangelical Team ", image: asset("new6.jpeg"), category: "Prayer" },
     { _id: "local-18", title: "Royal Higherlife Mission School", image: asset("school 5.jpeg"), category: "School" },
     { _id: "local-19", title: " ", image: asset("school 4.jpeg"), category: "School" },
-<<<<<<< HEAD
-    {_id:  "local-20", title: "Agodi Correctional service Oyo state Nigeria", image: asset("royal1.jpeg"),category:"Correctional Home" },
-    {_id:  "local-21", title: "Agoue Benin.Rep", image: asset("royal3 (1).jpeg"),category:"Correctional Home" },
-    {_id: "local-22", title: "Some Member At Agoua", image: asset("RoyalLove.jpeg"), category: "Royal Workers" },
-=======
     { _id: "local-20", title: "Agodi Correctional service Oyo state Nigeria", image: asset("royal1.jpeg"), category: "Correctional Home" },
     { _id: "local-21", title: "Agoue Benin.Rep", image: asset("royal3 (1).jpeg"), category: "Correctional Home" },
     { _id: "local-22", title: "Some Member At Agoua", image: asset("RoyalLove.jpeg"), category: "Royal Workers" },
@@ -38,7 +33,6 @@ const getBundledGalleryImages = () => [
     { _id: "video-2", title: "Ministry Video", videoUrl: asset("video1.mp4"), mediaType: "video", mimeType: "video/mp4", category: "Video" },
     { _id: "video-3", title: "Ministry Video", videoUrl: asset("video2.mp4"), mediaType: "video", mimeType: "video/mp4", category: "Video" },
     { _id: "video-4", title: "Ministry Video", videoUrl: asset("video3.mp4"), mediaType: "video", mimeType: "video/mp4", category: "Video" },
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
 ]
 
 export default function Gallery() {
@@ -57,11 +51,7 @@ export default function Gallery() {
         try {
             const res = await getPublicGallery();
             const data = Array.isArray(res?.data?.data) ? res.data.data : [];
-<<<<<<< HEAD
-            const imageData = data.filter((item) => !item.mediaType || item.mediaType === "image");
-=======
             const imageData = data.filter((item) => !item.mediaType || item.mediaType === "image" || item.mediaType === "video");
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
             const displayedImages = imageData.length > 0 ? imageData : getBundledGalleryImages();
             setImages(displayedImages);
 
@@ -236,48 +226,6 @@ export default function Gallery() {
                             <p>There are currently no photos in this category. Check back soon for beautiful moments, memories and highlights from our ministry.</p>
                         </div>
                     ) : (
-<<<<<<< HEAD
-                        filteredImages.map((image, index) => (
-                            <article
-                                key={image._id || index}
-                                className="gallery-item min-w-0! rounded-[14px]! p-[10px]! min-[641px]:rounded-[18px]! min-[641px]:p-0!"
-                                role="listitem"
-                                tabIndex={0}
-                                onClick={() => openLightbox(index)}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter' || e.key === ' ') {
-                                        e.preventDefault();
-                                        openLightbox(index);
-                                    }
-                                }}
-                            >
-                                <div className="gallery-image-wrapper aspect-square! min-[641px]:aspect-[4/3]!">
-                                    <img
-                                        className="h-full! w-full! object-cover!"
-                                        src={getThumbnailUrl(image)}
-                                        alt={image.title}
-                                        loading="lazy"
-                                        onError={(event) => {
-                                            event.currentTarget.onerror = null;
-                                            event.currentTarget.src = asset("royal3.jpeg");
-                                        }}
-                                    />
-                                    <div className="gallery-overlay">
-                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div className="gallery-info min-w-0! p-0! min-[641px]:px-[1.2rem]! min-[641px]:py-4!">
-                                    <h4 className="gallery-title text-[14px]! min-[641px]:text-base!">{image.title}</h4>
-                                    {image.category && (
-                                        <span className="gallery-category px-[6px]! py-[2px]! text-[10px]! min-[641px]:px-[0.6rem]! min-[641px]:py-[0.2rem]! min-[641px]:text-[0.7rem]!">{image.category}</span>
-                                    )}
-                                </div>
-                            </article>
-                        ))
-=======
                         filteredImages.map((image, index) => {
         const isVideo = image.mediaType === "video" && image.videoUrl;
         return (
@@ -344,7 +292,6 @@ export default function Gallery() {
             </article>
         );
     })
->>>>>>> c67da29 (Admin updates, SEO, legal pages, and UI changes)
                     )}
                 </div>
             </div>
