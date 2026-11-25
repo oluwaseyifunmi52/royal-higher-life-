@@ -2848,32 +2848,13 @@ input[type="radio"] {
     line-height: 1.5;
 }
 
-.values-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.25rem;
-    margin-top: 1rem;
-}
 
-.value-item {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1.25rem;
-}
 
-.value-item h3 {
-    color: var(--primary);
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-}
 
-.value-item p {
-    color: var(--text-muted);
-    font-size: 0.88rem;
-    line-height: 1.6;
-    margin: 0;
-}
+
+
+
+
 
 .faith-belief-list {
     list-style: none;
@@ -4511,103 +4492,9 @@ input[type="radio"] {
     border-radius: 8px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     flex-shrink: 1;
-}
-
-.lightbox-info {
-    color: var(--text-muted);
-    width: 100%;
-    max-width: 800px;
-    flex-shrink: 0;
-}
-
-.lightbox-info h3 {
-    color: var(--text);
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-}
-
-.lightbox-category {
-    display: inline-block;
-    padding: 0.3rem 0.8rem;
-    border-radius: 999px;
-    background: rgba(245, 176, 65, 0.15);
-    color: var(--primary);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-}
-
-.lightbox-counter {
-    font-size: 1rem;
-    color: var(--text-faint);
-    font-variant-numeric: tabular-nums;
-}
-
-/* Touch swipe indicator */
-.lightbox-swipe-hint {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--text-muted);
-    font-size: 0.875rem;
-    opacity: 0.6;
-    pointer-events: none;
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 0.8; }
-}
-
-/* ============================================================
-   TOP BAR (Header)
-   ============================================================ */
-
-.top-bar {
-    position: sticky;
-    top: 0;
-    z-index: var(--z-sticky);
-    background: #fff;
-    border-bottom: 1px solid var(--border);
-    transition: all var(--transition);
-}
-
-.top-bar.scrolled {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(8px);
-    box-shadow: var(--shadow-sm);
-}
-
-/* ============================================================
-   GALLERY LIGHTBOX ENHANCEMENTS
-   ============================================================ */
-
-/* Focus visible states for lightbox */
-.lightbox-overlay *:focus-visible {
-    outline: 2px solid var(--primary);
-    outline-offset: 2px;
-}
-
-/* Improved lightbox image rendering */
-.lightbox-content img {
-    max-width: 100%;
-    max-height: 100%;
-    min-height: 0;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     transition: opacity 0.2s ease;
 }
 
-/* Loading state for lightbox image */
 .lightbox-content img[loading="lazy"] {
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -4617,101 +4504,6 @@ input[type="radio"] {
     opacity: 1;
 }
 
-/* Lightbox navigation improvements */
-.lightbox-nav {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all var(--transition);
-    z-index: 10;
-    flex-shrink: 0;
-}
-
-.lightbox-nav:hover {
-    background: rgba(245, 176, 65, 0.2);
-    border-color: var(--primary);
-    color: var(--primary-strong);
-}
-
-.lightbox-nav:focus-visible {
-    outline: 2px solid var(--primary);
-    outline-offset: 2px;
-}
-
-.lightbox-nav svg {
-    width: 32px;
-    height: 32px;
-}
-
-.lightbox-prev {
-    left: 1rem;
-}
-
-.lightbox-next {
-    right: 1rem;
-}
-
-.lightbox-close {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all var(--transition);
-    z-index: 10;
-    flex-shrink: 0;
-}
-
-.lightbox-close:hover {
-    background: rgba(248, 113, 113, 0.15);
-    border-color: rgba(248, 113, 113, 0.4);
-    color: #fca5a5;
-}
-
-.lightbox-close:focus-visible {
-    outline: 2px solid var(--primary);
-    outline-offset: 2px;
-}
-
-.lightbox-close svg {
-    width: 28px;
-    height: 28px;
-}
-
-.lightbox-content {
-    width: 100%;
-    height: 100%;
-    max-width: 95vw;
-    max-height: 90vh;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-}
-
-.lightbox-content img {
-    max-width: 100%;
-    max-height: 100%;
-    min-height: 0;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    flex-shrink: 1;
-}
 
 .lightbox-info {
     color: var(--text-muted);
@@ -4724,7 +4516,7 @@ input[type="radio"] {
     color: var(--text);
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
-    font-weight: 600.
+    font-weight: 600;
 }
 
 .lightbox-category {
@@ -4796,84 +4588,6 @@ input[type="radio"] {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(8px);
     box-shadow: var(--shadow-sm);
-}
-
-/* ============================================================
-   GALLERY LIGHTBOX ENHANCEMENTS
-   ============================================================ */
-
-/* Focus visible states for lightbox */
-.lightbox-overlay *:focus-visible {
-    outline: 2px solid var(--primary);
-    outline-offset: 2px;
-}
-
-/* Improved lightbox image rendering */
-.lightbox-content img {
-    max-width: 100%;
-    max-height: 100%;
-    min-height: 0;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    transition: opacity 0.2s ease;
-}
-
-
-.lightbox-content {
-    width: 100%;
-    height: 100%;
-    max-width: 95vw;
-    max-height: 90vh;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-}
-    
-.lightbox-content img {
-    max-width: 100%;
-    max-height: 100%;
-    min-height: 0;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    flex-shrink: 1;
-}
-
-.lightbox-info {
-    color: var(--text-muted);
-    width: 100%;
-    max-width: 800px;
-    flex-shrink: 0;
-}
-
-.lightbox-info h3 {
-    color: var(--text);
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-}
-
-.lightbox-category {
-    display: inline-block;
-    padding: 0.3rem 0.8rem;
-    border-radius: 999px;
-    background: rgba(245, 176, 65, 0.15);
-    color: var(--primary);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-}
-
-.lightbox-counter {
-    font-size: 1rem;
-    color: var(--text-faint);
-    font-variant-numeric: tabular-nums;
 }
 
 /* ============================================================
@@ -5266,6 +4980,7 @@ input[type="radio"] {
     color: var(--text-muted);
     font-size: 0.9rem;
     line-height: 1.7;
+    margin: 0;
 }
 
 #faith ul {

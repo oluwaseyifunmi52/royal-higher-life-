@@ -16,7 +16,7 @@ const getBundledGalleryImages = () => [
     { _id: "local-8", title: "Jago Village Evangelism ", image: asset("royal3.jpeg"), category: "Outreach" },
     { _id: "local-9", title: "Another Group Service Jago ", image: asset("royal2.jpeg"), category: "Events" },
     { _id: "local-10", title: "Agoua Service Rep.Bennin  ", image: asset("rolay1.jpeg"), category: "Outreach" },
-    { _id: "local-11", title: "Ogere Town Semina ijebu ", image: asset("oba.jpeg"), category: "Community" },
+    { _id: "local-11", title: "Ogere Town Seminar ijebu ", image: asset("oba.jpeg"), category: "Community" },
     { _id: "local-12", title: "To Gubi Town Togo", image: asset("new1.jpeg"), category: "Events" },
     { _id: "local-13", title: "New Outreach", image: asset("new2.jpeg"), category: "Outreach" },
     { _id: "local-14", title: "Going to Interior Villages Benin.Rep", image: asset("new3.jpeg"), category: "Events" },
