@@ -33,6 +33,7 @@ export default function Home() {
             {/* WELCOME SECTION */}
             <section id="welcome" className="welcome-section">
                 <div className="container page-container">
+                    <h2 className="section-title section-title-left">{siteContent.welcomeHeading || "A Place to Belong, Believe & Become"}</h2>
                     <div className="welcome-content">
                         <div className="welcome-text">
                             <p className="welcome-intro">
@@ -348,7 +349,26 @@ function LatestAnnouncements() {
     const [announcements, setAnnouncements] = useState([]);
     useEffect(() => { getPublicAnnouncements().then((response) => setAnnouncements(Array.isArray(response.data?.data) ? response.data.data.slice(0, 3) : [])).catch(() => setAnnouncements([])); }, []);
     if (!announcements.length) return null;
-    return <section className="activities-section" aria-labelledby="latest-announcements-title"><div className="container"><div className="page-header"><span className="section-eyebrow">Stay connected</span><h2 id="latest-announcements-title" className="section-title">Ministry News & Announcements</h2></div><div className="activities-grid">{announcements.map((item) => <article key={item._id} className="activity-card">{item.imageUrl && <img src={item.imageUrl} alt="" loading="lazy" />}<h3>{item.title}</h3><p>{item.content || item.message}</p><time dateTime={item.publishAt || item.createdAt}>{new Date(item.publishAt || item.createdAt).toLocaleDateString()}</time></article>)}</div></div></section>;
+    return (
+        <section className="activities-section" aria-labelledby="latest-announcements-title">
+            <div className="container page-container">
+                <div className="page-header">
+                    <span className="section-eyebrow">Stay connected</span>
+                    <h2 id="latest-announcements-title" className="section-title">Ministry News &amp; Announcements</h2>
+                </div>
+                <div className="activities-grid">
+                    {announcements.map((item) => (
+                        <article key={item._id} className="activity-card">
+                            {item.imageUrl && <img src={item.imageUrl} alt="" loading="lazy" />}
+                            <h3>{item.title}</h3>
+                            <p>{item.content || item.message}</p>
+                            <time dateTime={item.publishAt || item.createdAt}>{new Date(item.publishAt || item.createdAt).toLocaleDateString()}</time>
+                        </article>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
 }
 
 // Latest Sermons Component
