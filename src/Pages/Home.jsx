@@ -5,6 +5,8 @@ import Hero from "../Components/Hero.jsx";
 import PrayerForm from "../Components/PrayerForm.jsx";
 import TestimonyForm from "../Components/TestimonyForm.jsx";
 import SEO from "../Components/SEO.jsx";
+import { CreditCard, Landmark, Smartphone } from "lucide-react";
+import "../styles/home.css";
 
 const asset = (path) => new URL(`../assets/${path}`, import.meta.url).href;
 
@@ -26,12 +28,12 @@ export default function Home() {
             />
 
             {/* HERO SECTION */}
-            <Hero title={siteContent.heroHeading || "Welcome to Royal HigherLife"} image={siteContent.heroImageUrl || undefined} ctaText={siteContent.heroCtaText} ctaLink={siteContent.heroCtaLink}>
+            <Hero title={siteContent.heroHeading || "Welcome to Royal HigherLife"} image={siteContent.heroImageUrl || undefined} ctaText={siteContent.heroCtaText}>
                 {siteContent.heroDescription || "Royal HigherLife Christian Ministries (Outreach) is committed to spreading the Gospel of Jesus Christ through evangelism, discipleship, and compassionate outreach."}
             </Hero>
 
             {/* WELCOME SECTION */}
-            <section id="welcome" className="welcome-section">
+            <section id="welcome" className="welcome-section home-welcome">
                 <div className="container page-container">
                     <h2 className="section-title section-title-left">{siteContent.welcomeHeading || "A Place to Belong, Believe & Become"}</h2>
                     <div className="welcome-content">
@@ -53,10 +55,13 @@ export default function Home() {
                             </Link>
                         </div>
                         <div className="welcome-image">
-                            <img 
-                                src={asset("welcome pics.jpeg")} 
-                                alt="Royal HigherLife Ministries welcome gathering" 
+                            <img
+                                src={asset("welcome pics.jpeg")}
+                                alt="Royal HigherLife Ministries welcome gathering"
+                                width="1200"
+                                height="800"
                                 loading="lazy"
+                                decoding="async"
                             />
                         </div>
                     </div>
@@ -64,7 +69,7 @@ export default function Home() {
             </section>
 
             {/* ABOUT THE MINISTRY - QUICK OVERVIEW */}
-            <section id="about-overview" className="about-overview-section">
+            <section id="about-overview" className="about-overview-section home-about">
                 <div className="container">
                     <div className="page-header">
                         <span className="section-eyebrow">Who We Are</span>
@@ -129,7 +134,7 @@ export default function Home() {
             </section>
 
             {/* MINISTRY ACTIVITIES */}
-            <section id="ministry-activities" className="activities-section">
+            <section id="ministry-activities" className="activities-section home-activities">
                 <div className="container page-container">
                     <h2 className="section-title section-title-left">Ministry Activities</h2>
                     <p className="section-intro">
@@ -166,7 +171,7 @@ export default function Home() {
             <LatestAnnouncements />
 
             {/* TESTIMONIES */}
-            <section id="testimonies" className="testimonies-section">
+            <section id="testimonies" className="testimonies-section home-testimonies">
                 <div className="container page-container">
                     <h2 className="section-title section-title-left">Testimonies</h2>
                     <p className="section-intro">
@@ -183,7 +188,7 @@ export default function Home() {
             </section>
 
             {/* PRAYER REQUEST */}
-            <section id="prayer" className="prayer-section">
+            <section id="prayer" className="prayer-section home-prayer">
                 <div className="container page-container">
                     <h2 className="section-title section-title-left">We're Here to Pray With You</h2>
                     <div className="prayer-content">
@@ -206,7 +211,7 @@ export default function Home() {
             </section>
 
             {/* GIVING SECTION */}
-            <section id="giving" className="giving-section">
+            <section id="giving" className="giving-section home-giving">
                 <div className="container page-container">
                     <h2 className="section-title section-title-left">Sow Into The Harvest</h2>
                     <div className="giving-content">
@@ -217,29 +222,32 @@ export default function Home() {
                                 makes an eternal impact.
                             </p>
                             <div className="giving-methods">
-                                <h4>Ways to Give</h4>
+                                <h3>Ways to Give</h3>
                                 <ul>
                                     <li>
                                         <div>
-                                            <strong>Bank Transfer</strong>
-                                            <span>Contact ministry for account details</span>
+                                            <span className="method-icon" aria-hidden="true"><Landmark /></span>
+                                            <div><strong>Bank Transfer</strong>
+                                            <span>Contact ministry for account details</span></div>
                                         </div>
                                     </li>
                                     <li>
                                         <div>
-                                            <strong>Mobile Money</strong>
-                                            <span>Available in Nigeria, Benin &amp; Togo</span>
+                                            <span className="method-icon" aria-hidden="true"><Smartphone /></span>
+                                            <div><strong>Mobile Money</strong>
+                                            <span>Contact the ministry for current availability</span></div>
                                         </div>
                                     </li>
                                     <li>
                                         <div>
-                                            <strong>Online Giving</strong>
-                                            <span>Secure payment portal coming soon</span>
+                                            <span className="method-icon" aria-hidden="true"><CreditCard /></span>
+                                            <div><strong>Online Giving</strong>
+                                            <span>Review current online giving options</span></div>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
-                            <p className="giving-scripture">
+                            <p className="giving-scripture home-giving-verse">
                                 <em>"Give, and it will be given to you. Good measure, pressed down, shaken together, running over..."</em> — Luke 6:38
                             </p>
                         </div>
@@ -248,7 +256,7 @@ export default function Home() {
                                 Give Now
                             </Link>
                             <p className="giving-note">
-                                Secure giving • Tax-deductible receipts available • 100% goes to ministry
+                                Choose a giving option that works for you.
                             </p>
                         </div>
                     </div>
@@ -287,7 +295,7 @@ const ministryActivities = [
     {
         icon: "COMMUNITY",
         title: "Community Development",
-        description: "Building schools, clinics, and sustainable projects that transform entire communities.",
+        description: "Supporting schools and sustainable projects that transform entire communities.",
         link: "/about#mission"
     },
 ];
@@ -323,7 +331,7 @@ function LatestTestimonies() {
             </div>
         );
     }
-    if (!testimonies.length) return <div className="no-content"><p>No testimonies available yet.</p></div>;
+    if (!testimonies.length) return null;
 
     return (
         <div className="testimonies-grid">
@@ -347,8 +355,26 @@ function LatestTestimonies() {
 
 function LatestAnnouncements() {
     const [announcements, setAnnouncements] = useState([]);
-    useEffect(() => { getPublicAnnouncements().then((response) => setAnnouncements(Array.isArray(response.data?.data) ? response.data.data.slice(0, 3) : [])).catch(() => setAnnouncements([])); }, []);
-    if (!announcements.length) return null;
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    async function loadAnnouncements() {
+        try {
+            const response = await getPublicAnnouncements();
+            setAnnouncements(Array.isArray(response.data?.data) ? response.data.data.slice(0, 3) : []);
+            setError(false);
+        } catch {
+            setError(true);
+        } finally {
+            setLoading(false);
+        }
+    }
+    function retryAnnouncements() {
+        setLoading(true);
+        setError(false);
+        loadAnnouncements();
+    }
+    useEffect(() => { loadAnnouncements(); }, []);
+    if (!loading && !error && !announcements.length) return null;
     return (
         <section className="activities-section" aria-labelledby="latest-announcements-title">
             <div className="container page-container">
@@ -356,7 +382,9 @@ function LatestAnnouncements() {
                     <span className="section-eyebrow">Stay connected</span>
                     <h2 id="latest-announcements-title" className="section-title">Ministry News &amp; Announcements</h2>
                 </div>
-                <div className="activities-grid">
+                {loading ? <p role="status">Loading announcements…</p> : error ? (
+                    <div className="no-content" role="alert"><p>Announcements are temporarily unavailable.</p><button className="btn btn-outline" type="button" onClick={retryAnnouncements}>Retry</button></div>
+                ) : <div className="activities-grid">
                     {announcements.map((item) => (
                         <article key={item._id} className="activity-card">
                             {item.imageUrl && <img src={item.imageUrl} alt="" loading="lazy" />}
@@ -365,7 +393,7 @@ function LatestAnnouncements() {
                             <time dateTime={item.publishAt || item.createdAt}>{new Date(item.publishAt || item.createdAt).toLocaleDateString()}</time>
                         </article>
                     ))}
-                </div>
+                </div>}
             </div>
         </section>
     );
@@ -420,6 +448,8 @@ function LatestSermons() {
         const id = getYouTubeId(url);
         return id ? `https://img.youtube.com/vi/${id}/maxresdefault.jpg` : null;
     };
+
+    if (!loading && !error && !latestSermons.length) return null;
 
     return (
         <section id="latest-sermons" className="sermons-home-section">
@@ -568,6 +598,7 @@ function LatestSermons() {
 // Upcoming Events Component
 function UpcomingEvents() {
     const [upcomingEvents, setUpcomingEvents] = useState([]);
+    const [hasEvents, setHasEvents] = useState(true);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
@@ -577,6 +608,7 @@ function UpcomingEvents() {
         try {
             const response = await getPublicEvents();
             const data = Array.isArray(response.data.data) ? response.data.data : [];
+            setHasEvents(data.length > 0);
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             const upcoming = data
@@ -595,6 +627,8 @@ function UpcomingEvents() {
     }
 
     useEffect(() => { loadEvents(); }, []);
+
+    if (!loading && !error && !hasEvents) return null;
 
     const formatDate = (dateString) => {
         if (!dateString) return "";
