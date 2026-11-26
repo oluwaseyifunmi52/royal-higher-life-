@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa";
 import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
 
-import MinistriesLogo from "../assets/royal logo.jpeg";
+import MinistriesLogo from "../assets/royal-logo-112.jpg";
 export default function Footer() {
     const currentYear = new Date().getFullYear();
     const [siteContent, setSiteContent] = useState({});
@@ -53,6 +53,8 @@ export default function Footer() {
                             src={MinistriesLogo}
                             alt="Royal Higher Life Ministries Logo"
                             className="footer-logo-image"
+                            width="56"
+                            height="56"
                         />
                         <span>Royal Higher Life</span>
                     </div>

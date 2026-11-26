@@ -53,16 +53,17 @@ export default function PrayerForm() {
         }}>
             <h3>Prayer Request Form</h3>
             <p className="headline">Share Your Prayer - We Are Here to Pray With You</p>
-            <p>Fill out the form below to submit your prayer request.</p>
-            <p>
+            <p className="prayer-intro-line">Fill out the form below to submit your prayer request.</p>
+            <p className="prayer-privacy-notice">
                 All submissions are reviewed by our ministry team before being shared with our prayer partners. Your request
                 will be kept confidential and handled with care.
             </p>
             <div className="input-group">
-                <label>Name</label>
+                <label htmlFor="prayerFirstName">First Name</label>
                 <div className="row">
-                    <input name="firstname" placeholder="First Name" required type="text" />
-                    <input name="lastname" placeholder="Last Name" required type="text" />
+                    <input id="prayerFirstName" name="firstname" placeholder="First Name" required type="text" autoComplete="given-name" />
+                    <label className="sr-only" htmlFor="prayerLastName">Last Name</label>
+                    <input id="prayerLastName" name="lastname" placeholder="Last Name" required type="text" autoComplete="family-name" />
                 </div>
             </div>
             <div className="input-group">
@@ -82,7 +83,7 @@ export default function PrayerForm() {
                     required
                     rows="6"
                 />
-                <small className="hint">Your request will be kept confidential and handled with care by our ministry team.</small>
+                <small className="hint prayer-privacy-hint">Your request will be kept confidential and handled with care by our ministry team.</small>
             </div>
             <div className="input-group">
                 <label htmlFor="category">Category of Prayer</label>

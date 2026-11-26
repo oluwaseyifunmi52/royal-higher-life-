@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 
-const siteUrl = "https://royal-higher-life-ag25.vercel.app";
+const siteUrl = "https://royal-higher-life-v9tt.vercel.app";
 const siteName = "Royal HigherLife Christian Ministries";
 const defaultDescription = "Royal HigherLife Christian Ministries (Outreach) is committed to spreading the Gospel of Jesus Christ through evangelism, discipleship, and compassionate outreach across Nigeria, Benin Republic, and Togo.";
 const defaultImage = `${siteUrl}/royal-logo.jpeg`;

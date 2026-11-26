@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import ministryLogo from "../assets/royal logo.jpeg";
+import ministryLogo from "../assets/royal-logo-112.jpg";
 import { useAuth } from "../context/AuthContext";
 
 const navItems = [
@@ -72,7 +72,7 @@ export default function Navbar() {
                     <Link
                         to="/"
                         className="flex min-w-0 shrink-0 items-center gap-2.5 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ffd46b] sm:gap-3"
-                        aria-label="Royal HigherLife Christian Ministries home"
+                        aria-label="Royal HigherLife Christian Ministries"
                     >
                         <img
                             src={ministryLogo}

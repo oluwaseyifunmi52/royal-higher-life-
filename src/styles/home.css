@@ -1,0 +1,1011 @@
+/* Homepage editorial composition: one strong ministry photograph, then varied
+   content bands with consistent reading measure and restrained surfaces. */
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+.public-site #prayer {
+    scroll-margin-top: 6rem;
+}
+
+.public-site .hero-editorial {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: none;
+    min-height: 100vh;
+    min-height: 100svh;
+    margin: 0 auto 3.5rem;
+    padding: 20px;
+    overflow: hidden;
+    isolation: isolate;
+    background: #000;
+    text-align: center;
+}
+
+.public-site .hero-editorial-copy {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: min(100%, 920px);
+    margin-inline: auto;
+    padding: clamp(1rem, 4vw, 3rem);
+    background: transparent;
+    color: #fff;
+    text-align: center;
+}
+
+.public-site .hero-editorial .hero-video {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    object-fit: cover;
+    object-position: center;
+}
+
+.public-site .hero-editorial .hero-overlay {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.52);
+    pointer-events: none;
+}
+
+.public-site .hero-editorial .hero-eyebrow {
+    margin: 0 0 1.25rem;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #ffd46b;
+    letter-spacing: 0.14em;
+    line-height: 1.5;
+}
+
+.public-site .hero-editorial .hero-eyebrow::before,
+.public-site .hero-editorial .hero-eyebrow::after {
+    display: none;
+}
+
+.public-site .hero-editorial h1 {
+    max-width: 16ch;
+    margin: 0 0 1.25rem;
+    color: #fff;
+    font-size: clamp(2rem, 7vw, 4.9rem);
+    line-height: 1.06;
+    text-shadow: none;
+}
+
+.public-site .hero-editorial-copy > p {
+    max-width: 48rem;
+    margin: 0;
+    color: #f4f1e9;
+    font-size: clamp(1rem, 1.3vw, 1.12rem);
+    line-height: 1.8;
+}
+
+.public-site .hero-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+}
+
+.public-site .hero-actions .btn {
+    min-height: 48px;
+    border-radius: 0.35rem;
+    padding-inline: 1.1rem;
+}
+
+.public-site .hero-actions .btn-outline {
+    border: 1px solid #f4f1e9;
+    background: transparent;
+    color: #fff;
+    box-shadow: none;
+}
+
+.public-site .hero-actions .btn-outline:hover {
+    border-color: #ffd46b;
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffd46b;
+    box-shadow: none;
+}
+
+.public-site .home-welcome,
+.public-site .home-about,
+.public-site .home-activities,
+.public-site .home-testimonies,
+.public-site .home-prayer,
+.public-site .home-giving {
+    padding-block: clamp(3rem, 7vw, 6rem);
+}
+
+.public-site .home-welcome {
+    background: #f8f5ee;
+}
+
+.public-site .home-welcome .welcome-content {
+    align-items: center;
+    gap: clamp(2rem, 6vw, 5rem);
+}
+
+.public-site .home-welcome .welcome-text {
+    max-width: 39rem;
+}
+
+.public-site .home-welcome .welcome-image {
+    overflow: hidden;
+    border-radius: 0.25rem;
+}
+
+.public-site .home-welcome .welcome-image img {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+.public-site .home-about {
+    background: #fff;
+}
+
+.public-site .home-about .about-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    border-top: 1px solid #d9d2c5;
+}
+
+.public-site .home-about .about-card {
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    border: 0;
+    border-bottom: 1px solid #d9d2c5;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.public-site .home-about .about-card:nth-child(odd) {
+    border-right: 1px solid #d9d2c5;
+}
+
+.public-site .home-activities {
+    background: #f8f5ee;
+}
+
+.public-site .home-activities .activities-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: 0;
+    border-top: 1px solid #d9d2c5;
+}
+
+.public-site .home-activities .activity-card {
+    padding: 1.5rem;
+    border: 0;
+    border-bottom: 1px solid #d9d2c5;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.public-site .home-prayer {
+    background: #171d28;
+    color: #f1f3f6;
+}
+
+.public-site .home-prayer .section-title {
+    color: #fff;
+}
+
+.public-site .home-prayer .prayer-intro,
+.public-site .home-prayer .prayer-features li {
+    color: #e4e8ef;
+}
+
+.public-site .home-prayer .prayer-content {
+    gap: clamp(2rem, 6vw, 5rem);
+}
+
+.public-site .home-prayer .prayer-form-wrapper {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.public-site .home-prayer .form-box {
+    gap: 0.85rem;
+    padding: clamp(1.15rem, 3vw, 1.6rem);
+    border: 1px solid #3a4350;
+    border-radius: 0.65rem;
+    background: #202733;
+    color: #f1f3f6;
+    box-shadow: none;
+}
+
+.public-site .home-prayer .form-box h3 {
+    color: #f5b335;
+    font-size: 1.25rem;
+}
+
+.public-site .home-prayer .form-box p,
+.public-site .home-prayer .form-box .headline {
+    color: #e7eaf0;
+    line-height: 1.55;
+}
+
+.public-site .home-prayer .form-box .input-group label {
+    color: #f3f4f6;
+    font-size: 0.82rem;
+}
+
+.public-site .home-prayer .form-box input:not([type="checkbox"]):not([type="radio"]),
+.public-site .home-prayer .form-box select,
+.public-site .home-prayer .form-box textarea {
+    min-height: 42px;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid #334155;
+    border-radius: 0.25rem;
+    background: #111c30;
+    color: #f8fafc;
+    font-size: 0.9rem;
+}
+
+.public-site .home-prayer .form-box textarea {
+    min-height: 7rem;
+}
+
+.public-site .home-prayer .form-box input::placeholder,
+.public-site .home-prayer .form-box textarea::placeholder {
+    color: #8b98ac;
+}
+
+.public-site .home-prayer .form-box :where(input, select, textarea):focus-visible {
+    border-color: #f5b335;
+    outline: 2px solid #f5b335;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(245, 179, 53, 0.18);
+}
+
+.public-site .home-prayer .form-box .hint {
+    color: #aab3c0;
+}
+
+.public-site .home-prayer .form-box button[type="submit"] {
+    width: 100%;
+    min-height: 44px;
+    border: 0;
+    border-radius: 0.25rem;
+    background: #f5b335;
+    color: #111827;
+    box-shadow: none;
+}
+
+.public-site .home-prayer .form-box button[type="submit"]:hover:not(:disabled) {
+    background: #ffd46b;
+    box-shadow: none;
+}
+
+.public-site .home-giving .giving-content {
+    gap: clamp(2rem, 6vw, 5rem);
+}
+
+.public-site .home-giving .giving-note {
+    max-width: 24rem;
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+.public-site .home-giving .giving-methods h3 {
+    color: #0d1426;
+}
+
+.public-site .footer-logo-image {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+}
+
+@media (max-width: 767px) {
+    .public-site .hero-editorial {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .public-site .hero-editorial-copy {
+        padding: 1rem 0;
+    }
+
+    .public-site .hero-actions {
+        width: 100%;
+    }
+
+    .public-site .hero-actions .btn {
+        flex: 1 1 12rem;
+    }
+
+    .public-site .home-about .about-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .public-site .home-about .about-card:nth-child(odd) {
+        border-right: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .public-site .home-about {
+        padding: 32px 12px;
+        background: #fff;
+    }
+
+    .public-site .home-about > .container {
+        padding-inline: 0;
+    }
+
+    .public-site .home-about .page-header {
+        margin: 0 auto 16px;
+        text-align: center;
+    }
+
+    .public-site .home-about .page-header .section-title,
+    .public-site .home-about .page-header .section-subtitle {
+        text-align: center;
+    }
+
+    .public-site .home-about .page-header .section-title,
+    .public-site .home-about .about-card h3 {
+        color: #8a5800;
+    }
+
+    .public-site .home-about .page-header .section-subtitle {
+        margin: 8px 0 0;
+        color: #4a5266;
+        font-size: 0.82rem;
+        line-height: 1.55;
+    }
+
+    .public-site .home-about .about-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0;
+        padding: 0;
+        border-top: 1px solid #ddd3c4;
+    }
+
+    .public-site .home-about .about-card {
+        min-width: 0;
+        padding: 14px 8px;
+        border: 0;
+        border-bottom: 1px solid #ddd3c4;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        text-align: center;
+        overflow-wrap: anywhere;
+    }
+
+    .public-site .home-about .about-card:nth-child(odd) {
+        border-right: 1px solid #ddd3c4;
+    }
+
+    .public-site .home-about .about-icon {
+        width: 42px;
+        height: 42px;
+        margin: 0 auto 8px;
+        border-radius: 10px;
+        background: #fbf1d7;
+        color: #8a5800;
+    }
+
+    .public-site .home-about .about-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .public-site .home-about .about-card h3 {
+        margin: 0 0 6px;
+        font-size: 0.95rem;
+        line-height: 1.35;
+    }
+
+    .public-site .home-about .about-card p {
+        margin: 0;
+        color: #4a5266;
+        font-size: 0.8rem;
+        line-height: 1.55;
+    }
+
+    .public-site .home-activities {
+        padding: 32px 12px;
+        background: #f8f5ee;
+    }
+
+    .public-site .home-activities > .container {
+        padding-inline: 0;
+    }
+
+    .public-site .home-activities .section-title,
+    .public-site .home-activities .section-intro {
+        text-align: center;
+    }
+
+    .public-site .home-activities .section-title,
+    .public-site .home-activities .activity-title,
+    .public-site .home-activities .activity-link {
+        color: #8a5800;
+    }
+
+    .public-site .home-activities .section-intro {
+        margin: 8px 0 16px;
+        color: #4a5266;
+        font-size: 0.82rem;
+        line-height: 1.55;
+    }
+
+    .public-site .home-activities .activities-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0;
+        padding: 0;
+        border-top: 1px solid #ddd3c4;
+    }
+
+    .public-site .home-activities .activity-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 0;
+        padding: 14px 8px;
+        border: 0;
+        border-bottom: 1px solid #ddd3c4;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        text-align: center;
+        overflow-wrap: anywhere;
+        transition: none;
+    }
+
+    .public-site .home-activities .activity-card:nth-child(odd):not(:last-child) {
+        border-right: 1px solid #ddd3c4;
+    }
+
+    .public-site .home-activities .activity-card:nth-child(5) {
+        grid-column: 1 / -1;
+        width: 100%;
+        justify-self: stretch;
+        border-right: 0;
+    }
+
+    .public-site .home-activities .activity-icon:has(.activity-badge) {
+        display: none;
+    }
+
+    .public-site .home-activities .activity-title {
+        margin: 0 0 6px;
+        font-size: 0.95rem;
+        line-height: 1.35;
+    }
+
+    .public-site .home-activities .activity-description {
+        margin: 0;
+        color: #4a5266;
+        font-size: 0.8rem;
+        line-height: 1.55;
+    }
+
+    .public-site .home-activities .activity-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 44px;
+        min-height: 44px;
+        margin-top: auto;
+        padding: 6px 10px;
+        font-size: 0.88rem;
+    }
+
+    .public-site .home-giving {
+        padding: 24px 16px;
+    }
+
+    .public-site .home-giving > .container {
+        padding-inline: 0;
+    }
+
+    .public-site .home-giving .section-title,
+    .public-site .home-giving .giving-methods h3 {
+        color: #fff;
+        text-align: center;
+    }
+
+    .public-site .home-giving .section-title {
+        margin-bottom: 12px;
+    }
+
+    .public-site .home-giving .giving-content {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        min-width: 0;
+    }
+
+    .public-site .home-giving .giving-info {
+        min-width: 0;
+    }
+
+    .public-site .home-giving .giving-intro {
+        margin-bottom: 14px;
+        font-size: 0.92rem;
+        line-height: 1.55;
+    }
+
+    .public-site .home-giving .giving-methods h3 {
+        margin: 0 0 10px;
+        font-size: 1rem;
+    }
+
+    .public-site .home-giving .giving-methods ul {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .public-site .home-giving .giving-methods li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        min-width: 0;
+        min-height: 0;
+        margin: 0;
+        padding: 12px 8px;
+        border: 1px solid rgba(245, 179, 66, 0.12);
+        border-radius: 10px;
+        background: #222b3d;
+        text-align: center;
+        transition: none;
+    }
+
+    .public-site .home-giving .giving-methods li:nth-child(3) {
+        grid-column: 1 / -1;
+    }
+
+    .public-site .home-giving .method-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        margin: 0 auto 5px;
+        color: #f2b84b;
+        font-size: 1rem;
+    }
+
+    .public-site .home-giving .method-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .public-site .home-giving .giving-methods li > div {
+        min-width: 0;
+    }
+
+    .public-site .home-giving .giving-methods strong {
+        display: block;
+        margin-bottom: 4px;
+        color: #fff;
+        font-size: 0.9rem;
+        line-height: 1.35;
+    }
+
+    .public-site .home-giving .giving-methods span:not(.method-icon) {
+        color: #d6dce7;
+        font-size: 0.8rem;
+        line-height: 1.5;
+    }
+
+    .public-site .home-giving .home-giving-verse,
+    .public-site .home-giving .giving-note {
+        display: none;
+    }
+
+    .public-site .home-giving .giving-cta {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .public-site .home-giving .giving-cta .btn {
+        display: flex;
+        width: 100%;
+        min-height: 46px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.35rem;
+        background: #f5b342;
+        color: #111827;
+        box-shadow: none;
+    }
+
+    .public-site .home-giving .giving-cta .btn:hover {
+        background: #ffd46b;
+        box-shadow: none;
+    }
+
+    .public-site .home-prayer #prayerForm .row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .public-site .home-prayer #prayerForm input:not([type="checkbox"]):not([type="radio"]),
+    .public-site .home-prayer #prayerForm select {
+        width: 100%;
+        min-width: 0;
+        height: 44px;
+        min-height: 44px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    .public-site .home-prayer #prayerForm textarea {
+        width: 100%;
+        height: 96px;
+        min-height: 96px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+    .public-site .contact-prayer-layout {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        grid-column: 1 / -1;
+    }
+
+    .public-site .contact-prayer-tabs {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin-bottom: 14px;
+    }
+
+    .public-site .contact-prayer-tabs [role="tab"] {
+        min-width: 0;
+        min-height: 44px;
+        padding: 8px 10px;
+        border: 1px solid #3a4350;
+        border-radius: 8px;
+        background: #202733;
+        color: #e7eaf0;
+        font: inherit;
+        font-size: 0.9rem;
+        font-weight: 600;
+        overflow-wrap: anywhere;
+    }
+
+    .public-site .contact-prayer-tabs [role="tab"][aria-selected="true"] {
+        border-color: #f5b335;
+        background: #f5b335;
+        color: #111827;
+    }
+
+    .public-site .contact-prayer-tabs [role="tab"]:focus-visible {
+        outline: 3px solid #ffd46b;
+        outline-offset: 2px;
+    }
+
+    .public-site .contact-prayer-panels {
+        display: block;
+        min-width: 0;
+    }
+
+    .public-site .contact-prayer-panel {
+        display: none;
+        min-width: 0;
+    }
+
+    .public-site .contact-prayer-panel[data-active="true"] {
+        display: block;
+    }
+
+    .public-site .contact-prayer-layout .contact-form,
+    .public-site .contact-prayer-layout #prayerForm {
+        width: 100%;
+        max-width: 100%;
+        gap: 10px;
+        margin: 0;
+        padding: 16px;
+        border-radius: 12px;
+        box-sizing: border-box;
+    }
+
+    .public-site .contact-prayer-layout .input-group {
+        min-width: 0;
+        gap: 4px;
+    }
+
+    .public-site .contact-prayer-layout .input-group label {
+        font-size: 0.9rem;
+    }
+
+    .public-site .contact-prayer-layout .row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .public-site .contact-prayer-layout input:not([type="checkbox"]):not([type="radio"]),
+    .public-site .contact-prayer-layout select {
+        width: 100%;
+        min-width: 0;
+        height: 44px;
+        min-height: 44px;
+        padding: 8px 10px;
+        border-radius: 7px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    .public-site .contact-prayer-layout .message-box textarea,
+    .public-site .contact-prayer-layout .prayer-box textarea {
+        width: 100%;
+        height: 96px;
+        min-height: 96px;
+        padding: 9px 10px;
+        border-radius: 7px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    .public-site .contact-prayer-layout .contact-form .subtitle,
+    .public-site .contact-prayer-layout #prayerForm .prayer-intro-line,
+    .public-site .contact-prayer-layout #prayerForm .prayer-privacy-hint,
+    .public-site .home-prayer #prayerForm .prayer-intro-line,
+    .public-site .home-prayer #prayerForm .prayer-privacy-hint {
+        display: none;
+    }
+
+    .public-site .contact-prayer-layout #prayerForm .prayer-privacy-notice,
+    .public-site .home-prayer #prayerForm .prayer-privacy-notice {
+        color: #d6dce7;
+        font-size: 0.82rem;
+        line-height: 1.5;
+    }
+
+    .public-site .testimony-form {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-areas:
+            "heading heading"
+            "name name"
+            "title rating"
+            "email email"
+            "message message"
+            "consent consent"
+            "next next"
+            "submit submit"
+            "back back"
+            "status status";
+        gap: 10px;
+        width: 100%;
+        max-width: 100%;
+        padding: 14px;
+        border: 1px solid #283855;
+        border-radius: 12px;
+        background: #0d1426;
+        color: #f1f3f6;
+        box-sizing: border-box;
+    }
+
+    .public-site .testimony-form > h3 {
+        grid-area: heading;
+        margin: 0;
+        color: #f5b335;
+        font-size: 1.2rem;
+        line-height: 1.35;
+    }
+
+    .public-site .testimony-form .testimony-desktop-heading {
+        display: none;
+    }
+
+    .public-site .testimony-form .testimony-mobile-heading {
+        display: inline;
+    }
+
+    .public-site .testimony-form > .headline,
+    .public-site .testimony-form > .testimony-intro {
+        display: none;
+    }
+
+    .public-site .testimony-form .input-group {
+        min-width: 0;
+        gap: 4px;
+        margin: 0;
+    }
+
+    .public-site .testimony-form .testimony-name-field {
+        grid-area: name;
+    }
+
+    .public-site .testimony-form .testimony-title-field {
+        grid-area: title;
+    }
+
+    .public-site .testimony-form .testimony-rating-field {
+        grid-area: rating;
+    }
+
+    .public-site .testimony-form .testimony-email-field {
+        grid-area: email;
+    }
+
+    .public-site .testimony-form .testimony-message-field {
+        grid-area: message;
+    }
+
+    .public-site .testimony-form .testimony-consent-field {
+        grid-area: consent;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 8px;
+        color: #e7eaf0;
+        font-size: 0.84rem;
+        line-height: 1.45;
+    }
+
+    .public-site .testimony-form .testimony-consent-field input[type="checkbox"] {
+        flex: 0 0 18px;
+        width: 18px;
+        height: 18px;
+        margin: 1px 0 0;
+        accent-color: #f5b335;
+    }
+
+    .public-site .testimony-form label {
+        color: #f1f3f6;
+        font-size: 0.86rem;
+    }
+
+    .public-site .testimony-form input:not([type="checkbox"]):not([type="radio"]),
+    .public-site .testimony-form select {
+        width: 100%;
+        min-width: 0;
+        height: 44px;
+        min-height: 44px;
+        padding: 8px 10px;
+        border: 1px solid #334155;
+        border-radius: 7px;
+        background: #111c30;
+        color: #f8fafc;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    .public-site .testimony-form .testimony-message-field textarea {
+        width: 100%;
+        height: 90px;
+        min-height: 90px;
+        padding: 9px 10px;
+        border-radius: 7px;
+        background: #111c30;
+        color: #f8fafc;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    .public-site .testimony-form .testimony-message-field textarea::placeholder,
+    .public-site .testimony-form input::placeholder {
+        color: #8b98ac;
+    }
+
+    .public-site .testimony-form .testimony-next {
+        grid-area: next;
+    }
+
+    .public-site .testimony-form .testimony-submit {
+        grid-area: submit;
+    }
+
+    .public-site .testimony-form .testimony-next,
+    .public-site .testimony-form .testimony-submit {
+        width: 100%;
+        min-height: 44px;
+        padding: 9px 14px;
+        border: 0;
+        border-radius: 7px;
+        background: #f5b335;
+        color: #111827;
+        font-size: 1rem;
+        font-weight: 700;
+    }
+
+    .public-site .testimony-form .testimony-back {
+        grid-area: back;
+        justify-self: center;
+        min-width: 44px;
+        min-height: 44px;
+        padding: 8px 12px;
+        border: 0;
+        background: transparent;
+        color: #ffd46b;
+        font: inherit;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+
+    .public-site .testimony-form .form-status {
+        grid-area: status;
+        margin: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .public-site .testimony-form[data-mobile-step="1"] [data-testimony-step="2"],
+    .public-site .testimony-form[data-mobile-step="2"] [data-testimony-step="1"] {
+        display: none;
+    }
+
+    .public-site .testimony-form[data-mobile-step="1"] .testimony-submit,
+    .public-site .testimony-form[data-mobile-step="1"] .testimony-back,
+    .public-site .testimony-form[data-mobile-step="2"] .testimony-next {
+        display: none;
+    }
+}
+
+@media (min-width: 769px) {
+    .public-site .contact-prayer-layout {
+        display: block;
+        grid-column: 1 / -1;
+    }
+
+    .public-site .contact-prayer-tabs {
+        display: none;
+    }
+
+    .public-site .contact-prayer-panels {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+        gap: 2rem;
+    }
+
+    .public-site .contact-prayer-panel {
+        display: block;
+        min-width: 0;
+    }
+
+    .public-site .testimony-form .testimony-mobile-heading {
+        display: none;
+    }
+
+    .public-site .testimony-form .testimony-desktop-heading {
+        display: inline;
+    }
+
+    .public-site .testimony-form .testimony-next,
+    .public-site .testimony-form .testimony-back {
+        display: none;
+    }
+}

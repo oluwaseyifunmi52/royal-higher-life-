@@ -1005,6 +1005,22 @@ input[type="radio"] {
     transition: transform var(--transition), box-shadow var(--transition);
 }
 
+.mission-featured {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    background: var(--panel-2);
+}
+
+.mission-mobile-icon {
+    display: none;
+}
+
+.mission-mobile-actions {
+    display: none;
+}
+
 .mission-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow);
@@ -5718,7 +5734,7 @@ input[type="radio"] {
     font-size: 1.05rem;
 }
 
-.giving-methods h4 {
+.giving-methods h3 {
     color: var(--primary);
     margin-bottom: 1rem;
 }

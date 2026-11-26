@@ -1,61 +1,31 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import heroImage from "../assets/welcome pics.jpeg";
+import communityPhoto from "../assets/royal4.jpeg";
+import backgroundVideo from "../assets/background.mp4";
 
-export default function Hero({ title, children, image, ctaText, ctaLink }) {
-    const [useVideo, setUseVideo] = useState(!image);
-    const [videoError, setVideoError] = useState(false);
-    const [imageLoaded, setImageLoaded] = useState(false);
-
-    const backgroundVideo = new URL("../assets/background.mp4", import.meta.url).href;
-    const backgroundImage = image || heroImage;
-
-    const handleVideoError = () => {
-        setVideoError(true);
-        setUseVideo(false);
-    };
-
-    const handleImageLoad = () => {
-        setImageLoaded(true);
-    };
-
+export default function Hero({ title, children, image, ctaText }) {
     return (
-        <section className="hero">
-            {useVideo && !videoError && (
-                <video
-                    className="hero-video"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    aria-hidden="true"
-                    onError={handleVideoError}
-                >
-                    <source src={backgroundVideo} type="video/mp4" />
-                </video>
-            )}
-
-            {(videoError || !useVideo) && (
-                <div
-                    className="hero-image-container"
-                    aria-hidden="true"
-                    style={{ opacity: imageLoaded ? 1 : 0 }}
-                >
-                    <img
-                        src={backgroundImage}
-                        alt="Royal HigherLife Ministries"
-                        className="hero-image"
-                        onLoad={handleImageLoad}
-                    />
-                </div>
-            )}
-
+        <section className="hero hero-editorial" aria-labelledby="home-hero-title">
+            <video
+                className="hero-video"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                poster={image || communityPhoto}
+                aria-hidden="true"
+            >
+                <source src={backgroundVideo} type="video/mp4" />
+            </video>
             <div className="hero-overlay" aria-hidden="true" />
-            <div className="hero-content">
-                <span className="hero-eyebrow">Royal HigherLife Ministries</span>
-                <h1>{title}</h1>
+            <div className="hero-editorial-copy">
+                <span className="hero-eyebrow">Royal HigherLife Christian Ministries</span>
+                <h1 id="home-hero-title">{title || "A Place to Belong, Believe & Become"}</h1>
                 <p>{children}</p>
-                {ctaText && ctaLink && <Link className="btn btn-primary" to={ctaLink}>{ctaText}</Link>}
+                <div className="hero-actions">
+                    <Link className="btn btn-primary" to="/about">{ctaText || "Get to Know Us"}</Link>
+                    <a className="btn btn-outline" href="#prayer">Send a Prayer Request</a>
+                </div>
             </div>
         </section>
     );
