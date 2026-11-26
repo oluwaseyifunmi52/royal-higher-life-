@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://royal-higher-life-ag25.vercel.app/sitemap.xml
+Sitemap: https://royal-higher-life-v9tt.vercel.app/sitemap.xml
 
 # Disallow admin and private routes
 Disallow: /admin

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const siteUrl = 'https://royal-higher-life-ag25.vercel.app';
+const siteUrl = 'https://royal-higher-life-v9tt.vercel.app';
 
 const pages = [
   { url: '/', changefreq: 'weekly', priority: 1.0 },
